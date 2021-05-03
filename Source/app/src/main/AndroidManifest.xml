@@ -15,10 +15,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+<<<<<<< HEAD
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Test.Nhom3AnTestActivity"></activity>
+=======
+
+        </activity>
+        <activity android:name=".Thongke.Nhom3QuocThongke"> </activity>
+>>>>>>> 87b7dd4a2014d0ab9519f9de60f558c7121a610b
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
         <activity android:name=".Nhom3AnhSignInActivity" />
         <activity android:name=".MainActivity">
