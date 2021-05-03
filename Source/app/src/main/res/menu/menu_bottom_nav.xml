@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_tabler_icon_home"
+        android:title="Tổng quan"
+        android:visible="true"
+
+        ></item>
+    <item
+        android:id="@+id/action_accumulate"
+        android:icon="@drawable/ic_tabler_icon_wallet"
+        android:visible="true"
+        android:title="Tích lũy"></item>
+    <item
+        android:id="@+id/action_spending"
+        android:icon="@drawable/ic_tabler_icon_circle_plus"
+        android:title="Chi tiêu"
+        android:visible="true"></item>
+    <item
+        android:id="@+id/action_report"
+        android:icon="@drawable/ic_tabler_icon_report_analytics"
+        android:title="Thống kê"
+        android:visible="true"
+        ></item>
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_tabler_icon_apps"
+        android:title="Khác"
+        android:visible="true">
+    </item>
+
+</menu>
