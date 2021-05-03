@@ -12,6 +12,32 @@
         android:layout_height="match_parent"
         android:background="@color/main_background">
 
+        <LinearLayout
+            android:paddingTop="0dp"
+            android:id="@+id/linear_head_tongquan"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/head_title_shape"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_logo_mini"></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xin chào,"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Văn XXX"
+                android:textSize="20dp"
+                android:layout_marginBottom="40dp"/>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,11 +53,11 @@
             android:id="@+id/recycleview_feature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="165dp"
+            android:layout_marginTop="50dp"
             android:background="@color/sub_main_background"
             android:foregroundGravity="center"
             android:paddingVertical="5dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_head_tongquan"
             tools:layout_editor_absoluteX="0dp"></androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
