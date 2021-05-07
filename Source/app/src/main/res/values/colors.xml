@@ -8,11 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="icon_stroke">#94A5AD</color>
+    <color name="stroke_checked">#3ED89A</color>
     <color name="red">#EF5362</color>
     <color name="gray">#C4C4C4</color>
     <color name="main_background">#22353C</color>
     <color name="sub_main_background">#1A2930</color>
-    <color name="stroke_checked">#3ED89A</color>
     <color name="nav_mainback">#30444D</color>
 
 </resources>
