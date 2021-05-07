@@ -11,18 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
-<<<<<<< HEAD
         <activity android:name=".Nhom3AnhSignInActivity">
-=======
-        <activity android:name=".MainApp.Nhom3AnMainAppActivity">
->>>>>>> b13b0f0340e8a4ceba1852527f48ddd8558d5e4a
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
-        <activity android:name=".MainApp.MainAppActivity" />
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
         <activity android:name=".MainActivity">
 
         </activity>

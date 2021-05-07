@@ -11,13 +11,12 @@ import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignIn
 class Nhom3AnhSignInActivity : AppCompatActivity() {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
-    //  private var account : Account = Account("a", "a", "a", "a")
-
+    private var account : Account = Account("", "", "", "")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
-      //  binding.account = viewModel.account
+        binding.account = viewModel.account
 
         binding.btnConfirmSignin.setOnClickListener {
             Log.e("Check User", "Waiting check")
