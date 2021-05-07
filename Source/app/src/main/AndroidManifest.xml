@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
-        <activity android:name=".MainApp.MainAppActivity">
+        <activity android:name=".Nhom3AnhSignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -20,7 +20,7 @@
         <activity android:name=".Test.Nhom3AnTestActivity"></activity>
 
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
-        <activity android:name=".Nhom3AnhSignInActivity" />
+        <activity android:name=".MainApp.MainAppActivity" />
         <activity android:name=".MainActivity">
 
         </activity>
