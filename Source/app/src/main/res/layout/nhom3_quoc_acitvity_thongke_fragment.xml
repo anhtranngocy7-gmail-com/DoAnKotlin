@@ -10,10 +10,9 @@
         android:id="@+id/imgv_Header"
         android:layout_width="413dp"
         android:layout_height="102dp"
-        android:layout_marginBottom="644dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/head_title_shape" />
 
     <TextView

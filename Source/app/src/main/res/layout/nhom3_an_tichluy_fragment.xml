@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_background">
+
+        <LinearLayout
+            android:paddingTop="0dp"
+            android:id="@+id/linear_head_tichluy"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/head_title_shape"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tích lũy"
+                android:textSize="30dp"
+                android:layout_marginBottom="25dp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_tichluy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/sub_main_background"
+            android:foregroundGravity="center"
+            android:paddingVertical="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_head_tichluy"></androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
