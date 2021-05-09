@@ -20,10 +20,8 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_binh_activity_sign_up)
         viewModel = ViewModelProvider(this).get(Nhom3BinhSignUpViewModel::class.java)
+        binding.account = account
         binding.btnConfirm.setOnClickListener {
-            Log.e("Test button", "Binh")
-
-            binding.btnConfirm.setOnClickListener {
                 Log.e("Test button", "Binh")
                 viewModel.account.fullname = binding.etFullname.text.toString().trim()
                 viewModel.account.email = binding.etEmail.text.toString().trim()
@@ -48,4 +46,3 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
             }
         }
     }
-}

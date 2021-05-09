@@ -11,16 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
-<<<<<<< HEAD
-        <activity android:name=".MainApp.MainAppActivity">
 
-=======
         <activity android:name=".Nhom3AnhSignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
->>>>>>> c1284785b9dfe7bf5b1d1d5b9ce6a7271da06e4f
         </activity>
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
         <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
