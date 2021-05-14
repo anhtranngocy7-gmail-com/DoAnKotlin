@@ -55,6 +55,20 @@
             tools:ignore="MissingConstraints" />
 
         <ImageView
+            android:id="@+id/btnfbSigninImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="508dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.396"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/facebook"
+            tools:ignore="MissingConstraints" />
+
+
+
+        <ImageView
             android:id="@+id/passSignin"
             android:layout_width="30dp"
             android:layout_height="30dp"
