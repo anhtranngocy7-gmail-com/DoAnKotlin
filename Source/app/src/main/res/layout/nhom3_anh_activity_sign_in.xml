@@ -1,141 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#22353C"
-    tools:context=".Nhom3AnhSignInActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/anhsothuchi"
-        tools:ignore="MissingConstraints" />
+    <data>
 
-    <TextView
-        android:id="@+id/xinchaoSignin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="Xin Chào!"
-        android:textColor="#FFFFFF"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="203dp" />
+    <variable
+    name="account"
+    type="com.laptrinhdidong.nhom3.quanlichitieu.Account" />
 
-    <ImageView
-        android:id="@+id/facebookSignin"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/facebook"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="675dp" />
+    </data>
 
-    <ImageView
-        android:id="@+id/passSignin"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483"
-        app:srcCompat="@drawable/iconpass"
-        tools:ignore="MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#22353C"
+        tools:context=".Nhom3AnhSignInActivity"
+        tools:ignore="MissingClass">
 
-    <ImageView
-        android:id="@+id/profileSignin"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/profiledangnhap"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="305dp" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/anhsothuchi"
+            tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/googleSignin"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/googlesignin"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="675dp" />
+        <TextView
+            android:id="@+id/xinchaoSignin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="Xin Chào!"
+            android:textColor="#FFFFFF"
+            android:textSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.071"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/xacnhanSignin"
-        android:layout_width="318dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.626"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/xacnhan"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="409dp" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btnfbSignin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="508dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.396"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/facebook"
+            tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/optionSignin"
-        android:layout_width="318dp"
-        android:layout_height="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.626"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/option"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="573dp" />
+        <ImageView
+            android:id="@+id/btnfbSigninImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="508dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.396"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/facebook"
+            tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:layout_width="318dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="28dp"
-        android:hint="Tài Khoản"
-        android:textColorHint="#83949C"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="289dp" />
 
-    <EditText
-        android:layout_width="318dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="28dp"
-        android:hint="Mật Khẩu"
-        android:textColorHint="#83949C"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="349dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quên mật khẩu"
-        android:textColor="#3ED89A"
-        android:textSize="20dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="509dp" />
+        <ImageView
+            android:id="@+id/passSignin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="236dp"
+            app:layout_constraintEnd_toStartOf="@+id/editText6"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/iconpass"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng ký"
-        android:textColor="#3ED89A"
-        android:textSize="20dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="270dp"
-        tools:layout_editor_absoluteY="509dp" />
+        <ImageView
+            android:id="@+id/profileSignin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="164dp"
+            app:layout_constraintEnd_toStartOf="@+id/editText7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/profiledangnhap"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/googleSignin"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="508dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.64"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/googlesignin"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/btnConfirmSignin"
+            android:layout_width="318dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="292dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/xacnhan"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/optionSignin"
+            android:layout_width="318dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="428dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.613"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/option"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="318dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="148dp"
+            android:hint="Tài Khoản"
+            android:textColorHint="#83949C"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="318dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="220dp"
+            android:hint="Mật Khẩu"
+            android:textColorHint="#83949C"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="392dp"
+            android:text="Quên mật khẩu"
+            android:textColor="#3ED89A"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.285"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="392dp"
+            android:text="Đăng ký"
+            android:textColor="#3ED89A"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.804"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

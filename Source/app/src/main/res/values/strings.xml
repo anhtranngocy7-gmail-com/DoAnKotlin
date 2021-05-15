@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">quanlichitieu</string>
+<<<<<<< HEAD
     <string-array name="Spinner_time">
         <item>Today</item>
         <item>This month</item>
         <item>This year</item>
     </string-array>
+=======
+    <string name="facebook_app_id">172689731421619</string>
+>>>>>>> d0db4bb3dc5eb0bdd18e57635e30c14795a4bc57
 </resources>
