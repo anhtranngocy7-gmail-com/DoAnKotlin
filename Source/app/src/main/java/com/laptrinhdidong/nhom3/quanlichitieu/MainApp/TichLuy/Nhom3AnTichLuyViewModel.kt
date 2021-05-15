@@ -21,7 +21,7 @@ class Nhom3AnTichLuyViewModel : ViewModel() {
 
     init {
         var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulateByID(?)}")
-        callP.setInt(1, 1)
+        Database.instance.idUserApp?.let { callP.setInt(1, it) }
         if (callP.execute()) {
             result = callP.resultSet
             while (result.next() && !result.isAfterLast) {
@@ -33,6 +33,7 @@ class Nhom3AnTichLuyViewModel : ViewModel() {
                 lstaccumulate.add(tmpaccumulate)
             }
         }
+        callP.close()
 
     }
     //////////////////////

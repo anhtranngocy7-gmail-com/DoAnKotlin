@@ -12,7 +12,7 @@ class Nhom3AnOverviewViewModel: ViewModel() {
      lateinit var strmoney:String
     init {
         var callP : CallableStatement = Database.instance.connection!!.prepareCall("{call getAccountByID(?)}")
-        callP.setInt(1,1)
+        Database.instance.idUserApp?.let { callP.setInt(1, it) }
         if(callP.execute())
         {
             result=callP.resultSet

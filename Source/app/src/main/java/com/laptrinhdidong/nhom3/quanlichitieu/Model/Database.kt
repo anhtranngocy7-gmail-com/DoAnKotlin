@@ -16,6 +16,7 @@ class Database private constructor() {
     val password: String = "an321"
     val url: String = "jdbc:jtds:sqlserver://$ip:$port/$databaseName"
     var connection: Connection? = null
+    var idUserApp: Int?=null
     lateinit var statement: Statement
     lateinit var result: ResultSet
     init {
@@ -29,7 +30,6 @@ class Database private constructor() {
 
     companion object {
         val instance = Database()
-
     }
 
     //Lấy dữ liệu từ database server qua từng câu query sqlStament

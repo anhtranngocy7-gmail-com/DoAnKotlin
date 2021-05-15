@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
-        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity" >
+
+        </activity>
         <activity android:name=".MainActivity">
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
