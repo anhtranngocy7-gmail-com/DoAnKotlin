@@ -8,7 +8,7 @@ import java.sql.ResultSet
 import java.sql.Statement
 
 class Database private constructor() {
-    val ip: String = "192.168.1.226"
+    val ip: String = "192.168.0.108"
     val port: String = "1433"
     val databaseName: String = "QuanLyChiTieu"
     val classes: String = "net.sourceforge.jtds.jdbc.Driver"
@@ -18,7 +18,6 @@ class Database private constructor() {
     var connection: Connection? = null
     lateinit var statement: Statement
     lateinit var result: ResultSet
-
     init {
         try {
             Class.forName(classes)
@@ -26,7 +25,6 @@ class Database private constructor() {
         } catch (e: Exception) {
             Log.d("connect", e.message.toString())
         }
-
     }
 
     companion object {
@@ -37,7 +35,9 @@ class Database private constructor() {
     //Lấy dữ liệu từ database server qua từng câu query sqlStament
     fun getData(sqlStament: String): ResultSet {
         statement = connection?.createStatement()!!
-        return statement.executeQuery(sqlStament)
+        var rsSet = statement.executeQuery(sqlStament)
+        statement.close(); //đóng statment sau khi query
+        return rsSet
     }
 
     //Update dữ liệu cho Database, nếu thành công update ở sever thì trả về true

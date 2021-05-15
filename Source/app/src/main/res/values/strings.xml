@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">quanlichitieu</string>
+    <string-array name="Spinner_time">
+        <item>Today</item>
+        <item>This month</item>
+        <item>This year</item>
+    </string-array>
 </resources>

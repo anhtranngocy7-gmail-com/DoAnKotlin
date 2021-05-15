@@ -1,8 +1,12 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.MainApp
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.Manifest
 import android.view.MenuItem
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -20,6 +24,7 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
     private lateinit var viewModel: Nhom3AnMainAppViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getPermission()
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_an_activity_main_app)
         viewModel = ViewModelProvider(this).get(Nhom3AnMainAppViewModel::class.java)
         supportFragmentManager.commit {
@@ -64,5 +69,15 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
 
             return@OnNavigationItemSelectedListener true
         })
+        binding.bottomNavigationView.selectedItemId=R.id.action_accumulate
+    }
+    private fun getPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.INTERNET),
+            PackageManager.PERMISSION_GRANTED
+        )
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
     }
 }

@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemTichLuy
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
 class Nhom3AnTichLuyAdapter : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHolder>() {
-    var data: MutableList<Nhom3AnItemTichLuy> = mutableListOf()
+    var data: MutableList<Accumulate> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -24,8 +25,8 @@ class Nhom3AnTichLuyAdapter : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var item = this.data[position]
         holder.title.text=item.title
-        holder.target.text=item.targetMoney.toString() +" đ"
-        holder.current.text=item.curentMoney.toString() + "đ"
+        holder.target.text=item.targetmoney.toString() +" đ"
+        holder.current.text=item.currentmoney.toString()+ "đ"
     }
 
     override fun getItemCount(): Int {
