@@ -107,7 +107,7 @@
             android:background="#22353C"
             tools:ignore="MissingConstraints" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnConfirm"
             android:layout_width="318dp"
             android:layout_height="100dp"

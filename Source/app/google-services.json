@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "867175483366",
+    "project_id": "quan-li-chi-tieu-1620987228286",
+    "storage_bucket": "quan-li-chi-tieu-1620987228286.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867175483366:android:82b922c6fdb85f8ebc7827",
+        "android_client_info": {
+          "package_name": "com.laptrinhdidong.nhom3.quanlichitieu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867175483366-em4sfaoun0604987qovneh6shj56p1g2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laptrinhdidong.nhom3.quanlichitieu",
+            "certificate_hash": "33ab67679642b9a0a3959c905a073bf0478a70e5"
+          }
+        },
+        {
+          "client_id": "867175483366-e7irtbj40id11qf73q715jn7d3ehhcke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm-A-xovSpF7PEDU-65bfqbMYU9Z8JPYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867175483366-e7irtbj40id11qf73q715jn7d3ehhcke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
