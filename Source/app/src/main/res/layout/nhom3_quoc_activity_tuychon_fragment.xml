@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+
+    <LinearLayout
+        android:id="@+id/linear_head_tichluy"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/head_title_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="Tích lũy"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_head_tichluy">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1A2930"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvCaidat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_setting"
+                android:drawablePadding="8dp"
+                android:padding="16dp"
+                android:text="Cài đặt"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:id="@+id/expapndableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tvHienthi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="Hiển thị"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvTiengViet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="16dp"
+                    android:text="Tiếng Việt"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvThoigian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHienthi"
+                    android:padding="16dp"
+                    android:text="Định dạng thời gian"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvDMY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTiengViet"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="16dp"
+                    android:text="dd/MM/yyyy"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvThietlap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvThoigian"
+                    android:padding="16dp"
+                    android:text="Thiết lập tiền tệ"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvVND"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDMY"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="16dp"
+                    android:text="VND"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#1A2930"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDanhgia"
+            android:padding="16dp"
+            android:drawableLeft="@drawable/ic_danhgia"
+            android:text="Đánh giá"
+            android:textSize="24sp"
+            android:drawablePadding="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTaikohankhac"
+            android:padding="16dp"
+            android:drawableLeft="@drawable/ic_taikhoankhac"
+            android:text="Tài khoản khác"
+            android:textSize="24sp"
+            android:drawablePadding="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDangxuat"
+            android:padding="16dp"
+            android:drawableLeft="@drawable/ic_dangxuat"
+            android:text="Tài khoản khác"
+            android:textSize="24sp"
+            android:drawablePadding="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTrogiup"
+            android:padding="16dp"
+            android:drawableLeft="@drawable/ic_trogiup"
+            android:text="Trợ giúp"
+            android:textSize="24sp"
+            android:drawablePadding="16dp"/>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
