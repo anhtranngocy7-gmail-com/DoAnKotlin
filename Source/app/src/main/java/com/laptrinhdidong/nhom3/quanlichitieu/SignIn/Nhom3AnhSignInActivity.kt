@@ -17,9 +17,7 @@ import com.facebook.*
 import com.facebook.FacebookActivity
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
-<<<<<<< HEAD
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.Nhom3AnMainAppActivity
-=======
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -28,7 +26,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
->>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import org.json.JSONObject
@@ -125,7 +122,8 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
                         Log.e("JSON", response.jsonObject.toString())
                         val name = response.jsonObject.getString("name")
                         val idUser = response.jsonObject.getString("id")
-                        viewModel.checkAccountFBExit(idUser,name)
+                        viewModel.checkAccountSocialExit(idUser,name)
+                        Log.e("BINHEROR","onCompleted")
                         val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
                         startActivity(intent)
                     }
@@ -143,7 +141,6 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         callbackManager.onActivityResult(requestCode, resultCode, data)
         //google signin
         if (requestCode == RC_SIGN_IN) {
-
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
@@ -153,32 +150,20 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         try {
             val account = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-//                startActivity(intent)
                 Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
                 Log.e("BINH", account.displayName.toString())
                 Log.e("BINH", account.email.toString())
+                Log.e("BINH",account.id.toString())
             }
             // Signed in successfully, show authenticated UI.
 
         } catch (e: ApiException) {
-
+            Log.e("BINHEROR","null account")
         }
     }
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        TODO("Not yet implemented")
         Log.d("Failed", "onConnectionFailed:" + connectionResult);
     }
-<<<<<<< HEAD
-
-    private fun printKeyHash() {
-        try {
-            val info = packageManager.getPackageInfo(
-                "com.laptrinhdidong.nhom3.quanlichitieu",
-                PackageManager.GET_SIGNATURES
-            )
-            for (signature in info.signatures) {
-=======
     //
     private fun printKeyHash()
     {
@@ -186,7 +171,6 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             val info = packageManager.getPackageInfo("com.laptrinhdidong.nhom3.quanlichitieu",PackageManager.GET_SIGNATURES)
             for (signature in info.signatures)
             {
->>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))

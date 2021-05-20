@@ -10,7 +10,7 @@ import java.sql.Statement
 class Database private constructor() {
     val ip: String = "192.168.0.108"
     val port: String = "1433"
-    val databaseName: String = "QuanLyChiTieu"
+    val databaseName: String = "KotlinProject"
     val classes: String = "net.sourceforge.jtds.jdbc.Driver"
     val username: String = "an321"
     val password: String = "an321"

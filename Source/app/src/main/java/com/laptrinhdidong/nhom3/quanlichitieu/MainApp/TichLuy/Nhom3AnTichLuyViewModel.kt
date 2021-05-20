@@ -20,16 +20,16 @@ class Nhom3AnTichLuyViewModel : ViewModel() {
     lateinit var strmoney: String
 
     init {
-        var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulateByID(?)}")
+        var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulate(?)}")
         Database.instance.idUserApp?.let { callP.setInt(1, it) }
         if (callP.execute()) {
             result = callP.resultSet
             while (result.next() && !result.isAfterLast) {
-
+                var id=result.getInt("ID")
                 var title = result.getString("Title").toString()
                 var targetmoney = result.getBigDecimal("TargetMoney")
                 var currentmoney = result.getBigDecimal("CurrentMoney")
-                var tmpaccumulate = Accumulate(title, targetmoney, currentmoney)
+                var tmpaccumulate = Accumulate(id,title, targetmoney, currentmoney)
                 lstaccumulate.add(tmpaccumulate)
             }
         }

@@ -12,7 +12,7 @@ class Nhom3AnhSignInViewModel: ViewModel() {
     lateinit var result: ResultSet
     lateinit var callP: CallableStatement
     fun checkAccount(username: String, pass: String):Boolean{
-        callP = Database.instance.connection!!.prepareCall("{call getAcc(?,?)}")
+        callP = Database.instance.connection!!.prepareCall("{call getAccByUserPass(?,?)}")
         callP.setString(1,username)
         callP.setString(2,pass)
         callP.execute()
@@ -25,10 +25,11 @@ class Nhom3AnhSignInViewModel: ViewModel() {
             false
         }
     }
-    fun checkAccountFBExit(idfb: String, name: String)
+    fun checkAccountSocialExit(id: String, name: String)
     {
-        callP= Database.instance.connection!!.prepareCall("{call getAccByFB(?)}")
-        callP.setString(1,idfb)
+        callP= Database.instance.connection!!.prepareCall("{call getAccByUserPass(?,?)}")
+        callP.setString(1,id)
+        callP.setString(2,"111111111")
         callP.execute()
         result = callP.resultSet
         if(result.next())
@@ -39,17 +40,17 @@ class Nhom3AnhSignInViewModel: ViewModel() {
         }else
         {
             callP.close()
-            CreateAccount(idfb,name)
+            CreateAccount(id,name)
         }
     }
-    private fun CreateAccount(idfb: String, name: String)
+    private fun CreateAccount(id: String, name: String)
     {
         callP = Database.instance.connection!!.prepareCall("{call CreateAcc(?,?,?)}")
-        callP.setString(1,idfb)
+        callP.setString(1,id)
         callP.setString(2,"111111111")
         callP.setString(3,name)
         callP.execute()
         callP.close()
-        checkAccountFBExit(idfb,name)
+        checkAccountSocialExit(id,name)
     }
 }
