@@ -17,7 +17,18 @@ import com.facebook.*
 import com.facebook.FacebookActivity
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+<<<<<<< HEAD
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.Nhom3AnMainAppActivity
+=======
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.Task
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import org.json.JSONObject
@@ -26,12 +37,17 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
-class Nhom3AnhSignInActivity : AppCompatActivity() {
+class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account: Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginButton: LoginButton
+
+    //google sign in
+    private val RC_SIGN_IN = 100
+    private var mGoogleApiClient: GoogleApiClient? = null
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getPermission()
@@ -61,6 +77,23 @@ class Nhom3AnhSignInActivity : AppCompatActivity() {
 
         })
         setLogin_Button()
+        binding.googleSignin.setOnClickListener {
+            val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+            startActivity(intent)
+        }
+        // google sign in
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build()
+        binding.googleSignin.setOnClickListener {
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+            Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
+        }
     }
 
     private fun setLogin_Button() {
@@ -108,7 +141,35 @@ class Nhom3AnhSignInActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
+        //google signin
+        if (requestCode == RC_SIGN_IN) {
+
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
     }
+    //google sign in
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            if (account != null) {
+//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+//                startActivity(intent)
+                Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
+                Log.e("BINH", account.displayName.toString())
+                Log.e("BINH", account.email.toString())
+            }
+            // Signed in successfully, show authenticated UI.
+
+        } catch (e: ApiException) {
+
+        }
+    }
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {
+        TODO("Not yet implemented")
+        Log.d("Failed", "onConnectionFailed:" + connectionResult);
+    }
+<<<<<<< HEAD
 
     private fun printKeyHash() {
         try {
@@ -117,6 +178,15 @@ class Nhom3AnhSignInActivity : AppCompatActivity() {
                 PackageManager.GET_SIGNATURES
             )
             for (signature in info.signatures) {
+=======
+    //
+    private fun printKeyHash()
+    {
+        try{
+            val info = packageManager.getPackageInfo("com.laptrinhdidong.nhom3.quanlichitieu",PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures)
+            {
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))

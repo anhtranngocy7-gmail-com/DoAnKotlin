@@ -43,6 +43,10 @@ repositories {
 
 dependencies {
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -54,10 +58,28 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.google.android.material:material:1.3.0-alpha03'
+<<<<<<< HEAD
+=======
+//  implementation 'com.etebarian:meow-bottom-navigation:1.3.1'
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
     implementation 'net.sourceforge.jtds:jtds:1.3.1'
     implementation "androidx.fragment:fragment-ktx:1.3.3"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+<<<<<<< HEAD
+=======
+// Google Sigin
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation platform('com.google.firebase:firebase-bom:28.0.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //implemention fragment
+//    def fragment_version = "1.3.3"
+//    implementation "androidx.fragment:fragment:$fragment_version"
+//    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+
 }
+apply plugin: 'com.android.application'

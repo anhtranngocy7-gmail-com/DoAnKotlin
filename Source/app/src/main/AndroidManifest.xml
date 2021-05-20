@@ -11,17 +11,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
+
         <activity android:name=".Nhom3AnhSignInActivity">
+
+        </activity>
+        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
+
+        </activity>
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
         <activity android:name=".MainApp.Nhom3AnMainAppActivity" >
 
         </activity>
         <activity android:name=".MainActivity">
+=======
+        <activity android:name=".Spending.Nhom3BinhSpendingActivity">
+
+>>>>>>> 5c461c04ee17067f52dce1c2e138c9326f1751da
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
