@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,14 @@ import com.facebook.*
 import com.facebook.FacebookActivity
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.Task
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import org.json.JSONObject
@@ -21,12 +30,17 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
-class Nhom3AnhSignInActivity : AppCompatActivity() {
+class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account : Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginButton: LoginButton
+
+    //google sign in
+    private val RC_SIGN_IN = 100
+    private var mGoogleApiClient: GoogleApiClient? = null
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FacebookSdk.sdkInitialize(applicationContext)
@@ -48,6 +62,23 @@ class Nhom3AnhSignInActivity : AppCompatActivity() {
 
         })
         setLogin_Button()
+        binding.googleSignin.setOnClickListener {
+            val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+            startActivity(intent)
+        }
+        // google sign in
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build()
+        binding.googleSignin.setOnClickListener {
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+            Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
+        }
     }
     private fun setLogin_Button() {
         binding.btnfbSignin.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
@@ -85,7 +116,35 @@ class Nhom3AnhSignInActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
+        //google signin
+        if (requestCode == RC_SIGN_IN) {
+
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
     }
+    //google sign in
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            if (account != null) {
+//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+//                startActivity(intent)
+                Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
+                Log.e("BINH", account.displayName.toString())
+                Log.e("BINH", account.email.toString())
+            }
+            // Signed in successfully, show authenticated UI.
+
+        } catch (e: ApiException) {
+
+        }
+    }
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {
+        TODO("Not yet implemented")
+        Log.d("Failed", "onConnectionFailed:" + connectionResult);
+    }
+    //
     private fun printKeyHash()
     {
         try{
