@@ -54,6 +54,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -69,5 +71,6 @@ dependencies {
 //    implementation "androidx.fragment:fragment:$fragment_version"
 //    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
 
 }
