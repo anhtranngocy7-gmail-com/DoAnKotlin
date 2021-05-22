@@ -24,7 +24,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nhom3_quoc_month, container, false)
+        return inflater.inflate(R.layout.nhom3_quoc_fragment_month, container, false)
     }
 
     
