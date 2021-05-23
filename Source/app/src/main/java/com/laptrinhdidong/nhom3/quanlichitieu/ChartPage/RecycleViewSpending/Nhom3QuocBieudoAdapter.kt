@@ -17,7 +17,7 @@ class Nhom3QuocBieudoAdapter : RecyclerView.Adapter<Nhom3QuocBieudoAdapter.ViewH
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
-        var view = layoutInflater.inflate(R.layout.nhom3_quoc_activity_day,parent,false)
+        var view = layoutInflater.inflate(R.layout.nhom3_quoc_item_bieudotron,parent,false)
         return ViewHolder(view)
     }
 

@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
 
-class Nhom3QuocBieudo : AppCompatActivity(){
+class Nhom3QuocBieudotron : AppCompatActivity(){
     private lateinit var toolbar1: Toolbar
     private lateinit var viewPager1 : ViewPager
     private lateinit var tabLayout1 : TabLayout

@@ -13,21 +13,19 @@
         tools:context=".Nhom3QuocFrgamentDay">
 
 
-        <TextView
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Day"
-            android:textSize="24sp"
-            android:textColor="@color/white" />
+            android:layout_height="243dp"
+            android:layout_marginTop="100dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleViewDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/sub_main_background"
             android:layout_marginTop="350dp"
-            android:paddingVertical="10dp"
-            />
+            android:background="@color/sub_main_background"
+            android:paddingVertical="10dp" />
 
     </FrameLayout>
 </layout>
