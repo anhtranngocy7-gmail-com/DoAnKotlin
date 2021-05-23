@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
 
-        <activity android:name=".Nhom3QuocBieudotron"
+        <activity android:name=".PieChart.Nhom3QuocBieudotron"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

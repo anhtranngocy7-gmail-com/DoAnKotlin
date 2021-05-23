@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemBieudo
+import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemBieudotron
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
-class Nhom3QuocBieudoAdapter : RecyclerView.Adapter<Nhom3QuocBieudoAdapter.ViewHolder>() {
+class Nhom3QuocBieudotronAdapter : RecyclerView.Adapter<Nhom3QuocBieudotronAdapter.ViewHolder>() {
 
-    var data: MutableList<Nhom3QuocItemBieudo> = mutableListOf()
+    var data: MutableList<Nhom3QuocItemBieudotron> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
