@@ -5,11 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.facebook.login.widget.LoginButton
 import com.laptrinhdidong.nhom3.quanlichitieu.Account
 import com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnhSignInActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.R
@@ -23,7 +25,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
 
-class Nhom3BinhSignUpActivity : AppCompatActivity() , GoogleApiClient.OnConnectionFailedListener {
+class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
@@ -31,7 +33,7 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() , GoogleApiClient.OnConnecti
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
-
+    lateinit var anhem: Nhom3AnhSignInActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,9 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() , GoogleApiClient.OnConnecti
             val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
             Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
-        }
+            }
+        
+        // Facebook Login
         }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

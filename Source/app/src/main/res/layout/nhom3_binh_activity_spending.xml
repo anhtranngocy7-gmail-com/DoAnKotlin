@@ -63,12 +63,12 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="276dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:background="#1A2930"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linear_head_chitieu"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp">
+            tools:layout_editor_absoluteX="17dp">
 
 
             <TextView
@@ -102,18 +102,19 @@
 
             <EditText
                 android:id="@+id/etDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="290dp"
+                android:layout_height="49dp"
                 android:hint="Description"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/calendar"
                 app:layout_constraintEnd_toStartOf="@+id/imageView7"
-                app:layout_constraintHorizontal_bias="0.489"
+                app:layout_constraintHorizontal_bias="0.666"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/etMoney"
-                app:layout_constraintVertical_bias="0.288"></EditText>
+                app:layout_constraintVertical_bias="0.146"></EditText>
+
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
@@ -125,10 +126,10 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/iconmicro2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etMoney"></ImageView>
@@ -171,7 +172,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

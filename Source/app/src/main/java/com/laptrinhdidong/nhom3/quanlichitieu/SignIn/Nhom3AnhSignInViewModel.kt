@@ -6,4 +6,6 @@ import com.laptrinhdidong.nhom3.quanlichitieu.Account
 
 class Nhom3AnhSignInViewModel: ViewModel() {
     var account : Account = Account("", "", "", "")
+
+
 }

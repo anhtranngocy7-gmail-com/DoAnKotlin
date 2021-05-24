@@ -30,17 +30,16 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
-class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account : Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginButton: LoginButton
-
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
-    //
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FacebookSdk.sdkInitialize(applicationContext)
@@ -48,9 +47,6 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         binding = DataBindingUtil.setContentView(this,R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
         binding.account = viewModel.account
-        binding.btnConfirmSignin.setOnClickListener {
-            Log.e("Check User", "Waiting check")
-        }
         printKeyHash()
         binding.btnfbSignin.setVisibility(View.GONE);
         binding.btnfbSignin.setReadPermissions(Arrays.asList("public_profile","email"))
@@ -59,14 +55,13 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
                 val btn = LoginButton(this@Nhom3AnhSignInActivity)
                 btn.performClick()
             }
-
         })
-        setLogin_Button()
+        setLogin_Button_Fb()
         binding.googleSignin.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
         }
-        // google sign in
+        // Google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -79,14 +74,16 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             startActivityForResult(signInIntent, RC_SIGN_IN)
             Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
         }
+        binding.btnConfirmSignin.setOnClickListener {
+            Log.e("Check User", "Waiting check")
+        }
     }
-    private fun setLogin_Button() {
+     fun setLogin_Button_Fb() {
         binding.btnfbSignin.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) {
                 // App code
                 result()
             }
-
             override fun onCancel() {
                 // App code
             }
@@ -95,7 +92,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             }
         })
     }
-    private fun result() {
+     fun result() {
         val graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), object: GraphRequest.GraphJSONObjectCallback
                 {
                     override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
@@ -144,7 +141,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         TODO("Not yet implemented")
         Log.d("Failed", "onConnectionFailed:" + connectionResult);
     }
-    //
+
     private fun printKeyHash()
     {
         try{
@@ -158,9 +155,8 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         }
         catch (e:PackageManager.NameNotFoundException)
         {
-
         }
         catch(e:NoSuchAlgorithmException) {
         }
-        }
+    }
 }
