@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.internal.SignInHubActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
@@ -62,10 +63,6 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
 
         })
         setLogin_Button()
-        binding.googleSignin.setOnClickListener {
-            val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-            startActivity(intent)
-        }
         // google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -154,6 +151,9 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 Log.e("KEYHASH",Base64.encodeToString((md.digest()),Base64.DEFAULT))
+                val md1 = MessageDigest.getInstance("SHA1")
+                md1.update(signature.toByteArray())
+                Log.e("KEYHASH1",Base64.encodeToString((md1.digest()),Base64.DEFAULT))
             }
         }
         catch (e:PackageManager.NameNotFoundException)

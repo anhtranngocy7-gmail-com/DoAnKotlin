@@ -23,7 +23,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
 
-class Nhom3BinhSignUpActivity : AppCompatActivity() , GoogleApiClient.OnConnectionFailedListener {
+class Nhom3BinhSignUpActivity : AppCompatActivity() {
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
@@ -39,71 +39,28 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() , GoogleApiClient.OnConnecti
         viewModel = ViewModelProvider(this).get(Nhom3BinhSignUpViewModel::class.java)
         binding.account = account
         binding.btnConfirm.setOnClickListener {
-                viewModel.account.fullname = binding.etFullname.text.toString().trim()
-                viewModel.account.email = binding.etEmail.text.toString().trim()
-                viewModel.account.password = binding.etPassword.text.toString().trim()
-                val editemail = binding.etEmail.text.toString()
-                val editpass = binding.etPassword.text.toString()
-                if (viewModel.registerUser(binding.btnConfirm, editpass, editemail)) {
-                    val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-                    startActivity(intent)
-                } else {
+            viewModel.account.fullname = binding.etFullname.text.toString().trim()
+            viewModel.account.email = binding.etEmail.text.toString().trim()
+            viewModel.account.password = binding.etPassword.text.toString().trim()
+            val editemail = binding.etEmail.text.toString()
+            val editpass = binding.etPassword.text.toString()
+            if (viewModel.registerUser(binding.btnConfirm, editpass, editemail)) {
+                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+                startActivity(intent)
+            } else {
 
-                    if (!viewModel.validatePassword(editpass)) {
-                        binding.etPassword.error = "Password is too weak"
-                    }
+                if (!viewModel.validatePassword(editpass)) {
+                    binding.etPassword.error = "Password is too weak"
+                }
 
-                    if (!viewModel.validateEmail(editemail)) {
-                        binding.etEmail.error = "Invalid email address"
-                    }
+                if (!viewModel.validateEmail(editemail)) {
+                    binding.etEmail.error = "Invalid email address"
                 }
             }
+        }
         binding.tvDangnhap.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
         }
-        // google sign in
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build()
-        binding.googleSignin.setOnClickListener {
-            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-            Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
-        }
-        }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
-    }
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            if (account != null) {
-//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-//                startActivity(intent)
-                Toast.makeText(this,account.displayName.toString(),Toast.LENGTH_LONG).show()
-                Log.e("BINH", account.displayName.toString())
-                Log.e("BINH", account.email.toString())
-            }
-            // Signed in successfully, show authenticated UI.
-
-        } catch (e: ApiException) {
-
-        }
-    }
-
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        TODO("Not yet implemented")
-        Log.d("Failed", "onConnectionFailed:" + connectionResult);
     }
 }
