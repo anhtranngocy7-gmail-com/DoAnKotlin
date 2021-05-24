@@ -25,7 +25,11 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
 
+<<<<<<< HEAD
 class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+=======
+class Nhom3BinhSignUpActivity : AppCompatActivity() {
+>>>>>>> 18c52ba812f1f1905b1a0504d198c85d0d2402b9
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
@@ -41,29 +45,30 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
         viewModel = ViewModelProvider(this).get(Nhom3BinhSignUpViewModel::class.java)
         binding.account = account
         binding.btnConfirm.setOnClickListener {
-                viewModel.account.fullname = binding.etFullname.text.toString().trim()
-                viewModel.account.email = binding.etEmail.text.toString().trim()
-                viewModel.account.password = binding.etPassword.text.toString().trim()
-                val editemail = binding.etEmail.text.toString()
-                val editpass = binding.etPassword.text.toString()
-                if (viewModel.registerUser(binding.btnConfirm, editpass, editemail)) {
-                    val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-                    startActivity(intent)
-                } else {
+            viewModel.account.fullname = binding.etFullname.text.toString().trim()
+            viewModel.account.email = binding.etEmail.text.toString().trim()
+            viewModel.account.password = binding.etPassword.text.toString().trim()
+            val editemail = binding.etEmail.text.toString()
+            val editpass = binding.etPassword.text.toString()
+            if (viewModel.registerUser(binding.btnConfirm, editpass, editemail)) {
+                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+                startActivity(intent)
+            } else {
 
-                    if (!viewModel.validatePassword(editpass)) {
-                        binding.etPassword.error = "Password is too weak"
-                    }
+                if (!viewModel.validatePassword(editpass)) {
+                    binding.etPassword.error = "Password is too weak"
+                }
 
-                    if (!viewModel.validateEmail(editemail)) {
-                        binding.etEmail.error = "Invalid email address"
-                    }
+                if (!viewModel.validateEmail(editemail)) {
+                    binding.etEmail.error = "Invalid email address"
                 }
             }
+        }
         binding.tvDangnhap.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
         }
+<<<<<<< HEAD
         // google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -109,5 +114,7 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         TODO("Not yet implemented")
         Log.d("Failed", "onConnectionFailed:" + connectionResult);
+=======
+>>>>>>> 18c52ba812f1f1905b1a0504d198c85d0d2402b9
     }
 }
