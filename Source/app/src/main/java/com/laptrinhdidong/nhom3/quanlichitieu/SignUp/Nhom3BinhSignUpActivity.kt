@@ -24,20 +24,14 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
+import java.util.*
 
-<<<<<<< HEAD
-class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
-=======
+
 class Nhom3BinhSignUpActivity : AppCompatActivity() {
->>>>>>> 18c52ba812f1f1905b1a0504d198c85d0d2402b9
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
-
-    //google sign in
-    private val RC_SIGN_IN = 100
-    private var mGoogleApiClient: GoogleApiClient? = null
-    lateinit var anhem: Nhom3AnhSignInActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,53 +62,12 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
         }
-<<<<<<< HEAD
-        // google sign in
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build()
-        binding.googleSignin.setOnClickListener {
-            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-            Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
+
+        binding.facebookSignin.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                val btn = LoginButton(this@Nhom3BinhSignUpActivity)
+                btn.performClick()
             }
-        
-        // Facebook Login
-        }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
-    }
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            if (account != null) {
-//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-//                startActivity(intent)
-                Toast.makeText(this,account.displayName.toString(),Toast.LENGTH_LONG).show()
-                Log.e("BINH", account.displayName.toString())
-                Log.e("BINH", account.email.toString())
-            }
-            // Signed in successfully, show authenticated UI.
-
-        } catch (e: ApiException) {
-
-        }
-    }
-
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        TODO("Not yet implemented")
-        Log.d("Failed", "onConnectionFailed:" + connectionResult);
-=======
->>>>>>> 18c52ba812f1f1905b1a0504d198c85d0d2402b9
+        })
     }
 }
