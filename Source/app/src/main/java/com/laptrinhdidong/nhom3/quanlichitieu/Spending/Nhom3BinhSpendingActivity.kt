@@ -6,6 +6,8 @@ import android.view.View
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.speech.RecognizerIntent
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,7 +27,6 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
     private var spendingItem : SpendingItem = SpendingItem(0,"",formatDate,true,"")
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.nhom3_binh_activity_spending)
@@ -47,8 +48,13 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
         binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
         binding.micro.setOnClickListener(
             View.OnClickListener
-// Phương thức lấy tác động khi nhấn vào button
+            // Phương thức lấy tác động khi nhấn vào button
             { promptSpeechInput() })
+
+        val mySpendingAdapter = ArrayAdapter<String>(this,
+            android.R.layout.simple_list_item_1,resources.getStringArray(R.array.spending))
+        mySpendingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.dropDownSpending.adapter = mySpendingAdapter
     }
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
