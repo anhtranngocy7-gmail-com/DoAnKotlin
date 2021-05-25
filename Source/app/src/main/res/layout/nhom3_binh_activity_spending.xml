@@ -158,16 +158,16 @@
                 app:layout_constraintHorizontal_bias="0.153"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"></TextView>
 
-            <ImageView
+            <CheckBox
+                android:button="@drawable/custom_checkbox"
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/btnchi"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"></ImageView>
+                app:layout_constraintStart_toStartOf="parent"></CheckBox>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
