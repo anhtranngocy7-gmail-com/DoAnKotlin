@@ -8,7 +8,6 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 class Nhom3BinhSpendingViewModel: ViewModel() {
 
-
     var calDefault = Calendar.getInstance()
     var dateDefault = calDefault.time
     var formatDate=SimpleDateFormat("EEE, dd/MM/YYYY");

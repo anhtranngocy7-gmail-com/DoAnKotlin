@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -40,6 +41,8 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +95,8 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
                 // App code
             }
         })
-    }
+
+     }
      fun result() {
         val graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), object: GraphRequest.GraphJSONObjectCallback
                 {
