@@ -1,49 +1,35 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Spending
 
-<<<<<<< HEAD
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-=======
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.view.View
 import android.widget.Toast
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3BinhActivitySpendingBinding
-<<<<<<< HEAD
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout
 import java.text.SimpleDateFormat
-=======
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578
 import java.util.*
 
 
 class Nhom3BinhSpendingActivity: AppCompatActivity() {
     private lateinit var viewModel: Nhom3BinhSpendingViewModel
     private lateinit var binding: Nhom3BinhActivitySpendingBinding
-<<<<<<< HEAD
-
     private var formatDate:SimpleDateFormat = SimpleDateFormat("EEE, dd/MM/YYYY")
     private var spendingItem : SpendingItem = SpendingItem(0,"",formatDate,true,"")
-=======
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
-
-
     var get_string_voice_input = ArrayList<String>()
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.nhom3_binh_activity_spending)
         viewModel = ViewModelProvider(this).get(Nhom3BinhSpendingViewModel::class.java)
-<<<<<<< HEAD
         binding.spendingItem = spendingItem
         binding.editDateSpending.setOnClickListener{
             val getDate = Calendar.getInstance()
@@ -58,16 +44,7 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
             },getDate.get(Calendar.YEAR),getDate.get(Calendar.MONTH),getDate.get(Calendar.DAY_OF_MONTH))
             dialog.show()
         }
-
         binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
-
-
-
-    }
-
-}
-=======
-        binding.calendar.append(viewModel.sdf.format(viewModel.date))
         binding.micro.setOnClickListener(
             View.OnClickListener
 // Phương thức lấy tác động khi nhấn vào button
@@ -113,5 +90,3 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
         }
     }
 }
-
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578

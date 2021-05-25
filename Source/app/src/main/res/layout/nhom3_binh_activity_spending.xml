@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="spendingItem"
-            type="com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem" />
+            <variable
+                name="spendingItem"
+                type="com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,13 +65,12 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="276dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:background="#1A2930"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_head_chitieu"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
 
 
             <TextView
@@ -105,24 +104,18 @@
 
             <EditText
                 android:id="@+id/etDescription"
-                android:layout_width="292dp"
-                android:layout_height="54dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:hint="Description"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/calendar"
-<<<<<<< HEAD
-                app:layout_constraintEnd_toStartOf="@+id/imageView7"
-                app:layout_constraintHorizontal_bias="1.0"
-=======
                 app:layout_constraintEnd_toStartOf="@+id/micro"
                 app:layout_constraintHorizontal_bias="0.489"
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/etMoney"
-                app:layout_constraintVertical_bias="0.041"></EditText>
-
+                app:layout_constraintVertical_bias="0.288"></EditText>
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
@@ -133,19 +126,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/etMoney"></ImageView>
 
             <ImageView
-<<<<<<< HEAD
-                android:id="@+id/imageView7"
-                android:layout_width="39dp"
-                android:layout_height="39dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-=======
                 android:id="@+id/micro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
->>>>>>> e8c394fbe85f23a08abd49c12541dfb44bff1578
                 android:src="@drawable/iconmicro2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etMoney"></ImageView>
@@ -163,33 +148,32 @@
 
             <TextView
                 android:id="@+id/calendar"
-                android:layout_width="295dp"
-                android:layout_height="45dp"
+                android:layout_width="159dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="160dp"
+                android:layout_marginBottom="24dp"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.153"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"></TextView>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/btnchi"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.551"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etMoney"
-                app:layout_constraintVertical_bias="0.559"
-                tools:ignore="NotSibling,UnknownId"></TextView>
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"></ImageView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btnchi"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linear_head_chitieu"
-            app:layout_constraintVertical_bias="0.735"
-            tools:ignore="MissingConstraints"></ImageView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
