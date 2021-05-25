@@ -5,11 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.facebook.login.widget.LoginButton
 import com.laptrinhdidong.nhom3.quanlichitieu.Account
 import com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnhSignInActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.R
@@ -22,16 +24,14 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
+import java.util.*
+
 
 class Nhom3BinhSignUpActivity : AppCompatActivity() {
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
-
-    //google sign in
-    private val RC_SIGN_IN = 100
-    private var mGoogleApiClient: GoogleApiClient? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,5 +62,12 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
         }
+
+        binding.facebookSignin.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                val btn = LoginButton(this@Nhom3BinhSignUpActivity)
+                btn.performClick()
+            }
+        })
     }
 }
