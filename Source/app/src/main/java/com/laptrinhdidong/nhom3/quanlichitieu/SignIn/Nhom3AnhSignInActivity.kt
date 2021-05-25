@@ -14,7 +14,6 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.*
-import com.facebook.FacebookActivity
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.Nhom3AnMainAppActivity
@@ -44,6 +43,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
+
     //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +53,25 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
         binding.btnConfirmSignin.setOnClickListener {
-            Log.e("Check User", binding.editText7.text.toString().trim())
-            if(viewModel.checkAccount(binding.editText7.text.toString().trim(),binding.editText6.text.toString().trim()))
-            {
-                val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
-                startActivity(intent)
-            }else
-            {
-                Toast.makeText(this,"Username or password is not correct!",Toast.LENGTH_SHORT).show()
+            when (viewModel.checkAccount(
+                binding.editText7.text.toString().trim(),
+                binding.editText6.text.toString().trim()
+            )) {
+                0.toByte() -> Toast.makeText(
+                    this,
+                    "Username or password is not correct!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                1.toByte() -> {
+                    val intent =
+                        Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
+                    startActivity(intent)
+                }
+                2.toByte() -> Toast.makeText(
+                    this,
+                    "No connection, please check your wifi/3G",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         printKeyHash()
@@ -121,11 +132,8 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
                     if (response != null) {
                         Log.e("JSON", response.jsonObject.toString())
                         val name = response.jsonObject.getString("name")
-                        val idUser = response.jsonObject.getString("id")
-                        viewModel.checkAccountSocialExit(idUser,name)
-                        Log.e("BINHEROR","onCompleted")
-                        val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
-                        startActivity(intent)
+                        val idUser = "f" + response.jsonObject.getString("id")
+                        loginSocialCheck(idUser, name)
                     }
                 }
             }
@@ -145,32 +153,37 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             handleSignInResult(task)
         }
     }
+
     //google sign in
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-                Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, account.displayName.toString(), Toast.LENGTH_LONG).show()
                 Log.e("BINH", account.displayName.toString())
                 Log.e("BINH", account.email.toString())
-                Log.e("BINH",account.id.toString())
+                Log.e("BINH", account.id.toString())
+                val name = account.displayName.toString()
+                val idUser = "g" + account.id.toString()
+                loginSocialCheck(idUser, name)
             }
-            // Signed in successfully, show authenticated UI.
-
         } catch (e: ApiException) {
-            Log.e("BINHEROR","null account")
+            Log.e("BINHEROR", "null account")
         }
     }
+
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         Log.d("Failed", "onConnectionFailed:" + connectionResult);
     }
+
     //
-    private fun printKeyHash()
-    {
-        try{
-            val info = packageManager.getPackageInfo("com.laptrinhdidong.nhom3.quanlichitieu",PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures)
-            {
+    private fun printKeyHash() {
+        try {
+            val info = packageManager.getPackageInfo(
+                "com.laptrinhdidong.nhom3.quanlichitieu",
+                PackageManager.GET_SIGNATURES
+            )
+            for (signature in info.signatures) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))
@@ -180,6 +193,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         } catch (e: NoSuchAlgorithmException) {
         }
     }
+
     private fun getPermission() {
         ActivityCompat.requestPermissions(
             this,
@@ -188,5 +202,17 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         )
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+    }
+    private fun loginSocialCheck(idUser: String, name: String) {
+        if (viewModel.checkAccountSocialExit(idUser, name)) {
+            val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
+            startActivity(intent)
+        } else {
+            Toast.makeText(
+                this@Nhom3AnhSignInActivity,
+                "No connection, please check your wifi/3G",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
