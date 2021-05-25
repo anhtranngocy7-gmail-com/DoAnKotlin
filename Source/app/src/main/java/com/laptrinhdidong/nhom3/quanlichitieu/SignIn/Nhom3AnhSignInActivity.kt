@@ -37,12 +37,10 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account : Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
-  //  private lateinit var loginButton: LoginButton
+    //  private lateinit var loginButton: LoginButton
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
