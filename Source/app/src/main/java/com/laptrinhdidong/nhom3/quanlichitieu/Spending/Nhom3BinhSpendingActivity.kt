@@ -6,6 +6,7 @@ import android.view.View
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -44,6 +45,7 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
                 binding.calendar.setText(date)
             },getDate.get(Calendar.YEAR),getDate.get(Calendar.MONTH),getDate.get(Calendar.DAY_OF_MONTH))
             dialog.show()
+
         }
         binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
         binding.micro.setOnClickListener(
@@ -52,9 +54,13 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
             { promptSpeechInput() })
 
         val mySpendingAdapter = ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1,resources.getStringArray(R.array.spending))
-        mySpendingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            R.layout.nhom3_anh_style_spinner,resources.getStringArray(R.array.spending))
+        mySpendingAdapter.setDropDownViewResource( R.layout.nhom3_anh_style_spinner)
         binding.dropDownSpending.adapter = mySpendingAdapter
+        // Get data Adapter
+        Log.e("GetData",binding.dropDownSpending.selectedItem.toString())
+        // Set data Adapter
+        binding.dropDownSpending.setSelection(0)
     }
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
