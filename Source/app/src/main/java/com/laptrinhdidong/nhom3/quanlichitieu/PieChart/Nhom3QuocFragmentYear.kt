@@ -77,6 +77,10 @@ class Nhom3QuocFragmentYear : Fragment() {
         binding.pieChartYear.setCenterTextColor(resources.getColor(R.color.black))
         binding.pieChartYear.setCenterTextSize(15f)
 
+        binding.pieChartYear.setEntryLabelTextSize(8f)
+
+        binding.pieChartYear.legend.textColor = resources.getColor(R.color.white)
+
         //Hide Description
         binding.pieChartYear.description.isEnabled = false
 

@@ -1,6 +1,7 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
@@ -18,12 +19,14 @@ class Nhom3QuocBieudocot : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nhom3_quoc_activity_bieudocot_tablayout)
 
+
+
+
         toolbar = findViewById(R.id.toolbar)
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
 
         toolbar.setTitle("Tình hình chi tiêu")
-        toolbar.setTitleMargin(20, 0, 0, 0)
 
 
         val fragmentAdapterBC = Nhom3QuocFragmentPageBCAdapter(supportFragmentManager)

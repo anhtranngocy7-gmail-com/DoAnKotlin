@@ -78,6 +78,9 @@ class Nhom3QuocFrgamentDay : Fragment() {
         binding.pieChart.centerText= "Biểu đồ chi tiêu"
         binding.pieChart.setCenterTextColor(resources.getColor(R.color.black))
         binding.pieChart.setCenterTextSize(15f)
+        binding.pieChart.setEntryLabelTextSize(12f)
+
+        binding.pieChart.legend.textColor = resources.getColor(R.color.white)
 
         //Hide Description
         binding.pieChart.description.isEnabled = false

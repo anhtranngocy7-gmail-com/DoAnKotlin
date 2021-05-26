@@ -76,6 +76,9 @@ class Nhom3QuocFragmentMonth : Fragment() {
         binding.pieChartMonth.centerText= "Biểu đồ chi tiêu"
         binding.pieChartMonth.setCenterTextColor(resources.getColor(R.color.black))
         binding.pieChartMonth.setCenterTextSize(15f)
+        binding.pieChartMonth.setEntryLabelTextSize(8f)
+
+        binding.pieChartMonth.legend.textColor = resources.getColor(R.color.white)
 
         //Hide Description
         binding.pieChartMonth.description.isEnabled = false

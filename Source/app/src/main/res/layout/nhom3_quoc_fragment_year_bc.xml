@@ -11,12 +11,20 @@
         android:layout_height="match_parent"
         tools:context=".BarChart.Nhom3QuocFragmentYear_BC">
 
+
         <!-- TODO: Update blank fragment layout -->
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartYear"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:layout_marginTop="100dp"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleviewYearBC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="450dp" />
+            android:layout_marginTop="400dp" />
 
     </FrameLayout>
 </layout>
