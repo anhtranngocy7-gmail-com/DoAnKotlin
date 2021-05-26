@@ -12,6 +12,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBieudocotViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBcBinding
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBcBinding
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
 class Nhom3QuocFragmentYear_BC : Fragment() {
 
 
-    private lateinit var binding : Nhom3QuocFragmentYearBinding
+    private lateinit var binding : Nhom3QuocFragmentYearBcBinding
     private lateinit var viewModel: Nhom3QuocBieudocotViewModel
     private lateinit var adapter : Nhom3QuocBieudocotAdapter
 
@@ -37,7 +38,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         viewModel = ViewModelProvider(this).get(Nhom3QuocBieudocotViewModel::class.java)
-        binding = DataBindingUtil.inflate<Nhom3QuocFragmentYearBinding>(
+        binding = DataBindingUtil.inflate<Nhom3QuocFragmentYearBcBinding>(
             inflater,
             R.layout.nhom3_quoc_fragment_year_bc,
             container,
@@ -48,9 +49,9 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = Nhom3QuocBieudocotAdapter()
-        binding.recycleViewYear.layoutManager = LinearLayoutManager(context)
+        binding.recycleviewYearBC.layoutManager = LinearLayoutManager(context)
         adapter.data = viewModel.getData()
-        binding.recycleViewYear.adapter = adapter
+        binding.recycleviewYearBC.adapter = adapter
     }
 
 }
