@@ -5,19 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemBieudocot
+import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemBarChart
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
-class Nhom3QuocBieudocotAdapter : RecyclerView.Adapter<Nhom3QuocBieudocotAdapter.ViewHolder>() {
+class Nhom3QuocBarChartAdapter : RecyclerView.Adapter<Nhom3QuocBarChartAdapter.ViewHolder>() {
 
-    var data: MutableList<Nhom3QuocItemBieudocot> = mutableListOf()
+    var data: MutableList<Nhom3QuocItemBarChart> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
-        var view = layoutInflater.inflate(R.layout.nhom3_quoc_item_bieudocot,parent,false)
+        var view = layoutInflater.inflate(R.layout.nhom3_quoc_item_barchart,parent,false)
         return ViewHolder(view)
     }
 

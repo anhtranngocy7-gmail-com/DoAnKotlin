@@ -33,9 +33,9 @@
             android:id="@+id/imageThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="233dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvThu"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/dot_green" />
 
@@ -43,9 +43,9 @@
             android:id="@+id/imageChi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="236dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvChi"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageThu"
             app:srcCompat="@drawable/dot_red" />
 

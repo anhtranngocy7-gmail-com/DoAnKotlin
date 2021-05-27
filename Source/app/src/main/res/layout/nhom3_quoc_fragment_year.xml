@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="1600000"
+                android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/tvTongtien"
                 app:layout_constraintTop_toTopOf="parent" />
 

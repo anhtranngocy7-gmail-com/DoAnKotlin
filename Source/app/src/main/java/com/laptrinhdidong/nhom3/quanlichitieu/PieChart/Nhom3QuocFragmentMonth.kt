@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBieudotronAdapter
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBieudotronViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartAdapter
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBinding
 
@@ -28,15 +28,15 @@ private const val ARG_PARAM2 = "param2"
  */
 class Nhom3QuocFragmentMonth : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentMonthBinding
-    private lateinit var viewModel: Nhom3QuocBieudotronViewModel
-    private lateinit var adapter : Nhom3QuocBieudotronAdapter
+    private lateinit var viewModel: Nhom3QuocPieChartViewModel
+    private lateinit var adapter : Nhom3QuocPieChartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        viewModel = ViewModelProvider(this).get(Nhom3QuocBieudotronViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
         binding = DataBindingUtil.inflate<Nhom3QuocFragmentMonthBinding>(
             inflater,
             R.layout.nhom3_quoc_fragment_month,
@@ -47,7 +47,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = Nhom3QuocBieudotronAdapter()
+        adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewMonth.layoutManager = LinearLayoutManager(context)
         adapter.data = viewModel.getData()
         binding.recycleViewMonth.adapter = adapter

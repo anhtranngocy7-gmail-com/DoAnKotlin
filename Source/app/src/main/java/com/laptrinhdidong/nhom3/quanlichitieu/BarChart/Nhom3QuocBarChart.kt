@@ -1,15 +1,13 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.laptrinhdidong.nhom3.quanlichitieu.BarChart.Nhom3QuocFragmentPageBCAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
-class Nhom3QuocBieudocot : AppCompatActivity() {
+class Nhom3QuocBarChart : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
@@ -17,7 +15,7 @@ class Nhom3QuocBieudocot : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.nhom3_quoc_activity_bieudocot_tablayout)
+        setContentView(R.layout.nhom3_quoc_activity_barchart_tablayout)
 
 
 

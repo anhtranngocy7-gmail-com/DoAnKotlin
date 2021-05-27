@@ -15,12 +15,10 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBieudocotAdapter
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBieudocotViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartAdapter
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBcBinding
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBcBinding
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,15 +34,15 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
 
 
     private lateinit var binding : Nhom3QuocFragmentYearBcBinding
-    private lateinit var viewModel: Nhom3QuocBieudocotViewModel
-    private lateinit var adapter : Nhom3QuocBieudocotAdapter
+    private lateinit var viewModel: Nhom3QuocBarChartViewModel
+    private lateinit var adapter : Nhom3QuocBarChartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        viewModel = ViewModelProvider(this).get(Nhom3QuocBieudocotViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(Nhom3QuocBarChartViewModel::class.java)
         binding = DataBindingUtil.inflate<Nhom3QuocFragmentYearBcBinding>(
             inflater,
             R.layout.nhom3_quoc_fragment_year_bc,
@@ -55,7 +53,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = Nhom3QuocBieudocotAdapter()
+        adapter = Nhom3QuocBarChartAdapter()
         binding.recycleviewYearBC.layoutManager = LinearLayoutManager(context)
         adapter.data = viewModel.getData()
         binding.recycleviewYearBC.adapter = adapter
