@@ -66,26 +66,21 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
         tv_from.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
             DatePickerDialog.OnDateSetListener
-        { view, year, month, dayOfMonth -> tv_from.text= ""+dayOfMonth +"/ "+(month+1)+"/ "+year  },year_from,month_from,day_from)
+        { view, year, month, dayOfMonth -> tv_from.text= ""+dayOfMonth +"/"+(month+1)+"/"+year  },year_from,month_from,day_from)
         datePickerDialog.show()
         }
         tv_to.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
             DatePickerDialog.OnDateSetListener
-            { view, year, month, dayOfMonth -> tv_to.text= ""+dayOfMonth +"/ "+(month+1)+"/ "+year  },year_from,month_from,day_from)
+            { view, year, month, dayOfMonth -> tv_to.text= ""+dayOfMonth +"/"+(month+1)+"/"+year  },year_from,month_from,day_from)
             datePickerDialog.show()
         }
 
 
-
-
-
-
-
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
-        pieEntries.add(PieEntry(57.2f,"Ăn uống"))
-        pieEntries.add(PieEntry(32.8f,"Đi lại"))
-        pieEntries.add(PieEntry(12.1f,"Sinh hoạt"))
+        pieEntries.add(PieEntry(80f,"Ăn uống"))
+        pieEntries.add(PieEntry(32.8f,"Sinh hoạt"))
+        pieEntries.add(PieEntry(12.1f,"Đi lại"))
 
         //Setup PieChart Animation
         binding.pieChart.animateXY(1000,1000)
@@ -93,19 +88,18 @@ class Nhom3QuocFrgamentDay : Fragment() {
         //Setup PieChart Entries Color
         val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
         pieDataSet.setColors(
-            resources.getColor(R.color.stroke_checked),
+            resources.getColor(R.color.yellow),
             resources.getColor(R.color.red),
             resources.getColor(R.color.teal_200),
+
         )
 
         //Setup Pie Data Set in PieData
         val pieData = PieData(pieDataSet)
 
         //Setup Text in PieChart Center
-        binding.pieChart.centerText= "Biểu đồ chi tiêu"
+        binding.pieChart.centerText = "Biểu đồ chi tiêu"
         binding.pieChart.setCenterTextColor(resources.getColor(R.color.black))
-        binding.pieChart.setCenterTextSize(15f)
-        binding.pieChart.setEntryLabelTextSize(12f)
 
         binding.pieChart.legend.textColor = resources.getColor(R.color.white)
 

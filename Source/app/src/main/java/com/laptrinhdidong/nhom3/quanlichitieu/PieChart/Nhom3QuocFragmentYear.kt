@@ -1,5 +1,6 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -15,6 +17,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBinding
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +55,26 @@ class Nhom3QuocFragmentYear : Fragment() {
         adapter.data = viewModel.getData()
         binding.recycleViewYear.adapter = adapter
 
+        //Date Calendar
+        val tv_from = binding.tvFrom
+        val tv_to = binding.tvTo
+        val cal = Calendar.getInstance()
+        val year_from = cal.get(Calendar.YEAR)
+        val month_from = cal.get(Calendar.MONTH)
+        val day_from = cal.get(Calendar.DAY_OF_MONTH)
+
+        tv_from.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
+            DatePickerDialog.OnDateSetListener
+            { view, year, month, dayOfMonth -> tv_from.text= ""+year+""  },year_from,month_from,day_from)
+            datePickerDialog.show()
+        }
+        tv_to.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
+            DatePickerDialog.OnDateSetListener
+            { view, year, month, dayOfMonth -> tv_to.text= ""+year+""  },year_from,month_from,day_from)
+            datePickerDialog.show()
+        }
+
+
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
         pieEntries.add(PieEntry(30.0f,"Ăn uống"))
@@ -64,7 +87,7 @@ class Nhom3QuocFragmentYear : Fragment() {
         //Setup PieChart Entries Color
         val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
         pieDataSet.setColors(
-            resources.getColor(R.color.stroke_checked),
+            resources.getColor(R.color.yellow),
             resources.getColor(R.color.red),
             resources.getColor(R.color.teal_200)
         )
@@ -83,6 +106,13 @@ class Nhom3QuocFragmentYear : Fragment() {
 
         //Hide Description
         binding.pieChartYear.description.isEnabled = false
+
+        //Setup legend
+        val legend = binding.pieChartYear.legend
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+        legend.orientation = Legend.LegendOrientation.VERTICAL
+        legend.isEnabled = true
 
 
         //this enable the value on each pieEntry

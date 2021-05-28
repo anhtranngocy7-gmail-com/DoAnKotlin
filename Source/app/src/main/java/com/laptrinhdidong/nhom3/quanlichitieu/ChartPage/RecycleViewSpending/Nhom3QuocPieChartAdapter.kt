@@ -1,8 +1,11 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemPieChart
@@ -25,7 +28,9 @@ class Nhom3QuocPieChartAdapter : RecyclerView.Adapter<Nhom3QuocPieChartAdapter.V
         var item = this.data[position]
         holder.title.text = item.title
         holder.spending_money.text = item.spendingMoney.toString()+ "đ"
-        holder.percent_money.text = item.persent.toString()+ "%"
+        holder.percent_money.text = "("+item.persent.toString()+ "%"+ ")"
+        holder.progress.progress = item.persent.toInt()
+
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +41,7 @@ class Nhom3QuocPieChartAdapter : RecyclerView.Adapter<Nhom3QuocPieChartAdapter.V
         val title : TextView = itemView.findViewById(R.id.tvTittle)
         val spending_money : TextView = itemView.findViewById(R.id.tvMoney)
         val percent_money : TextView = itemView.findViewById(R.id.tvPercent)
-
+        val progress : ProgressBar = itemView.findViewById(R.id.progressBarCT)
 
     }
 }

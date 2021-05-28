@@ -66,15 +66,15 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
         //Setup Barchart for collect_money
         val barOne = arrayListOf<BarEntry>()
-        barOne.add(BarEntry(1f,20f))
-        barOne.add(BarEntry(2f,40f))
-        barOne.add(BarEntry(3f,50f))
+        barOne.add(BarEntry(1f,7f))
+        barOne.add(BarEntry(2f,9f))
+        barOne.add(BarEntry(3f,6f))
 
         //Setup Barchart for lost_money
         val barTwo = arrayListOf<BarEntry>()
-        barTwo.add(BarEntry(1f,33f))
-        barTwo.add(BarEntry(2f,14f))
-        barTwo.add(BarEntry(3f,66f))
+        barTwo.add(BarEntry(1f,8f))
+        barTwo.add(BarEntry(2f,15f))
+        barTwo.add(BarEntry(3f,10f))
 
 
 

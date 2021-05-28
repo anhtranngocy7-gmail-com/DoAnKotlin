@@ -23,7 +23,7 @@ class Nhom3QuocPieChart : AppCompatActivity(){
         viewPager1 = findViewById(R.id.viewPager)
         tabLayout1 = findViewById(R.id.tabLayout)
 
-        toolbar1.setTitle("Biểu đồ chi tiêu")
+        toolbar1.setTitle("Phân tích chi tiêu")
         toolbar1.setTitleMargin(20, 0, 0, 0)
 
 

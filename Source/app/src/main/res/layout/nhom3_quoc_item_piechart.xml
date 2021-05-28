@@ -4,85 +4,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingHorizontal="16dp"
     android:layout_height="wrap_content"
    >
     <TextView
         android:id="@+id/tvTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="Ăn uống"
         android:textSize="18sp"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/viewLine" />
+    <ProgressBar
+        android:id="@+id/progressBarCT"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvTittle"
+        android:background="@drawable/curnor_shape"
+        android:progress="30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTittle" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <TextView
+        android:id="@+id/tvMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="10,000,000 đ"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/progressBarCT"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarCT"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="(57.2%)"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/tvMoney"
+        app:layout_constraintTop_toTopOf="@id/tvMoney"
+        app:layout_constraintBottom_toBottomOf="@id/tvMoney"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/viewLine"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+         />
 
 
-        <ProgressBar
-            android:id="@+id/progressBarCT"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="260dp"
-            android:layout_height="8dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="26dp"
-            android:background="@drawable/curnor_shape"
-            android:progress="30"
 
-            app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="10,000,000 đ"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarCT"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/tvPercent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="67dp"
-            android:text="(57.2%)"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.131"
-            app:layout_constraintStart_toEndOf="@+id/tvMoney"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarCT" />
-
-        <View
-            android:layout_width="380dp"
-            android:layout_height="2dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarCT"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
