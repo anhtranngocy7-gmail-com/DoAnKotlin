@@ -11,6 +11,6 @@ class Nhom3BinhSpendingViewModel: ViewModel() {
     var calDefault = Calendar.getInstance()
     var dateDefault = calDefault.time
     var formatDate=SimpleDateFormat("EEE, dd/MM/YYYY");
-    var spendingItem : SpendingItem = SpendingItem(0,"",formatDate,true,"")
+    var spendingItem : SpendingItem = SpendingItem("","","",true,"")
 
 }
