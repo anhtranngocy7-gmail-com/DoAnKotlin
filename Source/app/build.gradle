@@ -69,9 +69,13 @@ dependencies {
 //    implementation "androidx.fragment:fragment:$fragment_version"
 //    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+<<<<<<< HEAD
     apply plugin: 'com.android.application'
     //implementation chart from github
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+=======
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+>>>>>>> f8a44d26144b887fd3462b994280e5c02808e13b
 
 }
 

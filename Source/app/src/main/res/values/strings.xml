@@ -6,6 +6,7 @@
         <item>This year</item>
     </string-array>
     <string name="facebook_app_id">172689731421619</string>
+<<<<<<< HEAD
     <string name="title_activity_nhom3_quoc_bieudochitieu">Nhom3QuocBieudochitieu</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -13,4 +14,14 @@
     <string name="title_activity_nhom3_quoc_bieudo">Nhom3QuocBieudo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+=======
+    <string name="speech_prompt">Say something…</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string-array name="spending">
+        <item></item>
+        <item>Home</item>
+        <item>Anh Tran</item>
+        <item>Thanh Binh</item>
+    </string-array>
+>>>>>>> f8a44d26144b887fd3462b994280e5c02808e13b
 </resources>

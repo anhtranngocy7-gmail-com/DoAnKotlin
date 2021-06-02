@@ -1,12 +1,16 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Spending
 
 import androidx.lifecycle.ViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.Account
+import com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem
 import java.util.Date
 import java.util.Calendar
 import java.text.SimpleDateFormat
 class Nhom3BinhSpendingViewModel: ViewModel() {
-    var cal=Calendar.getInstance()
-    var date=cal.time
-    var sdf=SimpleDateFormat("EEE, dd/MM/YYYY");
+
+    var calDefault = Calendar.getInstance()
+    var dateDefault = calDefault.time
+    var formatDate=SimpleDateFormat("EEE, dd/MM/YYYY");
+    var spendingItem : SpendingItem = SpendingItem("","","",true,"")
 
 }

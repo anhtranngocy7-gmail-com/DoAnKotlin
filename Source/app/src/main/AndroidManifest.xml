@@ -19,18 +19,29 @@
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
 
         </activity>
+<<<<<<< HEAD
         <activity android:name=".MainApp.Nhom3AnMainAppActivity">
+=======
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
+        <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".Spending.Nhom3BinhSpendingActivity">
+>>>>>>> f8a44d26144b887fd3462b994280e5c02808e13b
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
 
         </activity>
         <activity android:name=".Spending.Nhom3BinhSpendingActivity">
         </activity>
+=======
+>>>>>>> f8a44d26144b887fd3462b994280e5c02808e13b
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
