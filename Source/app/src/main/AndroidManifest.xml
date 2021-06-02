@@ -12,41 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
 
-<<<<<<< HEAD
-        <activity android:name=".Nhom3AnhSignInActivity">
-=======
-        <activity android:name=".PieChart.Nhom3QuocBieudotron"
-            >
->>>>>>> d84fd9b520f6ba70b090f4d295f98af3291b2260
+        <activity android:name=".Nhom3AnhSignInActivity"/>
+        <activity android:name=".PieChart.Nhom3QuocBieudotron">
+
+        </activity>
+        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
+
+        </activity>
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
-
-        </activity>
-        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
         <activity android:name=".MainActivity">
 
         </activity>
         <activity android:name=".Spending.Nhom3BinhSpendingActivity">
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-=======
-        <activity android:name=".Nhom3AnhSignInActivity">
-
-        </activity>
-        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
-        <activity android:name=".MainApp.Nhom3AnMainAppActivity" />
-        <activity android:name=".MainActivity" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
->>>>>>> d84fd9b520f6ba70b090f4d295f98af3291b2260
     </application>
 
 </manifest>

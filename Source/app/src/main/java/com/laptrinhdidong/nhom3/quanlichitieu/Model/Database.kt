@@ -14,7 +14,7 @@ class Database private constructor() {
     val password: String = "an321"
     val url: String = "jdbc:jtds:sqlserver://$ip:$port/$databaseName"
     var connection: Connection? = null
-    var idUserApp: Int? = null
+    var idUserApp: Int? = 1
     lateinit var statement: Statement
     lateinit var result: ResultSet
 

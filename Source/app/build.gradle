@@ -69,15 +69,9 @@ dependencies {
 //    implementation "androidx.fragment:fragment:$fragment_version"
 //    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-
-<<<<<<< HEAD
-
-}
-apply plugin: 'com.android.application'
-=======
+    apply plugin: 'com.android.application'
     //implementation chart from github
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-
 }
->>>>>>> d84fd9b520f6ba70b090f4d295f98af3291b2260
+

@@ -17,6 +17,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFrag
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.Thongke.Nhom3QuocThongKeFragment
+import com.laptrinhdidong.nhom3.quanlichitieu.Thongke.ReportExpense.Nhom3AnReportExpenseFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnActivityMainAppBinding
 
 class Nhom3AnMainAppActivity : AppCompatActivity() {
@@ -38,6 +39,9 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                 }
                 3 -> {
                     add<Nhom3QuocThongKeFragment>(R.id.fragment_mainapp)
+                }
+                4 ->{
+                    add<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
                 }
             }
         }
@@ -61,6 +65,10 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                     R.id.action_report -> {
                         replace<Nhom3QuocThongKeFragment>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 3
+                    }
+                    R.id.action_more ->{
+                        replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
+                        viewModel.optionMenu = 4
                     }
 
                 }
