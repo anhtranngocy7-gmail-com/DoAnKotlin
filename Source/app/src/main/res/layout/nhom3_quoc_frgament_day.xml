@@ -81,10 +81,34 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
-                android:layout_width="match_parent"
-                android:layout_height="243dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/contrainLayoutCalendar"/>
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/contrainLayoutCalendar" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewLegend"
+                android:layout_width="140dp"
+                android:layout_height="250dp"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="103dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@id/pieChart"
+                app:layout_constraintTop_toBottomOf="@id/contrainLayoutCalendar"
+                />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toTopOf="@id/pieChart"
+                app:layout_constraintBottom_toBottomOf="@id/pieChart"
+                app:layout_constraintStart_toStartOf="@id/pieChart"
+                app:layout_constraintEnd_toEndOf="@id/pieChart"
+                android:background="@drawable/iconsavemoney"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleViewDay"
@@ -119,7 +143,7 @@
                     android:id="@+id/tvTongtien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:text="Tổng chi tiêu "
                     android:textSize="18sp"
@@ -133,7 +157,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="51dp"
-                    android:text="16000000 đ"
+                    android:text="19000000 đ"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/btn_Xemchitiet"
                     app:layout_constraintStart_toEndOf="@+id/tvTongtien"

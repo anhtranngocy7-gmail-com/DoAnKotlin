@@ -2,21 +2,24 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
+
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentDayBcBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,38 +60,58 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
 
 
-        binding.barChartDay.setDrawBarShadow(false)
-        binding.barChartDay.description.isEnabled = false
-        binding.barChartDay.setDrawGridBackground(true)
-        binding.barChartDay.description.isEnabled = false
+
+        binding.lineChartDay.description.isEnabled = false
+        binding.lineChartDay.setDrawGridBackground(true)
 
 
+        //Line Chart
+        val lineOne = arrayListOf<Entry>()
 
-        //Setup Barchart for collect_money
-        val barOne = arrayListOf<BarEntry>()
-        barOne.add(BarEntry(1f,7f))
-        barOne.add(BarEntry(2f,9f))
-        barOne.add(BarEntry(3f,6f))
+        lineOne.add(Entry(1f,5f))
+        lineOne.add(Entry(2f,9f))
+        lineOne.add(Entry(3f,4f))
+        lineOne.add(Entry(4f,8f))
+        lineOne.add(Entry(5f,12f))
+        lineOne.add(Entry(6f,2f))
 
-        //Setup Barchart for lost_money
-        val barTwo = arrayListOf<BarEntry>()
-        barTwo.add(BarEntry(1f,8f))
-        barTwo.add(BarEntry(2f,15f))
-        barTwo.add(BarEntry(3f,10f))
+        val lineTwo = arrayListOf<Entry>()
 
+        lineTwo.add(Entry(1f,6f))
+        lineTwo.add(Entry(2f,10f))
+        lineTwo.add(Entry(3f,7f))
+        lineTwo.add(Entry(4f,15f))
+        lineTwo.add(Entry(5f,13f))
+        lineOne.add(Entry(6f,3f))
 
-
-        val set1 = BarDataSet(barOne, "barOne")
+        val set1 = LineDataSet(lineOne,"Thu")
         set1.setColors(resources.getColor(R.color.stroke_checked))
-        val set2 = BarDataSet(barTwo,"barTwo")
+        val set2 = LineDataSet(lineTwo,"Chi")
         set2.setColors(resources.getColor(R.color.red))
 
-        val data = BarData(set1,set2)
-        binding.barChartDay.data = data
+        val ilineDataSet = arrayListOf<ILineDataSet>()
+        ilineDataSet.add(set1)
+        ilineDataSet.add(set2)
+        val data = LineData(ilineDataSet)
 
-        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
+
+        //val data = LineData(set1,set2)
+        binding.lineChartDay.data = data
+        binding.lineChartDay.invalidate()
+
+
+        //val lineDataSet = LineDataSet(lineOne,"data set")
+
+//        val lineData = LineData(ilineDataSet)
+//        binding.lineChartDay.data = lineData
+//        binding.lineChartDay.invalidate()
+
+
+
+        //Array Title xAxis
+        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","Tháng 7", "Tháng 8", "Tháng 9","")
         //Configuration XAxis
-        val xAxis: XAxis = binding.barChartDay.xAxis
+        val xAxis: XAxis = binding.lineChartDay.xAxis
         xAxis.setCenterAxisLabels(true)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(true)
@@ -99,7 +122,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         xAxis.axisMinimum = 1f
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         //Configuration YAxis
-        val leftAxis = binding.barChartDay.axisLeft
+        val leftAxis = binding.lineChartDay.axisLeft
         leftAxis.textColor = Color.WHITE
         leftAxis.textSize = 12f
         leftAxis.axisLineColor = Color.WHITE
@@ -108,20 +131,101 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         leftAxis.setLabelCount(8,true)
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
 
-        binding.barChartDay.axisRight.isEnabled = false
-        binding.barChartDay.legend.isEnabled = false
-
-        //(barspace + barWith) *2 + groupspace = 1
-        val barSpace : Float = 0f
-        val groupSpace: Float = 0.4f
-        data.barWidth = 0.3f
+        binding.lineChartDay.axisRight.isEnabled = false
+        binding.lineChartDay.legend.isEnabled = false
 
         xAxis.axisMaximum = labels.size-1.1f
-        binding.barChartDay.data = data
-        binding.barChartDay.setScaleEnabled(false)
-        binding.barChartDay.setVisibleXRangeMaximum(6f)
-        binding.barChartDay.groupBars(1f,groupSpace,barSpace)
-        binding.barChartDay.invalidate()
+        //binding.lineChartDay.data = data
+        binding.lineChartDay.setScaleEnabled(false)
+
+        binding.lineChartDay.setVisibleXRangeMaximum(6f)
+        //
+
+
+
+
+
+
+
+
+
+
+
+
+//        val lineDataSet = LineDataSet(lineOne,"data set")
+//        val ilineDataSet = arrayListOf<ILineDataSet>()
+//        ilineDataSet.add(lineDataSet)
+//        val lineData = LineData(ilineDataSet)
+//        binding.lineChartDay.data = lineData
+//        binding.lineChartDay.invalidate()
+
+
+
+
+
+
+
+
+/*=======================================================================================*/
+//        //Setup Barchart for collect_money
+//        val barOne = arrayListOf<BarEntry>()
+//        barOne.add(BarEntry(1f,29f))
+//        barOne.add(BarEntry(2f,9f))
+//        barOne.add(BarEntry(3f,6f))
+//
+//        //Setup Barchart for lost_money
+//        val barTwo = arrayListOf<BarEntry>()
+//        barTwo.add(BarEntry(1f,8f))
+//        barTwo.add(BarEntry(2f,15f))
+//        barTwo.add(BarEntry(3f,10f))
+//
+//        //Set BarDataSet
+//        val set1 = BarDataSet(barOne, "barOne")
+//        set1.setColors(resources.getColor(R.color.stroke_checked))
+//        val set2 = BarDataSet(barTwo,"barTwo")
+//        set2.setColors(resources.getColor(R.color.red))
+//
+//        val data = BarData(set1,set2)
+//        binding.barChartDay.data = data
+//
+//        //Array Title xAxis
+//        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
+//        //Configuration XAxis
+//        val xAxis: XAxis = binding.barChartDay.xAxis
+//        xAxis.setCenterAxisLabels(true)
+//        xAxis.position = XAxis.XAxisPosition.BOTTOM
+//        xAxis.setDrawGridLines(true)
+//        xAxis.granularity = 1f
+//        xAxis.textColor = Color.WHITE
+//        xAxis.textSize = 12f
+//        xAxis.axisLineColor = Color.WHITE
+//        xAxis.axisMinimum = 1f
+//        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+//        //Configuration YAxis
+//        val leftAxis = binding.barChartDay.axisLeft
+//        leftAxis.textColor = Color.WHITE
+//        leftAxis.textSize = 12f
+//        leftAxis.axisLineColor = Color.WHITE
+//        leftAxis.setDrawGridLines(true)
+//        leftAxis.granularity = 2f
+//        leftAxis.setLabelCount(8,true)
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+//
+//        binding.barChartDay.axisRight.isEnabled = false
+//        binding.barChartDay.legend.isEnabled = false
+//
+//        //(barspace + barWith) *2 + groupspace = 1
+//        val barSpace : Float = 0f
+//        val groupSpace: Float = 0.4f
+//        data.barWidth = 0.3f
+//
+//        xAxis.axisMaximum = labels.size-1.1f
+//        binding.barChartDay.data = data
+//        binding.barChartDay.setScaleEnabled(false)
+//
+//        binding.barChartDay.setVisibleXRangeMaximum(6f)
+//        binding.barChartDay.groupBars(1f,groupSpace,barSpace)
+//        binding.barChartDay.invalidate()
 
     }
 }

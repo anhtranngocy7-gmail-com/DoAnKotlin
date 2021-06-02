@@ -15,8 +15,10 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPiechartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBinding
+import com.whiteelephant.monthpicker.MonthPickerDialog
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentMonthBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
     private lateinit var adapter : Nhom3QuocPieChartAdapter
+    private lateinit var adapter_legned : Nhom3QuocLegendPiechartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,36 +53,69 @@ class Nhom3QuocFragmentMonth : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Array Colors
+        val arrayColors = mutableListOf<Int>(
+            resources.getColor(R.color.red),
+            resources.getColor(R.color.yellow),
+            resources.getColor(R.color.teal_200),
+            resources.getColor(R.color.purple_200),
+            resources.getColor(R.color.purple_700),
+            resources.getColor(R.color.greeny)
+        )
+
         adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewMonth.layoutManager = LinearLayoutManager(context)
         adapter.data = viewModel.getData()
         binding.recycleViewMonth.adapter = adapter
 
-        //Date Calendar
+        adapter_legned = Nhom3QuocLegendPiechartAdapter()
+        binding.recycleviewLegend.layoutManager = LinearLayoutManager(context)
+        adapter_legned.data = viewModel.getData()
+        binding.recycleviewLegend.adapter = adapter_legned
+
+        /*============= Show Month Dialog ==================*/
+        //Setup Month Dialog
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
-        val cal = Calendar.getInstance()
-        val year_from = cal.get(Calendar.YEAR)
-        val month_from = cal.get(Calendar.MONTH)
-        val day_from = cal.get(Calendar.DAY_OF_MONTH)
+        val today = Calendar.getInstance()
+        val year_now = today.get(Calendar.YEAR)
+        val month_now= today.get(Calendar.MONTH)
+        val day_now = today.get(Calendar.DAY_OF_MONTH)
 
-        tv_from.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
-            DatePickerDialog.OnDateSetListener
-            { view, year, month, dayOfMonth -> tv_from.text= ""+month+"/"+year+""  },year_from,month_from,day_from)
-            datePickerDialog.show()
+        //Choosen Month/Year from
+        tv_from.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+            MonthPickerDialog.OnDateSetListener
+            { selectedMonth, selectedYear ->  tv_from.text = ""+ (selectedMonth+1)+"/"+ selectedYear},year_now,month_now )
+            monthPickerDialog.setActivatedMonth(month_now)
+                .setMinYear(1990)
+                .setActivatedYear(year_now)
+                .setMaxYear(2050)
+                .setTitle("Select Month Year")
+                .build().show()
+
         }
-        tv_to.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
-            DatePickerDialog.OnDateSetListener
-            { view, year, month, dayOfMonth -> tv_to.text= ""+month+"/"+year+""  },year_from,month_from,day_from)
-            datePickerDialog.show()
+
+        //Choosen Month/Year to
+        tv_to.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+            MonthPickerDialog.OnDateSetListener
+            { selectedMonth, selectedYear ->  tv_to.text = ""+ (selectedMonth+1)+"/"+ selectedYear},year_now,month_now )
+            monthPickerDialog.setActivatedMonth(month_now)
+                .setMinYear(1990)
+                .setActivatedYear(year_now)
+                .setMaxYear(2050)
+                .setTitle("Select Month Year")
+                .build().show()
+
         }
 
 
+        /*============= Show Pie Chart ==================*/
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
-        pieEntries.add(PieEntry(30.0f,"Ăn uống"))
-        pieEntries.add(PieEntry(40.0f,"Đi lại"))
-        pieEntries.add(PieEntry(35.0f,"Sinh hoạt"))
+        pieEntries.add(PieEntry(30.0f))
+        pieEntries.add(PieEntry(40.0f))
+        pieEntries.add(PieEntry(35.0f))
 
         //Setup PieChart Animation
         binding.pieChartMonth.animateXY(1000,1000)
@@ -87,20 +123,25 @@ class Nhom3QuocFragmentMonth : Fragment() {
         //Setup PieChart Entries Color
         val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
         pieDataSet.setColors(
-            resources.getColor(R.color.yellow),
-            resources.getColor(R.color.red),
-            resources.getColor(R.color.teal_200)
-        )
+            arrayColors[0],
+            arrayColors[1],
+            arrayColors[2],
+            arrayColors[3],
+            arrayColors[4],
+            arrayColors[5],
+
+            )
 
         //Setup Pie Data Set in PieData
         val pieData = PieData(pieDataSet)
 
+        //Configure value text size
+        pieData.setValueTextSize(15f)
+
         //Setup Text in PieChart Center
-        binding.pieChartMonth.centerText= "Biểu đồ chi tiêu"
         binding.pieChartMonth.setCenterTextColor(resources.getColor(R.color.black))
         binding.pieChartMonth.setCenterTextSize(15f)
         binding.pieChartMonth.setEntryLabelTextSize(8f)
-
         binding.pieChartMonth.legend.textColor = resources.getColor(R.color.white)
 
         //Hide Description
@@ -111,7 +152,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
         legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
         legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.isEnabled = true
+        legend.isEnabled = false
 
 
         //this enable the value on each pieEntry

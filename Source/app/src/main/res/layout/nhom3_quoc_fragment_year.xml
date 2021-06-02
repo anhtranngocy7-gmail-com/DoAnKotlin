@@ -82,10 +82,32 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChartYear"
-                android:layout_width="match_parent"
-                android:layout_height="243dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contrainLayoutCalendar"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleviewLegend"
+                android:layout_width="140dp"
+                android:layout_height="250dp"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="103dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@id/pieChartYear"
+                app:layout_constraintTop_toBottomOf="@id/contrainLayoutCalendar"
+                />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toTopOf="@id/pieChartYear"
+                app:layout_constraintBottom_toBottomOf="@id/pieChartYear"
+                app:layout_constraintStart_toStartOf="@id/pieChartYear"
+                app:layout_constraintEnd_toEndOf="@id/pieChartYear"
+                android:background="@drawable/iconsavemoney"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleViewYear"

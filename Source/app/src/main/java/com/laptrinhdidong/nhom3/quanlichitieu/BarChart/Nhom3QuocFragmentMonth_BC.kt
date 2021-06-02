@@ -53,6 +53,9 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         adapter = Nhom3QuocBarChartAdapter()
         binding.recycleviewMonthBC.layoutManager = LinearLayoutManager(context)
         adapter.data = viewModel.getData()
