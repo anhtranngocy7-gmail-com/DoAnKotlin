@@ -89,6 +89,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
         val data = BarData(set1,set2)
         binding.barChartMonth.data = data
 
+
         val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
 
         val xAxis: XAxis = binding.barChartMonth.xAxis

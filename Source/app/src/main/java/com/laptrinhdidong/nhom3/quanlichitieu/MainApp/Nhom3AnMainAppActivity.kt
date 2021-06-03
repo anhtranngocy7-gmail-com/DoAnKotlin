@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
+import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocPieChart
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.Nhom3QuocStatisticalFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnActivityMainAppBinding
@@ -32,7 +33,7 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                     add<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
                 }
                 3 -> {
-                    add<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
+                    add<Nhom3QuocPieChart>(R.id.fragment_mainapp)
                 }
             }
         }
@@ -54,7 +55,7 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                         viewModel.optionMenu = 1
                     }
                     R.id.action_report -> {
-                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
+                        replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 3
                     }
 

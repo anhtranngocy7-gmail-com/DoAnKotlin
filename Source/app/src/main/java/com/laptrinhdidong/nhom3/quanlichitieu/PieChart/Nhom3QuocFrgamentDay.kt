@@ -36,10 +36,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Nhom3QuocFrgamentDay : Fragment() {
-    private lateinit var binding : Nhom3QuocFrgamentDayBinding
+    private lateinit var binding: Nhom3QuocFrgamentDayBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
-    private lateinit var adapter : Nhom3QuocPieChartAdapter
-    private lateinit var adapter_legned : Nhom3QuocLegendPiechartAdapter
+    private lateinit var adapter: Nhom3QuocPieChartAdapter
+    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
 
 
     override fun onCreateView(
@@ -48,14 +48,17 @@ class Nhom3QuocFrgamentDay : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
+
         binding = DataBindingUtil.inflate<Nhom3QuocFrgamentDayBinding>(
-           inflater,
+            inflater,
             R.layout.nhom3_quoc_frgament_day,
-           container,
-           false
-       )
+            container,
+            false
+
+        )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -79,28 +82,38 @@ class Nhom3QuocFrgamentDay : Fragment() {
         adapter_legned.data = viewModel.getData()
         binding.recycleviewLegend.adapter = adapter_legned
 
-       //Date Calendar
+
+        //Date Calendar
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
         val today = Calendar.getInstance()
         val year_now = today.get(Calendar.YEAR)
-        val month_now= today.get(Calendar.MONTH)
+        val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
-    //
-    //        val id = Locale("in", "ID")
-    //        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy",id)
+
         //Choosen Date from
-        tv_from.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
-            DatePickerDialog.OnDateSetListener
-        { view, year, month, dayOfMonth -> tv_from.text= ""+dayOfMonth +"/"+(month+1)+"/"+year },year_now,month_now,day_now)
+        tv_from.setOnClickListener {
+            val datePickerDialog =
+                DatePickerDialog(
+                    activity!!, R.style.Theme_AppCompat_Light_Dialog,
+                    DatePickerDialog.OnDateSetListener
+                    { view, year, month, dayOfMonth ->
+                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                    }, year_now, month_now, day_now
+                )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
 
         //Choosen Date to
-        tv_to.setOnClickListener { val datePickerDialog = DatePickerDialog(activity!!,
-            DatePickerDialog.OnDateSetListener
-            { view, year, month, dayOfMonth -> tv_to.text= ""+dayOfMonth +"/"+(month+1)+"/"+year  },year_now,month_now,day_now)
+        tv_to.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(
+                activity!!,
+                DatePickerDialog.OnDateSetListener
+                { view, year, month, dayOfMonth ->
+                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                }, year_now, month_now, day_now
+            )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
@@ -114,10 +127,10 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
 
         //Setup PieChart Animation
-        binding.pieChart.animateXY(1000,1000)
+        binding.pieChart.animateXY(1000, 1000)
 
         //Setup PieChart Entries Color
-        val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
+        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
         pieDataSet.setColors(
             arrayColors[0],
             arrayColors[1],
@@ -126,7 +139,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
             arrayColors[4],
             arrayColors[5],
 
-        )
+            )
 
         //Setup Pie Data Set in PieData
         val pieData = PieData(pieDataSet)
@@ -151,14 +164,12 @@ class Nhom3QuocFrgamentDay : Fragment() {
         legend.isEnabled = false
 
 
-
         //this enable the value on each pieEntry
         pieData.setDrawValues(true)
 
         binding.pieChart.data = pieData
 
     }
-
 
 
 }
