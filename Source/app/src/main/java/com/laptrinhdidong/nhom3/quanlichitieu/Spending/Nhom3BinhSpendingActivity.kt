@@ -23,7 +23,7 @@ import java.util.*
 class Nhom3BinhSpendingActivity: AppCompatActivity() {
     private lateinit var viewModel: Nhom3BinhSpendingViewModel
     private lateinit var binding: Nhom3BinhActivitySpendingBinding
-    private var formatDate:SimpleDateFormat = SimpleDateFormat("EEE, dd/MM/YYYY")
+    private var formatDate:SimpleDateFormat = SimpleDateFormat("EEE, YYYY-MM-dd")
     private var spendingItem : SpendingItem = SpendingItem("","","",true,"")
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
