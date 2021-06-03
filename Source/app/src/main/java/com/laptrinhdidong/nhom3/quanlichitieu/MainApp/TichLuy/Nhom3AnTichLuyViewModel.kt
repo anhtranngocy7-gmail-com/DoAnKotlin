@@ -2,17 +2,42 @@ package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Account
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemTichLuy
+import java.sql.CallableStatement
 import java.sql.ResultSet
 
 class Nhom3AnTichLuyViewModel : ViewModel() {
 
-    fun getData() :MutableList<Nhom3AnItemTichLuy>{
-        return mutableListOf(
-            Nhom3AnItemTichLuy("Mua nhà",100000000,10000000),
-            Nhom3AnItemTichLuy("Mua xe",30000000,5000000)
-        )
+    fun getData(): MutableList<Accumulate> {
+        return lstaccumulate
+    }
+
+    lateinit var result: ResultSet
+    var lstaccumulate: MutableList<Accumulate> = mutableListOf()
+    lateinit var strmoney: String
+
+    init {
+        var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulate(?)}")
+        callP.setString(1,"A")
+        callP.execute()
+        result = callP.resultSet    
+        Database.instance.idUserApp?.let { callP.setInt(1, it) }
+        if (callP.execute()) {
+            result = callP.resultSet
+            while (result.next() && !result.isAfterLast) {
+                var id=result.getInt("ID")
+                var title = result.getString("Title").toString()
+                var targetmoney = result.getBigDecimal("TargetMoney")
+                var currentmoney = result.getBigDecimal("CurrentMoney")
+                var tmpaccumulate = Accumulate(id,title, targetmoney, currentmoney)
+                lstaccumulate.add(tmpaccumulate)
+            }
+        }
+        callP.close()
+
     }
     //////////////////////
 //    var txt = MutableLiveData<String>()

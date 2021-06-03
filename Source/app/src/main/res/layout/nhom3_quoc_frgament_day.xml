@@ -15,6 +15,7 @@
             android:layout_height="match_parent"
             tools:context=".PieChart.Nhom3QuocFrgamentDay">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contrainLayoutCalendar"
                 android:layout_width="match_parent"
@@ -24,7 +25,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -177,7 +177,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

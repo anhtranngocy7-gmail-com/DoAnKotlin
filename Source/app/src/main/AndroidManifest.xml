@@ -12,7 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlichitieu">
 
+
         <activity android:name=".BarChart.Nhom3QuocBarChart">
+
+        </activity>
+
+        <activity android:name=".Nhom3AnhSignInActivity"/>
+
+        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
+
+        </activity>
+
+        <activity android:name=".MainApp.Nhom3AnMainAppActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,21 +32,7 @@
             </intent-filter>
         </activity>
 
-<!--        <activity android:name=".PieChart.Nhom3QuocPieChart">-->
-
-<!--        </activity>-->
-        <activity android:name=".Nhom3AnhSignInActivity">
-
-        </activity>
-        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" />
-
-        <activity android:name=".MainApp.Nhom3AnMainAppActivity" >
-
-
-        </activity>
-
-        <activity android:name=".MainActivity" />
-
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

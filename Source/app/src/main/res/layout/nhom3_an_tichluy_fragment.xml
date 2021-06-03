@@ -34,9 +34,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/sub_main_background"
+            android:background="@android:color/transparent"
             android:foregroundGravity="center"
             android:paddingVertical="10dp"
             app:layout_constraintTop_toBottomOf="@+id/linear_head_tichluy"></androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_addaccumulate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"></ImageView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
