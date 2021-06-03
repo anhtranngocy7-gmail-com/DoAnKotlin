@@ -21,9 +21,6 @@ class Nhom3AnTichLuyViewModel : ViewModel() {
 
     init {
         var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulate(?)}")
-        callP.setString(1,"A")
-        callP.execute()
-        result = callP.resultSet    
         Database.instance.idUserApp?.let { callP.setInt(1, it) }
         if (callP.execute()) {
             result = callP.resultSet

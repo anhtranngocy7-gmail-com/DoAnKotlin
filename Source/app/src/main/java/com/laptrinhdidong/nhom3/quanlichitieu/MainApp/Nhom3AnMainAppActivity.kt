@@ -33,12 +33,12 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             when (viewModel.optionMenu) {
-//                0 -> {
-//                    add<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
-//                }
-//                1 -> {
-//                    add<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-//                }
+                0 -> {
+                    add<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
+                }
+                1 -> {
+                    add<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
+                }
                 3 -> {
                     add<Nhom3QuocPieChart>(R.id.fragment_mainapp)
                 }
@@ -56,14 +56,14 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
 
                 when (item.itemId) {
-//                    R.id.action_home -> {
-//                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
-//                        viewModel.optionMenu = 0
-//                    }
-//                    R.id.action_accumulate -> {
-//                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-//                        viewModel.optionMenu = 1
-//                    }
+                    R.id.action_home -> {
+                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
+                        viewModel.optionMenu = 0
+                    }
+                    R.id.action_accumulate -> {
+                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
+                        viewModel.optionMenu = 1
+                    }
                     R.id.action_report -> {
                         replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 3
