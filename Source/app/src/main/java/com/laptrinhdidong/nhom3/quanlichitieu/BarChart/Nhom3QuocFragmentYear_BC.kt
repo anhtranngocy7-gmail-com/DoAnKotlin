@@ -11,14 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBcBinding
+import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,9 +34,9 @@ private const val ARG_PARAM2 = "param2"
 class Nhom3QuocFragmentYear_BC : Fragment() {
 
 
-    private lateinit var binding : Nhom3QuocFragmentYearBcBinding
+    private lateinit var binding: Nhom3QuocFragmentYearBcBinding
     private lateinit var viewModel: Nhom3QuocBarChartViewModel
-    private lateinit var adapter : Nhom3QuocBarChartAdapter
+    private lateinit var adapter: Nhom3QuocBarChartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +52,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = Nhom3QuocBarChartAdapter()
@@ -58,35 +60,95 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         adapter.data = viewModel.getData()
         binding.recycleviewYearBC.adapter = adapter
 
+        /*============= Show Year Dialog ==================*/
+        //Setup Month Dialog
+        val tv_from = binding.tvFrom
+        val tv_to = binding.tvTo
+        val today = Calendar.getInstance()
+        val year_now = today.get(Calendar.YEAR)
+        val month_now = today.get(Calendar.MONTH)
+        val day_now = today.get(Calendar.DAY_OF_MONTH)
 
-        binding.barChartYear.setDrawBarShadow(false)
-        binding.barChartYear.description.isEnabled = false
-        binding.barChartYear.setDrawGridBackground(true)
-        binding.barChartYear.description.isEnabled = false
+        //Choosen Year from
+        tv_from.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear -> tv_from.text = "" + selectedYear },
+                year_now,
+                month_now
+            )
+            monthPickerDialog.setActivatedMonth(month_now)
+                .setMinYear(1990)
+                .setActivatedYear(year_now)
+                .setMaxYear(2050)
+                .showYearOnly()
+                .setTitle("Select Year")
+                .build().show()
 
-        val barOne = arrayListOf<BarEntry>()
-        barOne.add(BarEntry(1f,20f))
-        barOne.add(BarEntry(2f,40f))
-        barOne.add(BarEntry(3f,50f))
+        }
 
-        val barTwo = arrayListOf<BarEntry>()
-        barTwo.add(BarEntry(1f,33f))
-        barTwo.add(BarEntry(2f,14f))
-        barTwo.add(BarEntry(3f,66f))
+        //Choosen Year to
+        tv_to.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear -> tv_to.text = "" + selectedYear },
+                year_now,
+                month_now
+            )
+            monthPickerDialog.setActivatedMonth(month_now)
+                .setMinYear(1990)
+                .setActivatedYear(year_now)
+                .setMaxYear(2050)
+                .showYearOnly()
+                .setTitle("Select Year")
+                .build().show()
+
+        }
 
 
+        //Setup Line Chart
 
-        val set1 = BarDataSet(barOne, "barOne")
+        val lineOne = arrayListOf<Entry>()
+        lineOne.add(Entry(1f, 5f))
+        lineOne.add(Entry(2f, 9f))
+        lineOne.add(Entry(3f, 4f))
+        lineOne.add(Entry(4f, 8f))
+        lineOne.add(Entry(5f, 12f))
+        lineOne.add(Entry(6f, 2f))
+
+        val lineTwo = arrayListOf<Entry>()
+        lineTwo.add(Entry(1f, 6f))
+        lineTwo.add(Entry(2f, 10f))
+        lineTwo.add(Entry(3f, 7f))
+        lineTwo.add(Entry(4f, 15f))
+        lineTwo.add(Entry(5f, 13f))
+        lineTwo.add(Entry(6f, 3f))
+
+        //Setup LineDataSet in LineData
+        val set1 = LineDataSet(lineOne, "Thu")
         set1.setColors(resources.getColor(R.color.stroke_checked))
-        val set2 = BarDataSet(barTwo,"barTwo")
+        val set2 = LineDataSet(lineTwo, "Chi")
         set2.setColors(resources.getColor(R.color.red))
 
-        val data = BarData(set1,set2)
-        binding.barChartYear.data = data
+        val ilineDataSet = arrayListOf<ILineDataSet>()
+        ilineDataSet.add(set1)
+        ilineDataSet.add(set2)
+        val data = LineData(ilineDataSet)
 
-        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
+        //Configure value text size
+        data.setValueTextColor(Color.WHITE)
+        data.setValueTextSize(12f)
 
-        val xAxis: XAxis = binding.barChartYear.xAxis
+        binding.lineChartYear.data = data
+        binding.lineChartYear.invalidate()
+
+        //Array Title xAxis
+        val labels = arrayOf<String>("", "4", "5", "6", "7", "8", "9", "")
+
+        //Configuration XAxis
+        val xAxis: XAxis = binding.lineChartYear.xAxis
         xAxis.setCenterAxisLabels(true)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(true)
@@ -97,31 +159,27 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         xAxis.axisMinimum = 1f
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
-        val leftAxis = binding.barChartYear.axisLeft
+        //Configuration YAxis
+        val leftAxis = binding.lineChartYear.axisLeft
         leftAxis.textColor = Color.WHITE
         leftAxis.textSize = 12f
         leftAxis.axisLineColor = Color.WHITE
         leftAxis.setDrawGridLines(true)
         leftAxis.granularity = 2f
-        leftAxis.setLabelCount(8,true)
+        leftAxis.setLabelCount(8, true)
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
 
-        binding.barChartYear.axisRight.isEnabled = false
-        binding.barChartYear.legend.isEnabled = false
-        binding.barChartYear.description.isEnabled = false
+        //Enabale Legend, description ,backround, Rightasix
+        binding.lineChartYear.description.isEnabled = false
+        binding.lineChartYear.setDrawGridBackground(false)
+        binding.lineChartYear.axisRight.isEnabled = false
+        binding.lineChartYear.legend.isEnabled = false
 
-        val barSpace : Float = 0f
-        val groupSpace: Float = 0.4f
-        data.barWidth = 0.3f
-        //(barspace + barWith) *2 + groupspace = 1
+        xAxis.axisMaximum = labels.size - 0f
 
-        xAxis.axisMaximum = labels.size-1.1f
-        binding.barChartYear.data = data
-        binding.barChartYear.setScaleEnabled(false)
-        binding.barChartYear.setVisibleXRangeMaximum(6f)
-        binding.barChartYear.groupBars(1f,groupSpace,barSpace)
-        binding.barChartYear.invalidate()
+        binding.lineChartYear.setScaleEnabled(false)
 
+        binding.lineChartYear.setVisibleXRangeMaximum(6f)
     }
 
 }

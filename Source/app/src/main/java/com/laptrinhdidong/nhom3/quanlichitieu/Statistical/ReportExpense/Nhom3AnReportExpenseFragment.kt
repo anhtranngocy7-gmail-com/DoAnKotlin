@@ -1,5 +1,6 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Statistical.ReportExpense
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyAdap
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnFragmentReportexpenseBinding
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTichluyFragmentBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +49,41 @@ class Nhom3AnReportExpenseFragment : Fragment() {
         adapter.lstOut=outerList
         adapter.map=map
         binding.rcvOuter.adapter=adapter
+
+        //Date Calendar
+        val tv_from = binding.tvFrom
+        val tv_to = binding.tvTo
+        val today = Calendar.getInstance()
+        val year_now = today.get(Calendar.YEAR)
+        val month_now = today.get(Calendar.MONTH)
+        val day_now = today.get(Calendar.DAY_OF_MONTH)
+
+        //Choosen Date from
+        tv_from.setOnClickListener {
+            val datePickerDialog =
+                DatePickerDialog(
+                    activity!!, R.style.Theme_AppCompat_Light_Dialog,
+                    DatePickerDialog.OnDateSetListener
+                    { view, year, month, dayOfMonth ->
+                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                    }, year_now, month_now, day_now
+                )
+            datePickerDialog.setTitle("Select Date")
+            datePickerDialog.show()
+        }
+
+        //Choosen Date to
+        tv_to.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(
+                activity!!, R.style.Theme_AppCompat_Light_Dialog,
+                DatePickerDialog.OnDateSetListener
+                { view, year, month, dayOfMonth ->
+                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                }, year_now, month_now, day_now
+            )
+            datePickerDialog.setTitle("Select Date")
+            datePickerDialog.show()
+        }
     }
     fun assignData()
     {

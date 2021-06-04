@@ -22,9 +22,7 @@ class Nhom3QuocBarChart : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
 
-        toolbar.setTitle("Tình hình chi tiêu")
-
-
+        
         val fragmentAdapterBC = Nhom3QuocFragmentPageBCAdapter(supportFragmentManager)
 
         viewPager.adapter = fragmentAdapterBC
