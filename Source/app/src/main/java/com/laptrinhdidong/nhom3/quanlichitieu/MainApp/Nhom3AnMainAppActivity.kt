@@ -17,6 +17,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFrag
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocPieChart
 import com.laptrinhdidong.nhom3.quanlichitieu.R
+import com.laptrinhdidong.nhom3.quanlichitieu.Spending.Nhom3BinhSpendingFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.Nhom3QuocStatisticalFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.ReportExpense.Nhom3AnReportExpenseFragment
 
@@ -38,6 +39,9 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                 }
                 1 -> {
                     add<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
+                }
+                2 -> {
+                    add<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
                 }
                 3 -> {
                     add<Nhom3QuocPieChart>(R.id.fragment_mainapp)
@@ -63,6 +67,10 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                     R.id.action_accumulate -> {
                         replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 1
+                    }
+                    R.id.action_spending -> {
+                        replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
+                        viewModel.optionMenu = 2
                     }
                     R.id.action_report -> {
                         replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)

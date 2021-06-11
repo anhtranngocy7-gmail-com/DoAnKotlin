@@ -23,11 +23,11 @@ import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3BinhActivitySpend
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Nhom3BinhSpendingFragment: Fragment() {
+class Nhom3BinhSpendingFragment : Fragment() {
     private lateinit var viewModel: Nhom3BinhSpendingViewModel
     private lateinit var binding: Nhom3BinhActivitySpendingBinding
     private var formatDate: SimpleDateFormat = SimpleDateFormat("EEE, YYYY-MM-dd")
-    private var spendingItem : SpendingItem = SpendingItem("","","",true,"")
+    private var spendingItem: SpendingItem = SpendingItem("", "", "", true, "")
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
     private var TAG = "GETDATA"
@@ -36,9 +36,15 @@ class Nhom3BinhSpendingFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.nhom3_binh_activity_spending,container,false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.nhom3_binh_activity_spending,
+            container,
+            false
+        )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(Nhom3BinhSpendingViewModel::class.java)
@@ -62,37 +68,36 @@ class Nhom3BinhSpendingFragment: Fragment() {
             )
             dialog.show()
         }
-            binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
-            binding.micro.setOnClickListener(
-                View.OnClickListener
-                // Phương thức lấy tác động khi nhấn vào button
-                { promptSpeechInput() })
+        binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
+        binding.micro.setOnClickListener(
+            View.OnClickListener
+            // Phương thức lấy tác động khi nhấn vào button
+            { promptSpeechInput() })
 
-            val mySpendingAdapter = ArrayAdapter<String>(requireActivity(),
-                R.layout.nhom3_anh_style_spinner,resources.getStringArray(R.array.spending))
-            mySpendingAdapter.setDropDownViewResource( R.layout.nhom3_anh_style_spinner)
-            binding.dropDownSpending.adapter = mySpendingAdapter
-            // Get data Adapter
-            // Set data Adapter
-            binding.dropDownSpending.setSelection(0)
-            binding.btnConfirm.setOnClickListener {
-                viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
-                Log.e(TAG,viewModel.spendingItem.description)
-
-                viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
-                Log.e(TAG,viewModel.spendingItem.money)
-
-                if(binding.imageView5.isChecked) viewModel.spendingItem.mode = true
-                else viewModel.spendingItem.mode = false
-                Log.e(TAG,viewModel.spendingItem.mode.toString())
-
-                viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
-                Log.e(TAG,viewModel.spendingItem.area)
-
-                viewModel.spendingItem.date = binding.calendar.text.toString().trim()
-                Log.e(TAG,viewModel.spendingItem.date)
-            }
+        val mySpendingAdapter = ArrayAdapter<String>(
+            requireActivity(),
+            R.layout.nhom3_anh_style_spinner, resources.getStringArray(R.array.spending)
+        )
+        mySpendingAdapter.setDropDownViewResource(R.layout.nhom3_anh_style_spinner)
+        binding.dropDownSpending.adapter = mySpendingAdapter
+        // Get data Adapter
+        // Set data Adapter
+        binding.dropDownSpending.setSelection(0)
+        binding.btnConfirm.setOnClickListener {
+            viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
+            viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
+            if (binding.imageView5.isChecked) viewModel.spendingItem.mode = true
+            else viewModel.spendingItem.mode = false
+            viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
+            viewModel.spendingItem.date = binding.calendar.text.toString().trim()
+            Toast.makeText(
+                requireContext(),
+                viewModel.CreateExOrIn(),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
+
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         //-	Bắt đầu một hoạt động sẽ nhắc người dùng về giọng nói và gửi nó qua quá trình nhận dạng,
@@ -122,6 +127,7 @@ class Nhom3BinhSpendingFragment: Fragment() {
         }
         // Nếu không tìm thấy hoạt động của intent, hiển thị ra màn hình 3s dòng chữ "Sorry...
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {

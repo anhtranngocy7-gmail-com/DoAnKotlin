@@ -63,7 +63,7 @@ class Nhom3AnhSignInViewModel: ViewModel() {
     }
     private fun CreateAccount(id: String, name: String)
     {
-        callP = Database.instance.connection!!.prepareCall("{call CreateAcc(?,?,?)}")
+        callP = Database.instance.connection!!.prepareCall("{call createAcc(?,?,?)}")
         callP.setString(1,id)
         callP.setString(2,"111111111")
         callP.setString(3,name)
