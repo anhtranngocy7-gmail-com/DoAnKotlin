@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
+import com.laptrinhdidong.nhom3.quanlichitieu.OrtherPage.Nhom3QuocOtherPage
+import com.laptrinhdidong.nhom3.quanlichitieu.OrtherPage.nhom3QuocOtherPageFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocPieChart
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.Spending.Nhom3BinhSpendingFragment
@@ -44,10 +46,10 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                     add<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
                 }
                 3 -> {
-                    add<Nhom3QuocPieChart>(R.id.fragment_mainapp)
+                    add<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
                 }
                 4 ->{
-                    add<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
+                    add<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
                 }
             }
         }
@@ -73,11 +75,11 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
                         viewModel.optionMenu = 2
                     }
                     R.id.action_report -> {
-                        replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
+                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 3
                     }
                     R.id.action_more ->{
-                        replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
+                        replace<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
                         viewModel.optionMenu = 4
                     }
 
