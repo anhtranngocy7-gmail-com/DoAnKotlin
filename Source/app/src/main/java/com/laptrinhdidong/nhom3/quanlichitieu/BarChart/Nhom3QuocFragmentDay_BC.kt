@@ -35,9 +35,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class Nhom3QuocFragmentDay_BC : Fragment() {
 
-    private lateinit var binding : Nhom3QuocFragmentDayBcBinding
+    private lateinit var binding: Nhom3QuocFragmentDayBcBinding
     private lateinit var viewModel: Nhom3QuocBarChartViewModel
-    private lateinit var adapter : Nhom3QuocBarChartAdapter
+    private lateinit var adapter: Nhom3QuocBarChartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +53,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = Nhom3QuocBarChartAdapter()
@@ -85,7 +86,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
-                activity!!,R.style.Theme_AppCompat_Light_Dialog,
+                activity!!, R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
                     tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
@@ -99,25 +100,25 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         //Setup Line Chart
 
         val lineOne = arrayListOf<Entry>()
-        lineOne.add(Entry(1f,5f))
-        lineOne.add(Entry(2f,9f))
-        lineOne.add(Entry(3f,4f))
-        lineOne.add(Entry(4f,8f))
-        lineOne.add(Entry(5f,12f))
-        lineOne.add(Entry(6f,2f))
+        lineOne.add(Entry(1f, 5f))
+        lineOne.add(Entry(2f, 9f))
+        lineOne.add(Entry(3f, 4f))
+        lineOne.add(Entry(4f, 8f))
+        lineOne.add(Entry(5f, 12f))
+        lineOne.add(Entry(6f, 2f))
 
         val lineTwo = arrayListOf<Entry>()
-        lineTwo.add(Entry(1f,6f))
-        lineTwo.add(Entry(2f,10f))
-        lineTwo.add(Entry(3f,7f))
-        lineTwo.add(Entry(4f,15f))
-        lineTwo.add(Entry(5f,13f))
-        lineTwo.add(Entry(6f,3f))
+        lineTwo.add(Entry(1f, 6f))
+        lineTwo.add(Entry(2f, 10f))
+        lineTwo.add(Entry(3f, 7f))
+        lineTwo.add(Entry(4f, 15f))
+        lineTwo.add(Entry(5f, 13f))
+        lineTwo.add(Entry(6f, 3f))
 
         //Setup LineDataSet in LineData
-        val set1 = LineDataSet(lineOne,"Thu")
+        val set1 = LineDataSet(lineOne, "Thu")
         set1.setColors(resources.getColor(R.color.stroke_checked))
-        val set2 = LineDataSet(lineTwo,"Chi")
+        val set2 = LineDataSet(lineTwo, "Chi")
         set2.setColors(resources.getColor(R.color.red))
 
         val ilineDataSet = arrayListOf<ILineDataSet>()
@@ -126,18 +127,18 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         val data = LineData(ilineDataSet)
 
         //Configure value text size
-       data.setValueTextColor(Color.WHITE)
+        data.setValueTextColor(Color.WHITE)
         data.setValueTextSize(12f)
 
         binding.lineChartDay.data = data
         binding.lineChartDay.invalidate()
 
         //Array Title xAxis
-        val labels = arrayOf<String>("", "4", "5", "6","7", "8", "9","")
+        val labels = arrayOf<String>("", "4", "5", "6", "7", "8", "9", "")
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartDay.xAxis
-        xAxis.setCenterAxisLabels(true)
+        xAxis.setCenterAxisLabels(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(true)
         xAxis.granularity = 1f
@@ -154,7 +155,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         leftAxis.axisLineColor = Color.WHITE
         leftAxis.setDrawGridLines(true)
         leftAxis.granularity = 2f
-        leftAxis.setLabelCount(8,true)
+        leftAxis.setLabelCount(8, true)
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
 
         //Enabale Legend, description ,backround, Rightasix
@@ -163,15 +164,11 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         binding.lineChartDay.axisRight.isEnabled = false
         binding.lineChartDay.legend.isEnabled = false
 
-        xAxis.axisMaximum = labels.size-0f
+        xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartDay.setScaleEnabled(false)
 
         binding.lineChartDay.setVisibleXRangeMaximum(6f)
-
-
-
-
 
 
 //        val lineDataSet = LineDataSet(lineOne,"data set")
@@ -181,7 +178,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 //        binding.lineChartDay.data = lineData
 //        binding.lineChartDay.invalidate()
 
-    /*=======================================================================================*/
+        /*=======================================================================================*/
 //        //Setup Barchart for collect_money
 //        val barOne = arrayListOf<BarEntry>()
 //        barOne.add(BarEntry(1f,29f))

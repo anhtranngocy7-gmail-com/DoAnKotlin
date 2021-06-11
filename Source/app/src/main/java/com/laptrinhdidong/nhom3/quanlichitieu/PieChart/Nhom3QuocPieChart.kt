@@ -45,7 +45,7 @@ class Nhom3QuocPieChart : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.title = "Phân tích chi tiêu"
+
         fragmentAdapter = Nhom3QuocFragmentPageAdapter(childFragmentManager)
         binding.viewPager.adapter = fragmentAdapter
 

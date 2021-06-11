@@ -108,7 +108,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
-                activity!!,
+                activity!!,R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
                     tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
@@ -124,6 +124,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
         pieEntries.add(PieEntry(57.4f))
         pieEntries.add(PieEntry(34.4f))
         pieEntries.add(PieEntry(25.5f))
+
 
 
         //Setup PieChart Animation
