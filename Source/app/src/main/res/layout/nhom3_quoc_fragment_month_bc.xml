@@ -90,6 +90,16 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintTop_toBottomOf="@+id/contrainLayoutCalendar"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Tháng"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/recycleviewMonthBC"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleviewMonthBC"
                 android:layout_width="match_parent"

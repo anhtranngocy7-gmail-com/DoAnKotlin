@@ -147,7 +147,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartMonth.xAxis
-        xAxis.setCenterAxisLabels(true)
+        xAxis.setCenterAxisLabels(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(true)
         xAxis.granularity = 1f
@@ -177,7 +177,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
 
         binding.lineChartMonth.setScaleEnabled(false)
 
-        binding.lineChartMonth.setVisibleXRangeMaximum(6f)
+        //binding.lineChartMonth.setVisibleXRangeMaximum(6f)
     }
 
 }

@@ -105,7 +105,14 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         lineOne.add(Entry(3f, 4f))
         lineOne.add(Entry(4f, 8f))
         lineOne.add(Entry(5f, 12f))
-        lineOne.add(Entry(6f, 2f))
+        lineOne.add(Entry(6f, 22f))
+        lineOne.add(Entry(7f, 17f))
+        lineOne.add(Entry(8f, 6f))
+        lineOne.add(Entry(9f, 3f))
+        lineOne.add(Entry(10f, 19f))
+        lineOne.add(Entry(11f, 21f))
+        lineOne.add(Entry(12f, 13f))
+
 
         val lineTwo = arrayListOf<Entry>()
         lineTwo.add(Entry(1f, 6f))
@@ -114,6 +121,14 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         lineTwo.add(Entry(4f, 15f))
         lineTwo.add(Entry(5f, 13f))
         lineTwo.add(Entry(6f, 3f))
+        lineTwo.add(Entry(7f, 24f))
+        lineTwo.add(Entry(8f, 16f))
+        lineTwo.add(Entry(9f, 15f))
+        lineTwo.add(Entry(10f, 4f))
+        lineTwo.add(Entry(11f, 17f))
+        lineTwo.add(Entry(12f, 9f))
+
+
 
         //Setup LineDataSet in LineData
         val set1 = LineDataSet(lineOne, "Thu")
@@ -130,11 +145,12 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         data.setValueTextColor(Color.WHITE)
         data.setValueTextSize(12f)
 
+
         binding.lineChartDay.data = data
         binding.lineChartDay.invalidate()
 
         //Array Title xAxis
-        val labels = arrayOf<String>("", "4", "5", "6", "7", "8", "9", "")
+        val labels = arrayOf<String>("","1","2","3", "4", "5", "6", "7", "8", "9","10","11","12","")
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartDay.xAxis
@@ -168,7 +184,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
         binding.lineChartDay.setScaleEnabled(false)
 
-        binding.lineChartDay.setVisibleXRangeMaximum(6f)
+        //binding.lineChartDay.setVisibleXRangeMaximum(6f)
 
 
 //        val lineDataSet = LineDataSet(lineOne,"data set")

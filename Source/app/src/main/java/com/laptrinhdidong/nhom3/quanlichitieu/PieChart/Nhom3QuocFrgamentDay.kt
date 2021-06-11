@@ -124,8 +124,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
         pieEntries.add(PieEntry(57.4f))
         pieEntries.add(PieEntry(34.4f))
         pieEntries.add(PieEntry(25.5f))
-
-
+        pieEntries.add(PieEntry(12.5f))
 
         //Setup PieChart Animation
         binding.pieChart.animateXY(1000, 1000)
