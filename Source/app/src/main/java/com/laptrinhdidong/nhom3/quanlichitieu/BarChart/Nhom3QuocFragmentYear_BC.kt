@@ -149,7 +149,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartYear.xAxis
-        xAxis.setCenterAxisLabels(true)
+        xAxis.setCenterAxisLabels(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(true)
         xAxis.granularity = 1f

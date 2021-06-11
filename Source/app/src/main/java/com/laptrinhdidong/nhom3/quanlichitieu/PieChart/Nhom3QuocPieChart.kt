@@ -20,9 +20,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFrgamentDayBi
 
 
 class Nhom3QuocPieChart : Fragment(){
-    private lateinit var toolbar1: Toolbar
-    private lateinit var viewPager1 : ViewPager
-    private lateinit var tabLayout1 : TabLayout
+
     private lateinit var binding: Nhom3QuocActivityPiechartTablayoutBinding
     private  lateinit var fragmentAdapter :Nhom3QuocFragmentPageAdapter
 

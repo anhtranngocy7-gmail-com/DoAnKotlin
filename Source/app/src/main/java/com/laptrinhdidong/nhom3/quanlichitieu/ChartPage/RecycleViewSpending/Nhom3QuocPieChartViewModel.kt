@@ -10,7 +10,6 @@ class Nhom3QuocPieChartViewModel : ViewModel() {
             Nhom3QuocItemPieChart("Đi lại",500000,34.4),
             Nhom3QuocItemPieChart("Sinh hoạt", 4000000, 25.5),
             Nhom3QuocItemPieChart("Thuê nhà", 4000000, 12.5)
-
         )
     }
 }
