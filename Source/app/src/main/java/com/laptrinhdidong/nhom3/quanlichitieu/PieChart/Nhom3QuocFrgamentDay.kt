@@ -1,29 +1,33 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
 import android.app.DatePickerDialog
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartAdapter
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFrgamentDayBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartAdapter
+import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPiechartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.R
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFrgamentDayBinding
+
+import kotlinx.android.synthetic.main.nhom3_anh_activity_sign_in.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +44,8 @@ class Nhom3QuocFrgamentDay : Fragment() {
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
     private lateinit var adapter: Nhom3QuocPieChartAdapter
     private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
+    private  var TAG = "DATE SELECTED"
+
 
 
     override fun onCreateView(
@@ -81,16 +87,17 @@ class Nhom3QuocFrgamentDay : Fragment() {
         binding.recycleviewLegend.layoutManager = LinearLayoutManager(context)
         adapter_legned.data = viewModel.getData()
         binding.recycleviewLegend.adapter = adapter_legned
-
-
+//
         //Date Calendar
-        val tv_from = binding.tvFrom
-        val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
+        val tv_from : TextView = binding.tvFrom
+        val tv_to : TextView  = binding.tvTo
+        val today : Calendar = Calendar.getInstance()
         val year_now = today.get(Calendar.YEAR)
         val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Set day hiển thị = day hiện tại
+        tv_from.setText("" + day_now +"/"+  (month_now +1)+ "/" + year_now)
         //Choosen Date from
         tv_from.setOnClickListener {
             val datePickerDialog =
@@ -98,27 +105,40 @@ class Nhom3QuocFrgamentDay : Fragment() {
                     activity!!, R.style.Theme_AppCompat_Light_Dialog,
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
-                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                        tv_from.setText("" + dayOfMonth + "/" + (month + 1) + "/" + year)
+                        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
                     }, year_now, month_now, day_now
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
+            print(tv_from.text.toString())
+
+
+
         }
 
+        //Set day hiển thị = day hiện tại
+        tv_to.setText("" + day_now +"/"+ (month_now +1)+ "/" + year_now)
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
-                activity!!,R.style.Theme_AppCompat_Light_Dialog,
+                activity!!, R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
-                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                    tv_to.setText("" + dayOfMonth + "/" + (month + 1) + "/" + year)
+                    isCheckDate(tv_from.text.toString(),tv_to.text.toString())
+
                 }, year_now, month_now, day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
+            print(tv_to.text.toString())
+
+
         }
+        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
 
-
+        /*============= Show Pie Chart ==================*/
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
         pieEntries.add(PieEntry(57.4f))
@@ -171,6 +191,32 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isCheckDate(from_day : String, end_day : String ) {
+
+        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        var dateStart : Date = sdf.parse(from_day)
+        var dateEnd : Date  =  sdf.parse(end_day)
+
+        try {
+            sdf  = SimpleDateFormat("dd/MM/yyyy")
+            dateStart =sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if(dateStart.compareTo(dateEnd) > 0){
+                sdf  = SimpleDateFormat("dd/MM/yyyy")
+                dateStart =sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        }catch (ex : ParseException){
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        Log.e("quoc",date_Start)
+        Log.e("binh",date_End)
+
+    }
 
 }
 

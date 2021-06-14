@@ -69,6 +69,8 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Set day hiển thị = day hiện tại
+        tv_from.text = "" + day_now +"/"+  (month_now +1)+ "/" + year_now
         //Choosen Date from
         tv_from.setOnClickListener {
             val datePickerDialog =
@@ -83,6 +85,8 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
             datePickerDialog.show()
         }
 
+        //Set day hiển thị = day hiện tại
+        tv_to.text = "" + day_now +"/"+ (month_now +1)+ "/" + year_now
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(

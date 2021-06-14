@@ -1,11 +1,13 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
-import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPie
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBinding
 import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,8 +38,8 @@ private const val ARG_PARAM2 = "param2"
 class Nhom3QuocFragmentMonth : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentMonthBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
-    private lateinit var adapter : Nhom3QuocPieChartAdapter
-    private lateinit var adapter_legned : Nhom3QuocLegendPiechartAdapter
+    private lateinit var adapter: Nhom3QuocPieChartAdapter
+    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +55,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
         )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -80,13 +85,22 @@ class Nhom3QuocFragmentMonth : Fragment() {
         val tv_to = binding.tvTo
         val today = Calendar.getInstance()
         val year_now = today.get(Calendar.YEAR)
-        val month_now= today.get(Calendar.MONTH)
+        val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Set tháng hiển thị = tháng hiện tại
+        tv_from.text = "" + (month_now + 1) + "/" + year_now
+
         //Choosen Month/Year from
-        tv_from.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
-            MonthPickerDialog.OnDateSetListener
-            { selectedMonth, selectedYear ->  tv_from.text = ""+ (selectedMonth+1)+"/"+ selectedYear},year_now,month_now )
+        tv_from.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear ->
+                    tv_from.text = "" + (selectedMonth + 1) + "/" + selectedYear
+                    isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
+                }, year_now, month_now
+            )
             monthPickerDialog.setActivatedMonth(month_now)
                 .setMinYear(1990)
                 .setActivatedYear(year_now)
@@ -95,11 +109,20 @@ class Nhom3QuocFragmentMonth : Fragment() {
                 .build().show()
 
         }
+
+        //Set tháng hiển thị = tháng hiện tại
+        tv_to.text = "" + (month_now + 1) + "/" + year_now
 
         //Choosen Month/Year to
-        tv_to.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
-            MonthPickerDialog.OnDateSetListener
-            { selectedMonth, selectedYear ->  tv_to.text = ""+ (selectedMonth+1)+"/"+ selectedYear},year_now,month_now )
+        tv_to.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear ->
+                    tv_to.text = "" + (selectedMonth + 1) + "/" + selectedYear
+                    isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
+                }, year_now, month_now
+            )
             monthPickerDialog.setActivatedMonth(month_now)
                 .setMinYear(1990)
                 .setActivatedYear(year_now)
@@ -108,6 +131,8 @@ class Nhom3QuocFragmentMonth : Fragment() {
                 .build().show()
 
         }
+
+        isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
 
 
         /*============= Show Pie Chart ==================*/
@@ -118,10 +143,10 @@ class Nhom3QuocFragmentMonth : Fragment() {
         pieEntries.add(PieEntry(35.0f))
 
         //Setup PieChart Animation
-        binding.pieChartMonth.animateXY(1000,1000)
+        binding.pieChartMonth.animateXY(1000, 1000)
 
         //Setup PieChart Entries Color
-        val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
+        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
         pieDataSet.setColors(
             arrayColors[0],
             arrayColors[1],
@@ -159,10 +184,35 @@ class Nhom3QuocFragmentMonth : Fragment() {
         pieData.setDrawValues(true)
 
         binding.pieChartMonth.data = pieData
+
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isCheckMonth(from_day: String, end_day: String) {
 
+        var sdf: SimpleDateFormat = SimpleDateFormat("MM/yyyy")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
 
+        try {
+            sdf = SimpleDateFormat("MM/yyyy")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("MM/yyyy")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
 
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM").format(dateEnd).toString()
+        Log.e("quoc", date_Start)
+        Log.e("binh", date_End)
 
+    }
 }
+

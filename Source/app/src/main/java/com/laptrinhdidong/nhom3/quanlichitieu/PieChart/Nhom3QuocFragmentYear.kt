@@ -1,11 +1,13 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
-import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPie
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBinding
 import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,10 +36,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Nhom3QuocFragmentYear : Fragment() {
-    private lateinit var binding:Nhom3QuocFragmentYearBinding
+    private lateinit var binding: Nhom3QuocFragmentYearBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
-    private lateinit var adapter : Nhom3QuocPieChartAdapter
-    private lateinit var adapter_legned : Nhom3QuocLegendPiechartAdapter
+    private lateinit var adapter: Nhom3QuocPieChartAdapter
+    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +55,7 @@ class Nhom3QuocFragmentYear : Fragment() {
         )
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -80,13 +85,22 @@ class Nhom3QuocFragmentYear : Fragment() {
         val tv_to = binding.tvTo
         val today = Calendar.getInstance()
         val year_now = today.get(Calendar.YEAR)
-        val month_now= today.get(Calendar.MONTH)
+        val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Set năm hiển thị = năm hiện tại
+        tv_from.text = "" + year_now + ""
+
         //Choosen Year from
-        tv_from.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
-            MonthPickerDialog.OnDateSetListener
-            { selectedMonth, selectedYear ->  tv_from.text = ""+ selectedYear},year_now,month_now )
+        tv_from.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear -> tv_from.text = "" + selectedYear + ""
+                    isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+                },
+                year_now,
+                month_now
+            )
             monthPickerDialog.setActivatedMonth(month_now)
                 .setMinYear(1990)
                 .setActivatedYear(year_now)
@@ -96,11 +110,20 @@ class Nhom3QuocFragmentYear : Fragment() {
                 .build().show()
 
         }
+
+        //Set năm hiển thị = năm hiện tại
+        tv_to.text = "" + year_now + ""
 
         //Choosen Year to
-        tv_to.setOnClickListener { val monthPickerDialog : MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
-            MonthPickerDialog.OnDateSetListener
-            { selectedMonth, selectedYear ->  tv_to.text = ""+ selectedYear},year_now,month_now )
+        tv_to.setOnClickListener {
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+                MonthPickerDialog.OnDateSetListener
+                { selectedMonth, selectedYear -> tv_to.text = "" + selectedYear +""
+                    isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+                },
+                year_now,
+                month_now
+            )
             monthPickerDialog.setActivatedMonth(month_now)
                 .setMinYear(1990)
                 .setActivatedYear(year_now)
@@ -111,6 +134,7 @@ class Nhom3QuocFragmentYear : Fragment() {
 
         }
 
+        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
 
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
@@ -119,10 +143,10 @@ class Nhom3QuocFragmentYear : Fragment() {
         pieEntries.add(PieEntry(35.0f))
 
         //Setup PieChart Animation
-        binding.pieChartYear.animateXY(1000,1000)
+        binding.pieChartYear.animateXY(1000, 1000)
 
         //Setup PieChart Entries Color
-        val pieDataSet = PieDataSet(pieEntries,"Biểu đồ chi tiêu")
+        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
         pieDataSet.setColors(
             arrayColors[0],
             arrayColors[1],
@@ -165,6 +189,31 @@ class Nhom3QuocFragmentYear : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isCheckYear(from_day: String, end_day: String) {
 
+        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("yyyy")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("yyyy")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
+        Log.e("quoc", date_Start)
+        Log.e("binh", date_End)
+
+    }
 
 }

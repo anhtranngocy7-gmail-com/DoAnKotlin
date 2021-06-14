@@ -16,11 +16,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityBarch
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityPiechartTablayoutBinding
 
 class Nhom3QuocBarChart : Fragment() {
-    private lateinit var toolbar: Toolbar
-    private lateinit var viewPager: ViewPager
-    private lateinit var tabLayout: TabLayout
     private lateinit var binding: Nhom3QuocActivityBarchartTablayoutBinding
-    private  lateinit var fragmentAdapter : Nhom3QuocFragmentPageBCAdapter
+    private  lateinit var fragmentAdapter : Nhom3QuocFragmentPageAdapter
 
     override fun onCreateView(
 
@@ -38,13 +35,15 @@ class Nhom3QuocBarChart : Fragment() {
         return binding.root
 
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragmentAdapter = Nhom3QuocFragmentPageBCAdapter(childFragmentManager)
+        fragmentAdapter = Nhom3QuocFragmentPageAdapter(childFragmentManager)
         binding.viewPager.adapter = fragmentAdapter
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
     }
+
 }
