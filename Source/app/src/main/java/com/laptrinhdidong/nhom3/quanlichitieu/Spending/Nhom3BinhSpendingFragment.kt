@@ -1,29 +1,38 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Spending
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
+import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.FacebookSdk.getApplicationContext
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3BinhActivitySpendingBinding
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class Nhom3BinhSpendingFragment: Fragment() {
+
+class Nhom3BinhSpendingFragment: Fragment()  {
+
     private lateinit var viewModel: Nhom3BinhSpendingViewModel
     private lateinit var binding: Nhom3BinhActivitySpendingBinding
     private var formatDate: SimpleDateFormat = SimpleDateFormat("EEE, YYYY-MM-dd")
@@ -31,13 +40,38 @@ class Nhom3BinhSpendingFragment: Fragment() {
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
     private var TAG = "GETDATA"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.nhom3_binh_activity_spending,container,false)
+
+//        val view: View = inflater.inflate(R.layout.nhom3_binh_activity_spending, container, false)
+
+        binding.root.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_MOVE) {
+                Log.e("error","bibiib")
+                true
+            }
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                Log.e("ANH","KKK")
+                true
+            }
+            if (event.action == MotionEvent.ACTION_UP) {
+                Log.e("ASSSNH","SSS")
+                true
+            }
+            if (event.action == MotionEvent.ACTION_BUTTON_PRESS) {
+                Log.e("ANFFH","KKGGK")
+                true
+            }
+            false
+        }
+
         return binding.root
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +88,7 @@ class Nhom3BinhSpendingFragment: Fragment() {
                     val day = selectDate.set(Calendar.DAY_OF_MONTH, mDay)
                     val date = viewModel.formatDate.format(selectDate.time)
                     viewModel.dateDefault = selectDate.time
-                    binding.calendar.setText(date)
+                    binding.calendar.text = date
                 },
                 getDate.get(Calendar.YEAR),
                 getDate.get(Calendar.MONTH),
@@ -62,37 +96,247 @@ class Nhom3BinhSpendingFragment: Fragment() {
             )
             dialog.show()
         }
-            binding.calendar.setText(viewModel.formatDate.format(viewModel.dateDefault))
+        binding.calendar.text = viewModel.formatDate.format(viewModel.dateDefault)
             binding.micro.setOnClickListener(
                 View.OnClickListener
                 // Phương thức lấy tác động khi nhấn vào button
                 { promptSpeechInput() })
 
-            val mySpendingAdapter = ArrayAdapter<String>(requireActivity(),
-                R.layout.nhom3_anh_style_spinner,resources.getStringArray(R.array.spending))
-            mySpendingAdapter.setDropDownViewResource( R.layout.nhom3_anh_style_spinner)
-            binding.dropDownSpending.adapter = mySpendingAdapter
-            // Get data Adapter
-            // Set data Adapter
-            binding.dropDownSpending.setSelection(0)
+        var mySpendingAdapter = ArrayAdapter<String>(requireActivity(),
+            R.layout.nhom3_anh_style_spinner,viewModel.spending_new)
+        mySpendingAdapter.setDropDownViewResource( R.layout.nhom3_anh_style_spinner)
+
+        binding.dropDownSpending.adapter = mySpendingAdapter
+        var mDialogView = LayoutInflater.from(context)
+            .inflate(R.layout.nhom3_binh_custom_dialog, null)
+        var mBuilder = AlertDialog.Builder(context)
+            .setView(mDialogView)
+            .setTitle("Thêm chức năng")
+        val addFunction: AlertDialog = mBuilder.create()
+
+        var mDialogView1 = LayoutInflater.from(context)
+            .inflate(R.layout.nhom3_binh_custom_dialog_add, null)
+        var mBuilder1 = AlertDialog.Builder(context)
+            .setView(mDialogView1)
+            .setTitle("Thêm hoạt động")
+        val addAction: AlertDialog = mBuilder1.create()
+
+
+        var selectedItemIndex =0
+        var selectedSpending = viewModel.spending_new[selectedItemIndex]
+        var mDialogView2 = LayoutInflater.from(context)
+            .inflate(R.layout.nhom3_binh_custom_dialog_delete, null)
+        var mBuilder2 = AlertDialog.Builder(context)
+            .setView(mDialogView2)
+            .setTitle("Xóa hoạt động")
+            .setSingleChoiceItems(viewModel.spending_new,selectedItemIndex){dialog, which ->
+                selectedItemIndex = which
+                selectedSpending = viewModel.spending_new[which]
+            }
+            .setPositiveButton("OK"){dialog,which->
+                showSnackbar("$selectedSpending Selected")
+            }
+            .setNeutralButton("Cancel"){dialog,which->
+
+            }
+        val deleteAction: AlertDialog = mBuilder2.create()
+
+
+
+        binding.dropDownSpending.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+
+                if (mySpendingAdapter.getItem(position).toString() == "Thêm mục khác") {
+                    binding.dropDownSpending.selectedView
+                    addFunction.show()
+                    val btnAdd = mDialogView.findViewById<Button>(R.id.btnAdd)
+                    val btnOut = mDialogView.findViewById<Button>(R.id.btnOut)
+                    val btnDelete = mDialogView.findViewById<Button>(R.id.btnDelete)
+                    btnAdd.setOnClickListener {
+                        addAction.show()
+                        val btnaddConfirm = mDialogView1.findViewById<Button>(R.id.addConfirm)
+                        val btnaddCancel = mDialogView1.findViewById<Button>(R.id.addCancel)
+                        btnaddConfirm.setOnClickListener {
+                            val dataAddSpending =
+                                mDialogView1.findViewById<EditText>(R.id.addAction).text.toString()
+                            if (viewModel.validateAddAction(dataAddSpending)) {
+                                val positionAdd = mySpendingAdapter.getPosition("Thêm mục khác")
+                                viewModel.spending_new[positionAdd] = dataAddSpending
+                                viewModel.spending_new = viewModel.append(viewModel.spending_new, "Thêm mục khác")
+
+                                mySpendingAdapter = ArrayAdapter<String>(
+                                    requireActivity(),
+                                    R.layout.nhom3_anh_style_spinner, viewModel.spending_new
+                                )
+                                mySpendingAdapter.setDropDownViewResource(R.layout.nhom3_anh_style_spinner)
+                                binding.dropDownSpending.adapter = mySpendingAdapter
+                                binding.dropDownSpending.setSelection(positionAdd)
+                                mDialogView1.findViewById<EditText>(R.id.addAction).setText("")
+                                addAction.dismiss()
+                                addFunction.dismiss()
+                            } else {
+                                mDialogView1.findViewById<EditText>(R.id.addAction).error = "Không hợp lệ!"
+
+                            }
+                        }
+                        btnaddCancel.setOnClickListener {
+                            binding.dropDownSpending.setSelection(0)
+                            addAction.dismiss()
+                            addFunction.dismiss()
+                        }
+
+
+                    }
+                    btnDelete.setOnClickListener{
+                        deleteAction.show()
+                    }
+                    btnOut.setOnClickListener {
+                        binding.dropDownSpending.setSelection(0)
+                        addFunction.dismiss()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
+        binding.etDescription.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                Log.e("After",binding.etDescription.text.toString())
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Log.e("Before",binding.etDescription.text.toString())
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.e("Current",binding.etDescription.text.toString())
+            }
+        })
             binding.btnConfirm.setOnClickListener {
                 viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
-                Log.e(TAG,viewModel.spendingItem.description)
-
                 viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
-                Log.e(TAG,viewModel.spendingItem.money)
-
-                if(binding.imageView5.isChecked) viewModel.spendingItem.mode = true
-                else viewModel.spendingItem.mode = false
-                Log.e(TAG,viewModel.spendingItem.mode.toString())
-
+                viewModel.spendingItem.mode = binding.imageView5.isChecked
                 viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
-                Log.e(TAG,viewModel.spendingItem.area)
-
                 viewModel.spendingItem.date = binding.calendar.text.toString().trim()
+
+                Log.e(TAG,viewModel.spendingItem.description)
+                Log.e(TAG,viewModel.spendingItem.money)
+                Log.e(TAG,viewModel.spendingItem.mode.toString())
+                Log.e(TAG,viewModel.spendingItem.area)
                 Log.e(TAG,viewModel.spendingItem.date)
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        var mDialogView = LayoutInflater.from(context)
+//            .inflate(R.layout.nhom3_binh_custom_dialog, null)
+//        var mBuilder = AlertDialog.Builder(context)
+//            .setView(mDialogView)
+//            .setTitle("Thêm chức năng")
+//        val alert11: AlertDialog = mBuilder.create()
+//        binding.dropDownSpending.onItemSelectedListener = object : OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parentView: AdapterView<*>?,
+//                selectedItemView: View,
+//                position: Int,
+//                id: Long
+//            ) {
+//                Log.e("demdautien", viewModel.spending_new.size.toString())
+//                Log.e("vitriphantu", (position).toString())
+//                Log.e("vip", mySpendingAdapter.getItem(position).toString())
+//                if (mySpendingAdapter.getItem(position).toString() == "Thêm mục khác") {
+//                    binding.dropDownSpending.selectedView
+//                    alert11.show()
+//                    val btn = mDialogView.findViewById<Button>(R.id.DialogConfirm)
+//                    val btnCancel = mDialogView.findViewById<Button>(R.id.DialogCancel)
+//                    btn.setOnClickListener {
+//                        val dataAddSpending =
+//                            mDialogView.findViewById<EditText>(R.id.addAction).text.toString()
+//                        if (viewModel.validateAddAction(dataAddSpending)) {
+//                            val positionAdd = mySpendingAdapter.getPosition("Thêm mục khác")
+//                            viewModel.spending_new[positionAdd] = dataAddSpending
+//                            viewModel.spending_new = viewModel.append(viewModel.spending_new, "Thêm mục khác")
+//
+//                            mySpendingAdapter = ArrayAdapter<String>(
+//                                requireActivity(),
+//                                R.layout.nhom3_anh_style_spinner, viewModel.spending_new
+//                            )
+//                            mySpendingAdapter.setDropDownViewResource(R.layout.nhom3_anh_style_spinner)
+//                            binding.dropDownSpending.adapter = mySpendingAdapter
+//                            binding.dropDownSpending.setSelection(positionAdd)
+//                            mDialogView.findViewById<EditText>(R.id.addAction).setText("")
+//                            alert11.dismiss()
+//                        } else {
+//                            mDialogView.findViewById<EditText>(R.id.addAction).error = "Không hợp lệ!"
+//
+//                        }
+//                    }
+//                    btnCancel.setOnClickListener {
+//                        binding.dropDownSpending.setSelection(0)
+//                        mDialogView.findViewById<EditText>(R.id.addAction).setText("")
+//                        alert11.dismiss()
+//                    }
+//                }
+//            }
+//
+//            override fun onNothingSelected(parentView: AdapterView<*>?) {
+//            }
+//        }
+//        binding.etDescription.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                Log.e("After",binding.etDescription.text.toString())
+//
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                Log.e("Before",binding.etDescription.text.toString())
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                Log.e("Current",binding.etDescription.text.toString())
+//            }
+//        })
+//            binding.btnConfirm.setOnClickListener {
+//                viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
+//                viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
+//                viewModel.spendingItem.mode = binding.imageView5.isChecked
+//                viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
+//                viewModel.spendingItem.date = binding.calendar.text.toString().trim()
+//
+//                Log.e(TAG,viewModel.spendingItem.description)
+//                Log.e(TAG,viewModel.spendingItem.money)
+//                Log.e(TAG,viewModel.spendingItem.mode.toString())
+//                Log.e(TAG,viewModel.spendingItem.area)
+//                Log.e(TAG,viewModel.spendingItem.date)
+//            }
     }
+
+
+
+    private fun showSnackbar(msg: String) {
+        Snackbar.make(requireView(),msg,Snackbar.LENGTH_LONG).show()
+    }
+
+
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         //-	Bắt đầu một hoạt động sẽ nhắc người dùng về giọng nói và gửi nó qua quá trình nhận dạng,

@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="366dp"
+            android:layout_height="51dp"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/thanhluachon"
@@ -203,10 +203,9 @@
             android:background="@drawable/custom_spinner_spending"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.662"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_head_chitieu"
-            app:layout_constraintVertical_bias="0.825"
+            app:layout_constraintVertical_bias="0.85"
             tools:ignore="MissingConstraints" />
 
 
