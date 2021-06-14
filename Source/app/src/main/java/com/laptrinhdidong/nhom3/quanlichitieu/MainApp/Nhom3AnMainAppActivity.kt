@@ -13,6 +13,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnAddSavingFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.OrtherPage.Nhom3QuocOtherPage
@@ -35,24 +36,12 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(Nhom3AnMainAppViewModel::class.java)
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            when (viewModel.optionMenu) {
-                0 -> {
-                    add<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
-                }
-                1 -> {
-                    add<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-                }
-                2 -> {
-                    add<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
-                }
-                3 -> {
-                    add<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
-                }
-                4 ->{
-                    add<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
-                }
+            if (!viewModel.firstAccess) {
+                add<Nhom3AnAddSavingFragment>(R.id.fragment_mainapp)
+                addToBackStack(null)
             }
         }
+        viewModel.firstAccess=true
         onchangeOptionNav()
     }
 
@@ -61,35 +50,28 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
 
-                when (item.itemId) {
-                    R.id.action_home -> {
-                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
-                        viewModel.optionMenu = 0
-                    }
-                    R.id.action_accumulate -> {
-                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-                        viewModel.optionMenu = 1
-                    }
-                    R.id.action_spending -> {
-                        replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
-                        viewModel.optionMenu = 2
-                    }
-                    R.id.action_report -> {
-                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
-                        viewModel.optionMenu = 3
-                    }
-                    R.id.action_more ->{
-                        replace<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
-                        viewModel.optionMenu = 4
-                    }
-
-                }
+//                when (item.itemId) {
+//                    R.id.action_home -> {
+//                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
+//                    }
+//                    R.id.action_accumulate -> {
+//                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
+//                    }
+//                    R.id.action_spending -> {
+//                        replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
+//                    }
+//                    R.id.action_report -> {
+//                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
+//                    }
+//                    R.id.action_more ->{
+//                        replace<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
+//                    }
+//
+//                }
                 addToBackStack(null)
             }
-
             return@OnNavigationItemSelectedListener true
         })
-        binding.bottomNavigationView.selectedItemId=R.id.action_accumulate
     }
     private fun getPermission() {
         ActivityCompat.requestPermissions(

@@ -35,6 +35,7 @@ class Database private constructor() {
             true
         } catch (e: Exception) {
             Log.e("connect", e.message.toString())
+
             false
         }
     }

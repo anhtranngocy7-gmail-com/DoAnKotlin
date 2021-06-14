@@ -26,6 +26,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.SignUp.Nhom3BinhSignUpActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import org.json.JSONObject
 import java.security.MessageDigest
@@ -85,6 +86,14 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
 
         })
         setLogin_Button()
+        val accessToken = AccessToken.getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired
+        Log.e("Login",isLoggedIn.toString())
+        if(isLoggedIn)
+        {
+            val intent = Intent(this, Nhom3AnMainAppActivity::class.java)
+            startActivity(intent)
+        }
         binding.googleSignin.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
@@ -101,6 +110,10 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
             Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
+        }
+        binding.textView4.setOnClickListener {
+            val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3BinhSignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 

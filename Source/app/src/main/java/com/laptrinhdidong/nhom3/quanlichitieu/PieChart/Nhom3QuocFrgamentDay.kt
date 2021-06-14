@@ -1,9 +1,7 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +16,9 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPiechartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,7 +49,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
             R.layout.nhom3_quoc_frgament_day,
             container,
             false
-
         )
         return binding.root
     }
@@ -74,12 +68,19 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
         adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewDay.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getData()
+        if(!viewModel.firstAccess)
+        {
+            adapter.data = viewModel.getExMoney(1)
+        }else
+        {
+            adapter.data = viewModel.lstEx
+            viewModel.firstAccess=true
+        }
         binding.recycleViewDay.adapter = adapter
 
         adapter_legned = Nhom3QuocLegendPiechartAdapter()
         binding.recycleviewLegend.layoutManager = LinearLayoutManager(context)
-        adapter_legned.data = viewModel.getData()
+        adapter_legned.data = viewModel.lstEx
         binding.recycleviewLegend.adapter = adapter_legned
 
 
@@ -121,11 +122,9 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
         //Setup PieChart
         val pieEntries = arrayListOf<PieEntry>()
-        pieEntries.add(PieEntry(57.4f))
-        pieEntries.add(PieEntry(34.4f))
-        pieEntries.add(PieEntry(25.5f))
-        pieEntries.add(PieEntry(12.5f))
-
+        viewModel.lstEx.forEach {
+            pieEntries.add(PieEntry(it.persent.toFloat()))
+        }
         //Setup PieChart Animation
         binding.pieChart.animateXY(1000, 1000)
 
@@ -138,7 +137,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
             arrayColors[3],
             arrayColors[4],
             arrayColors[5],
-
             )
 
         //Setup Pie Data Set in PieData
@@ -166,9 +164,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
         //this enable the value on each pieEntry
         pieData.setDrawValues(true)
-
         binding.pieChart.data = pieData
-
     }
 
 

@@ -36,21 +36,21 @@ class Nhom3QuocStatisticalFragment : Fragment() {
         binding.btnPhantichchitieu.setOnClickListener{
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace<Nhom3QuocPieChart>(R.id.frag_container_view)
+                replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
                 addToBackStack(null)
             }
         }
-//        binding.btnTinhhinhthuchi.setOnClickListener{
-//            parentFragmentManager.commit {
-//                setReorderingAllowed(true)
-//                replace<Nhom3QuocBarChart>(R.id.frag_container_view)
-//                addToBackStack(null)
-//            }
-//        }
+        binding.btnTinhhinhthuchi.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocBarChart>(R.id.fragment_mainapp)
+                addToBackStack(null)
+            }
+        }
         binding.btnThongkechitieu.setOnClickListener{
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace<Nhom3AnReportExpenseFragment>(R.id.frag_container_view)
+                replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
                 addToBackStack(null)
             }
         }

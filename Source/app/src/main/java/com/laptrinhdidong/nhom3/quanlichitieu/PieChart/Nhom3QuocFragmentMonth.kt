@@ -1,6 +1,5 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,12 +65,12 @@ class Nhom3QuocFragmentMonth : Fragment() {
 
         adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewMonth.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getData()
+        adapter.data = viewModel.getExMoney(2)
         binding.recycleViewMonth.adapter = adapter
 
         adapter_legned = Nhom3QuocLegendPiechartAdapter()
         binding.recycleviewLegend.layoutManager = LinearLayoutManager(context)
-        adapter_legned.data = viewModel.getData()
+        adapter_legned.data = viewModel.getExMoney(2)
         binding.recycleviewLegend.adapter = adapter_legned
 
         /*============= Show Month Dialog ==================*/

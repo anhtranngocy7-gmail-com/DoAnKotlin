@@ -1,4 +1,6 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Object
 
-class Nhom3QuocItemPieChart(var title: String, var spendingMoney: Long, var persent: Double) {
+import java.math.BigDecimal
+
+class Nhom3QuocItemPieChart(var title: String, var spendingMoney: BigDecimal, var persent: Float) {
 }

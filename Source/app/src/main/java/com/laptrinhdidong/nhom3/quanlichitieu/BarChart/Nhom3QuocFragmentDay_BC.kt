@@ -100,34 +100,16 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         //Setup Line Chart
 
         val lineOne = arrayListOf<Entry>()
-        lineOne.add(Entry(1f, 5f))
-        lineOne.add(Entry(2f, 9f))
-        lineOne.add(Entry(3f, 4f))
-        lineOne.add(Entry(4f, 8f))
-        lineOne.add(Entry(5f, 12f))
-        lineOne.add(Entry(6f, 22f))
-        lineOne.add(Entry(7f, 17f))
-        lineOne.add(Entry(8f, 6f))
-        lineOne.add(Entry(9f, 3f))
-        lineOne.add(Entry(10f, 19f))
-        lineOne.add(Entry(11f, 21f))
-        lineOne.add(Entry(12f, 13f))
-
-
         val lineTwo = arrayListOf<Entry>()
-        lineTwo.add(Entry(1f, 6f))
-        lineTwo.add(Entry(2f, 10f))
-        lineTwo.add(Entry(3f, 7f))
-        lineTwo.add(Entry(4f, 15f))
-        lineTwo.add(Entry(5f, 13f))
-        lineTwo.add(Entry(6f, 3f))
-        lineTwo.add(Entry(7f, 24f))
-        lineTwo.add(Entry(8f, 16f))
-        lineTwo.add(Entry(9f, 15f))
-        lineTwo.add(Entry(10f, 4f))
-        lineTwo.add(Entry(11f, 17f))
-        lineTwo.add(Entry(12f, 9f))
-
+        var labels = arrayListOf("","1","")
+        var i=1
+        viewModel.lstEx.forEach {
+            lineOne.add(Entry(i.toFloat(), it.money_collect.toFloat()))
+            lineTwo.add(Entry(i.toFloat(), it.money_lost.toFloat()))
+            labels.add(i.toString())
+            i++
+        }
+        labels.add("")
 
 
         //Setup LineDataSet in LineData
@@ -150,7 +132,6 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         binding.lineChartDay.invalidate()
 
         //Array Title xAxis
-        val labels = arrayOf<String>("","1","2","3", "4", "5", "6", "7", "8", "9","10","11","12","")
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartDay.xAxis
@@ -183,78 +164,6 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartDay.setScaleEnabled(false)
-
-        //binding.lineChartDay.setVisibleXRangeMaximum(6f)
-
-
-//        val lineDataSet = LineDataSet(lineOne,"data set")
-//        val ilineDataSet = arrayListOf<ILineDataSet>()
-//        ilineDataSet.add(lineDataSet)
-//        val lineData = LineData(ilineDataSet)
-//        binding.lineChartDay.data = lineData
-//        binding.lineChartDay.invalidate()
-
-        /*=======================================================================================*/
-//        //Setup Barchart for collect_money
-//        val barOne = arrayListOf<BarEntry>()
-//        barOne.add(BarEntry(1f,29f))
-//        barOne.add(BarEntry(2f,9f))
-//        barOne.add(BarEntry(3f,6f))
-//
-//        //Setup Barchart for lost_money
-//        val barTwo = arrayListOf<BarEntry>()
-//        barTwo.add(BarEntry(1f,8f))
-//        barTwo.add(BarEntry(2f,15f))
-//        barTwo.add(BarEntry(3f,10f))
-//
-//        //Set BarDataSet
-//        val set1 = BarDataSet(barOne, "barOne")
-//        set1.setColors(resources.getColor(R.color.stroke_checked))
-//        val set2 = BarDataSet(barTwo,"barTwo")
-//        set2.setColors(resources.getColor(R.color.red))
-//
-//        val data = BarData(set1,set2)
-//        binding.barChartDay.data = data
-//
-//        //Array Title xAxis
-//        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
-//        //Configuration XAxis
-//        val xAxis: XAxis = binding.barChartDay.xAxis
-//        xAxis.setCenterAxisLabels(true)
-//        xAxis.position = XAxis.XAxisPosition.BOTTOM
-//        xAxis.setDrawGridLines(true)
-//        xAxis.granularity = 1f
-//        xAxis.textColor = Color.WHITE
-//        xAxis.textSize = 12f
-//        xAxis.axisLineColor = Color.WHITE
-//        xAxis.axisMinimum = 1f
-//        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-//        //Configuration YAxis
-//        val leftAxis = binding.barChartDay.axisLeft
-//        leftAxis.textColor = Color.WHITE
-//        leftAxis.textSize = 12f
-//        leftAxis.axisLineColor = Color.WHITE
-//        leftAxis.setDrawGridLines(true)
-//        leftAxis.granularity = 2f
-//        leftAxis.setLabelCount(8,true)
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-//
-//        binding.barChartDay.axisRight.isEnabled = false
-//        binding.barChartDay.legend.isEnabled = false
-//
-//        //(barspace + barWith) *2 + groupspace = 1
-//        val barSpace : Float = 0f
-//        val groupSpace: Float = 0.4f
-//        data.barWidth = 0.3f
-//
-//        xAxis.axisMaximum = labels.size-1.1f
-//        binding.barChartDay.data = data
-//        binding.barChartDay.setScaleEnabled(false)
-//
-//        binding.barChartDay.setVisibleXRangeMaximum(6f)
-//        binding.barChartDay.groupBars(1f,groupSpace,barSpace)
-//        binding.barChartDay.invalidate()
-
     }
 }
 

@@ -49,7 +49,10 @@ class Nhom3BinhSpendingViewModel: ViewModel() {
         try {
             callP = Database.instance.connection!!.prepareCall("{call createExOrIn(?,?,?,?,?)}")
             callP.setInt(1,Database.instance.idUserApp!!)
-            callP.setInt(2,2)
+            if(spendingItem.mode)
+            {
+                callP.setInt(2,2)
+            }
             callP.setBigDecimal(3,spendingItem.money.toBigDecimal())
             callP.setString(4,spendingItem.description)
             callP.setString(5,spendingItem.date)

@@ -4,30 +4,81 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Account
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.ExInInfo
+import java.math.BigDecimal
 import java.sql.CallableStatement
 import java.sql.ResultSet
 
-class Nhom3AnOverviewViewModel: ViewModel() {
-     lateinit var result: ResultSet
-     lateinit var ac : Account
-     lateinit var strmoney:String
+class Nhom3AnOverviewViewModel : ViewModel() {
+    lateinit var result: ResultSet
+    lateinit var ac: Account
+
+    var lstEiInfo: MutableList<ExInInfo> = mutableListOf(
+        ExInInfo(0.toBigDecimal(),0),
+        ExInInfo(0.toBigDecimal(),0)
+    )
+    var spareMoney=0.toBigDecimal()
+
+    var countCompleteAccumulate: String = "Mục tiêu tích lũy hoàn thành: "
+
     init {
-        var callP : CallableStatement = Database.instance.connection!!.prepareCall("{call getAccByID(?)}")
+        var callP: CallableStatement =
+            Database.instance.connection!!.prepareCall("{call getAccByID(?)}")
+        Database.instance.idUserApp?.let { callP.setInt(1, it) }
+        if (callP.execute()) {
+            result = callP.resultSet
+            if (result.next()) {
+                var accountname = result.getString("FullName").toString()
+                var birthday: String? = result.getString("BirthDay")?.toString()
+                var money = result.getBigDecimal("CurrentMoney")
+                ac = Account(accountname, birthday, money)
+            }
+        }
+        callP = Database.instance.connection!!.prepareCall("{call countCompleteAccumulate(?)}")
         Database.instance.idUserApp?.let { callP.setInt(1, it) }
         if(callP.execute())
         {
             result=callP.resultSet
-            if(result.next())
-            {
-                var username=result.getString("UserName").toString()
-                var accountname=result.getString("FullName").toString()
-                var pass=result.getString("Pass").toString()
-                var birthday: String? = result.getString("BirthDay")?.toString()
-                var money=result.getBigDecimal("CurrentMoney")
-                strmoney=money.toString()
-                ac= Account(accountname,username,pass,birthday,money)
-            }
+            result.next()
+            countCompleteAccumulate+=result.getString("C")
+            countCompleteAccumulate+="/"
+            result.next()
+            countCompleteAccumulate+=result.getString("C")
         }
+        callP.close()
+        getExInMoney(1)
+    }
+    fun getExInMoney(opt: Int)
+    {
+        Log.e("positon",opt.toString())
+        var callP2: CallableStatement =
+            Database.instance.connection!!.prepareCall("{call getMoneyEIByNow(?,?)}")
+            Database.instance.idUserApp?.let { callP2.setInt(1, it) }
+            callP2.setInt(2,opt)
+        if (callP2.execute()) {
+            result = callP2.resultSet
+            var totalMoney=0.toBigDecimal()
+            var i=0
+            while (result.next())
+            {
+                if(!result.isAfterLast)
+                {
+                    var total =result.getBigDecimal("Total")
+                    lstEiInfo[i].money=total
+                    totalMoney+=total
+                }
+                i++
+            }
+            lstEiInfo.forEach {
+                it.percent=((it.money.toFloat()/totalMoney.toFloat())*100f).toInt()
+                Log.e("times",it.percent.toString())
+            }
+            Log.e("A0",lstEiInfo[0].percent.toString())
+            Log.e("A1",lstEiInfo[1].percent.toString())
+            Log.e("A1",totalMoney.toString())
+            spareMoney=lstEiInfo[1].money-lstEiInfo[0].money
+        }
+        callP2.close()
 
     }
 }
