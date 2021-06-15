@@ -1,8 +1,12 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Spending
 
+import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.Account
+<<<<<<< HEAD
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
+=======
+>>>>>>> b4044b6bda95259a026df1f696ab9e4b0e333eb1
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.SpendingItem
 import java.sql.CallableStatement
@@ -20,6 +24,7 @@ class Nhom3BinhSpendingViewModel: ViewModel() {
     var dateDefault = calDefault.time
     var formatDate=SimpleDateFormat("YYYY-MM-dd");
     var spendingItem : SpendingItem = SpendingItem("","","",true,"")
+<<<<<<< HEAD
     fun GetCategory() : MutableMap<String, Int>
     {
         mapCategory = mutableMapOf()
@@ -67,3 +72,21 @@ class Nhom3BinhSpendingViewModel: ViewModel() {
         }
     }
 }
+=======
+
+    fun validateAddAction(editAddAction: String): Boolean{
+        return editAddAction.isNotEmpty()
+    }
+    fun append(arr: Array<String?>, element: String): Array<String?> {
+        val array = arrayOfNulls<String>(arr.size + 1)
+        System.arraycopy(arr, 0, array, 0, arr.size)
+        array[arr.size] = element
+        return array
+    }
+    var spending_new = arrayOf<String?>("Ăn uống", "Dịch vụ", "Di chuyển",
+        "Sức khỏe", "Giải trí", "Mua sắm","Thêm mục khác")
+    var spendingRem  = arrayOf<String?>()
+
+}
+
+>>>>>>> b4044b6bda95259a026df1f696ab9e4b0e333eb1
