@@ -16,7 +16,7 @@ class Nhom3AnTichLuyFragment: Fragment() {
     private lateinit var viewModel: Nhom3AnTichLuyViewModel
     private lateinit var adapter: Nhom3AnTichLuyAdapter
     override fun onCreateView(
-        inflater: LayoutInflater,
+        inflater: LayoutInflater,git
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
