@@ -37,7 +37,7 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             if (!viewModel.firstAccess) {
-                add<Nhom3AnAddSavingFragment>(R.id.fragment_mainapp)
+                add<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
                 addToBackStack(null)
             }
         }
@@ -50,24 +50,24 @@ class Nhom3AnMainAppActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
 
-//                when (item.itemId) {
-//                    R.id.action_home -> {
-//                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
-//                    }
-//                    R.id.action_accumulate -> {
-//                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-//                    }
-//                    R.id.action_spending -> {
-//                        replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
-//                    }
-//                    R.id.action_report -> {
-//                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
-//                    }
-//                    R.id.action_more ->{
-//                        replace<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
-//                    }
-//
-//                }
+                when (item.itemId) {
+                    R.id.action_home -> {
+                        replace<Nhom3AnTongQuanFragment>(R.id.fragment_mainapp)
+                    }
+                    R.id.action_accumulate -> {
+                        replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
+                    }
+                    R.id.action_spending -> {
+                        replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
+                    }
+                    R.id.action_report -> {
+                        replace<Nhom3QuocStatisticalFragment>(R.id.fragment_mainapp)
+                    }
+                    R.id.action_more ->{
+                        replace<nhom3QuocOtherPageFragment>(R.id.fragment_mainapp)
+                    }
+
+                }
                 addToBackStack(null)
             }
             return@OnNavigationItemSelectedListener true

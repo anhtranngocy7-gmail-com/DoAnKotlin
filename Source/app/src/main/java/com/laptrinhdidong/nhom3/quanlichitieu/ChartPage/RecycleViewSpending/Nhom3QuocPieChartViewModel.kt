@@ -10,7 +10,7 @@ import java.sql.ResultSet
 
 class Nhom3QuocPieChartViewModel : ViewModel() {
     lateinit var result: ResultSet
-    var fromDate ="2020-1-1"
+    var fromDate ="2021-11-1"
     var toDate ="2021-12-31"
     var firstAccess : Boolean = false
     lateinit var callP: CallableStatement
@@ -29,12 +29,15 @@ class Nhom3QuocPieChartViewModel : ViewModel() {
         callP.setString(3,toDate)
         if (callP.execute()) {
             result = callP.resultSet
+            Log.e("opt", opt.toString())
+            Log.e("from", fromDate)
+            Log.e("to", toDate)
             while (result.next() && !result.isAfterLast) {
                 var cateName = result.getString("CateName").toString()
-                Log.e("A",cateName)
                 var total = result.getBigDecimal("Total")
                 totalMoney+=total
                 var tmpEx = Nhom3QuocItemPieChart(cateName,total,0f)
+                Log.e("A",total.toString())
                 lstEx.add(tmpEx)
             }
         }

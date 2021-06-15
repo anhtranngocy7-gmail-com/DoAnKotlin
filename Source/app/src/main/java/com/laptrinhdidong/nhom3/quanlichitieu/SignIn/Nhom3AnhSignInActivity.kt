@@ -86,14 +86,14 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
 
         })
         setLogin_Button()
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired
-        Log.e("Login",isLoggedIn.toString())
-        if(isLoggedIn)
-        {
-            val intent = Intent(this, Nhom3AnMainAppActivity::class.java)
-            startActivity(intent)
-        }
+//        val accessToken = AccessToken.getCurrentAccessToken()
+//        val isLoggedIn = accessToken != null && !accessToken.isExpired
+//        Log.e("Login",isLoggedIn.toString())
+//        if(isLoggedIn)
+//        {
+//            val intent = Intent(this, Nhom3AnMainAppActivity::class.java)
+//            startActivity(intent)
+//        }
         binding.googleSignin.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)

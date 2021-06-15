@@ -69,6 +69,9 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         val month_now = today.get(Calendar.MONTH)
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Set năm hiển thị = năm hiện tại
+        tv_from.text = ""+ year_now + ""
+
         //Choosen Year from
         tv_from.setOnClickListener {
             val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
@@ -87,6 +90,9 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
                 .build().show()
 
         }
+
+        //Set năm hiển thị = năm hiện tại
+        tv_to.text = ""+ year_now + ""
 
         //Choosen Year to
         tv_to.setOnClickListener {
@@ -137,7 +143,10 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         ilineDataSet.add(set2)
         val data = LineData(ilineDataSet)
 
+
         //Configure value text size
+
+       // data.setDrawValues(false)
         data.setValueTextColor(Color.WHITE)
         data.setValueTextSize(12f)
 
@@ -183,3 +192,6 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
     }
 
 }
+    fun getDayFrom(){
+
+    }
