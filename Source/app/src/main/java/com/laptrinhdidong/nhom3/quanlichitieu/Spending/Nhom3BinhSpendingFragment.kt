@@ -1,5 +1,6 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.Spending
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
@@ -40,6 +41,7 @@ class Nhom3BinhSpendingFragment: Fragment()  {
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
     private var TAG = "GETDATA"
+    private var spendingDele = arrayOf<String?>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,28 +49,6 @@ class Nhom3BinhSpendingFragment: Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.nhom3_binh_activity_spending,container,false)
-
-//        val view: View = inflater.inflate(R.layout.nhom3_binh_activity_spending, container, false)
-
-        binding.root.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_MOVE) {
-                Log.e("error","bibiib")
-                true
-            }
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                Log.e("ANH","KKK")
-                true
-            }
-            if (event.action == MotionEvent.ACTION_UP) {
-                Log.e("ASSSNH","SSS")
-                true
-            }
-            if (event.action == MotionEvent.ACTION_BUTTON_PRESS) {
-                Log.e("ANFFH","KKGGK")
-                true
-            }
-            false
-        }
 
         return binding.root
 
@@ -111,39 +91,16 @@ class Nhom3BinhSpendingFragment: Fragment()  {
             .inflate(R.layout.nhom3_binh_custom_dialog, null)
         var mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
-            .setTitle("Thêm chức năng")
         val addFunction: AlertDialog = mBuilder.create()
 
         var mDialogView1 = LayoutInflater.from(context)
             .inflate(R.layout.nhom3_binh_custom_dialog_add, null)
         var mBuilder1 = AlertDialog.Builder(context)
             .setView(mDialogView1)
-            .setTitle("Thêm hoạt động")
         val addAction: AlertDialog = mBuilder1.create()
 
-
-        var selectedItemIndex =0
-        var selectedSpending = viewModel.spending_new[selectedItemIndex]
-        var mDialogView2 = LayoutInflater.from(context)
-            .inflate(R.layout.nhom3_binh_custom_dialog_delete, null)
-        var mBuilder2 = AlertDialog.Builder(context)
-            .setView(mDialogView2)
-            .setTitle("Xóa hoạt động")
-            .setSingleChoiceItems(viewModel.spending_new,selectedItemIndex){dialog, which ->
-                selectedItemIndex = which
-                selectedSpending = viewModel.spending_new[which]
-            }
-            .setPositiveButton("OK"){dialog,which->
-                showSnackbar("$selectedSpending Selected")
-            }
-            .setNeutralButton("Cancel"){dialog,which->
-
-            }
-        val deleteAction: AlertDialog = mBuilder2.create()
-
-
-
         binding.dropDownSpending.onItemSelectedListener = object : OnItemSelectedListener {
+            @SuppressLint("ResourceType")
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View,
@@ -193,7 +150,75 @@ class Nhom3BinhSpendingFragment: Fragment()  {
 
                     }
                     btnDelete.setOnClickListener{
-                        deleteAction.show()
+                        val builder = AlertDialog.Builder(context)
+                        val selectedList = ArrayList<Int>()
+                        val selectedListRem = ArrayList<Int>()
+                        var spendingMem  = arrayOf<String?>()
+                        builder.setTitle("Xóa mục")
+
+
+                        viewModel.spendingRem = arrayOf<String?>()
+                        if (viewModel.spending_new.size > 1)
+                        {
+                            for (index in 0..viewModel.spending_new.size - 2) {
+                                //loops all indices
+                                viewModel.spendingRem = viewModel.append(viewModel.spendingRem,viewModel.spending_new[index].toString())
+                            }
+                        }
+                        else{
+                            viewModel.spendingRem = arrayOf<String?>()
+                        }
+
+                        builder.setMultiChoiceItems(viewModel.spendingRem , null
+                        ) { dialog, which, isChecked ->
+                            if (isChecked) {
+                                if(selectedList.size < viewModel.spending_new.size - 1) {
+                                       selectedList.add(which)
+                                }
+                                if(selectedList.size == viewModel.spending_new.size - 1)
+                                {
+                                    selectedList.remove(Integer.valueOf(which))
+                                }
+                            } else if (selectedList.contains(which)) {
+                                selectedList.remove(Integer.valueOf(which))
+                            }
+                        }
+                        builder.setPositiveButton("OK") { dialogInterface, i ->
+                            val selectedStrings = ArrayList<String>()
+                            spendingMem = viewModel.spending_new
+                            for (j in selectedList.indices) {
+                                viewModel.spending_new[selectedList[j]]?.let { it1 ->
+                                    selectedStrings.add(
+                                        it1
+                                    )
+                                }
+                            }
+                            if(selectedList.size == viewModel.spending_new.size - 2)
+                            {
+                                Toast.makeText(context, "Phải có ít nhất 1 mục!", Toast.LENGTH_SHORT).show()
+                            }
+                            viewModel.spending_new = viewModel.spending_new.toMutableList().apply {
+                                for (index in 0..selectedList.size - 1) {
+                                    remove(spendingMem[selectedList[index]])
+                                    Log.e("a", index.toString())
+                                }
+                            }.toTypedArray()
+
+                           //viewModel.spending_new = spendingMem
+                            mySpendingAdapter = ArrayAdapter<String>(
+                                requireActivity(),
+                                R.layout.nhom3_anh_style_spinner, viewModel.spending_new
+                            )
+                            mySpendingAdapter.setDropDownViewResource(R.layout.nhom3_anh_style_spinner)
+                            binding.dropDownSpending.adapter = mySpendingAdapter
+                        }
+
+
+                        builder.setNeutralButton("Hủy bỏ"){ _, which->
+
+                        }
+                        builder.show()
+
                     }
                     btnOut.setOnClickListener {
                         binding.dropDownSpending.setSelection(0)
@@ -220,7 +245,14 @@ class Nhom3BinhSpendingFragment: Fragment()  {
             }
         })
             binding.btnConfirm.setOnClickListener {
-                viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
+                if(binding.imageView4.isChecked) {
+                    viewModel.spendingItem.description =
+                       "*Hàng ngày"+ binding.etDescription.text.toString().trim()
+                }
+                else{
+                    viewModel.spendingItem.description =
+                        "*Hàng tháng "+ binding.etDescription.text.toString().trim()
+                }
                 viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
                 viewModel.spendingItem.mode = binding.imageView5.isChecked
                 viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
@@ -332,9 +364,6 @@ class Nhom3BinhSpendingFragment: Fragment()  {
 
 
 
-    private fun showSnackbar(msg: String) {
-        Snackbar.make(requireView(),msg,Snackbar.LENGTH_LONG).show()
-    }
 
 
     private fun promptSpeechInput() {

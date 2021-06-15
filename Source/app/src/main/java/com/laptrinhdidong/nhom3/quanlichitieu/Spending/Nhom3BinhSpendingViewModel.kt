@@ -26,6 +26,7 @@ class Nhom3BinhSpendingViewModel: ViewModel() {
     }
     var spending_new = arrayOf<String?>("Ăn uống", "Dịch vụ", "Di chuyển",
         "Sức khỏe", "Giải trí", "Mua sắm","Thêm mục khác")
+    var spendingRem  = arrayOf<String?>()
 
 }
 
