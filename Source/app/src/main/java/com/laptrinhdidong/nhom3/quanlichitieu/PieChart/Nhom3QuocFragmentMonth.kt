@@ -188,7 +188,7 @@ class Nhom3QuocFragmentMonth : Fragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+//    @RequiresApi(Build.VERSION_CODES.O)
     fun isCheckMonth(from_day: String, end_day: String) {
 
         var sdf: SimpleDateFormat = SimpleDateFormat("MM/yyyy")
@@ -210,8 +210,8 @@ class Nhom3QuocFragmentMonth : Fragment() {
         }
         val date_Start = SimpleDateFormat("yyyy-MM").format(dateStart).toString()
         val date_End = SimpleDateFormat("yyyy-MM").format(dateEnd).toString()
-        Log.e("quoc", date_Start)
-        Log.e("binh", date_End)
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
 
     }
 }

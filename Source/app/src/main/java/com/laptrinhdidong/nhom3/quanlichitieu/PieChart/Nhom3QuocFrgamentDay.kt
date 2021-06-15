@@ -111,7 +111,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
-            print(tv_from.text.toString())
+
 
 
 
@@ -132,7 +132,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
-            print(tv_to.text.toString())
+
 
 
         }
@@ -191,7 +191,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+//    @RequiresApi(Build.VERSION_CODES.O)
     fun isCheckDate(from_day : String, end_day : String ) {
 
         var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -213,8 +213,8 @@ class Nhom3QuocFrgamentDay : Fragment() {
         }
         val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
         val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
-        Log.e("quoc",date_Start)
-        Log.e("binh",date_End)
+        Log.e("START DAY",date_Start)
+        Log.e("END DAY",date_End)
 
     }
 

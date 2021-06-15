@@ -52,25 +52,4 @@ class Nhom3QuocPieChart : Fragment(){
     }
 
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.nhom3_quoc_activity_piechart_tablayout)
-//
-//        toolbar1 = findViewById(R.id.toolbar)
-//        viewPager1 = findViewById(R.id.viewPager)
-//        tabLayout1 = findViewById(R.id.tabLayout)
-//
-//        toolbar1.setTitle("Phân tích chi tiêu")
-//        toolbar1.setTitleMargin(20, 0, 0, 0)
-//
-//
-//        val fragmentAdapter = Nhom3QuocFragmentPageAdapter(supportFragmentManager)
-//
-//        viewPager1.adapter = fragmentAdapter
-//
-//        tabLayout1.setupWithViewPager(viewPager1)
-//    }
-
-
-
 }

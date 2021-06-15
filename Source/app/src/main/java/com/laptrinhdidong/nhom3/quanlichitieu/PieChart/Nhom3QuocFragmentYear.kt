@@ -211,8 +211,8 @@ class Nhom3QuocFragmentYear : Fragment() {
         }
         val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
         val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
-        Log.e("quoc", date_Start)
-        Log.e("binh", date_End)
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
 
     }
 

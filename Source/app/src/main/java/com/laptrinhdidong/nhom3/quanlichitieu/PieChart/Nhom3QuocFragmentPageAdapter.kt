@@ -11,23 +11,24 @@ class Nhom3QuocFragmentPageAdapter(fm:FragmentManager) : FragmentPagerAdapter(fm
     }
 
     override fun getItem(position: Int): Fragment {
-        return  when(position){
-            0 -> Nhom3QuocFrgamentDay()
-            1 -> Nhom3QuocFragmentMonth()
-            else ->{
+            if(position == 0){
+                return Nhom3QuocFrgamentDay()
+            }else if(position == 1){
+                return Nhom3QuocFragmentMonth()
+            }
+            else {
                 return Nhom3QuocFragmentYear()
             }
-        }
+
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position){
-            0 -> "Ngày"
-            1-> "Tháng"
-            else ->{
-                return "Năm"
-            }
-
+        if (position == 0) {
+            return "Ngày"
+        } else if (position == 1) {
+            return "Tháng"
+        } else {
+            return "Năm"
         }
     }
 }
