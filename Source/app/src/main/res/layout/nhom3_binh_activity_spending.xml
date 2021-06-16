@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="366dp"
+            android:layout_height="51dp"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/thanhluachon"
@@ -107,15 +107,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <ImageView
+            <CheckBox
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:button="@drawable/custom_ngaythang"
                 android:layout_marginTop="150dp"
                 android:src="@drawable/icon2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"></CheckBox>
 
             <TextView
                 android:id="@+id/textView5"
@@ -134,18 +135,18 @@
 
             <EditText
                 android:id="@+id/etDescription"
-                android:layout_width="274dp"
-                android:layout_height="52dp"
+                android:layout_width="182dp"
+                android:layout_height="70dp"
                 android:hint="Description"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/calendar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.057"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.865"></EditText>
+                app:layout_constraintVertical_bias="0.921"></EditText>
 
             <ImageView
                 android:id="@+id/micro"
@@ -203,10 +204,9 @@
             android:background="@drawable/custom_spinner_spending"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.662"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_head_chitieu"
-            app:layout_constraintVertical_bias="0.825"
+            app:layout_constraintVertical_bias="0.85"
             tools:ignore="MissingConstraints" />
 
 

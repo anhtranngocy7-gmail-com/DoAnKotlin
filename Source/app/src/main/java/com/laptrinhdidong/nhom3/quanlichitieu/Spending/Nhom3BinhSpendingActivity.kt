@@ -23,10 +23,12 @@ import java.util.*
 class Nhom3BinhSpendingActivity: AppCompatActivity() {
     private lateinit var viewModel: Nhom3BinhSpendingViewModel
     private lateinit var binding: Nhom3BinhActivitySpendingBinding
-    private var formatDate:SimpleDateFormat = SimpleDateFormat("EEE, dd/MM/YYYY")
-    private var spendingItem : SpendingItem = SpendingItem(0,"",formatDate,true,"")
+    private var formatDate:SimpleDateFormat = SimpleDateFormat("EEE, YYYY-MM-dd")
+    private var spendingItem : SpendingItem = SpendingItem("","","",true,"")
     private val REQ_CODE_SPEECH_INPUT = 1 // Kiem tra gia tri tra cua giong noi
     var get_string_voice_input = ArrayList<String>()
+    private var TAG = "GETDATA"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.nhom3_binh_activity_spending)
@@ -57,9 +59,26 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
         mySpendingAdapter.setDropDownViewResource( R.layout.nhom3_anh_style_spinner)
         binding.dropDownSpending.adapter = mySpendingAdapter
         // Get data Adapter
-        Log.e("GetData",binding.dropDownSpending.selectedItem.toString())
         // Set data Adapter
         binding.dropDownSpending.setSelection(0)
+        binding.btnConfirm.setOnClickListener {
+            viewModel.spendingItem.description = binding.etDescription.text.toString().trim()
+            Log.e(TAG,viewModel.spendingItem.description)
+
+            viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
+            Log.e(TAG,viewModel.spendingItem.money)
+
+            if(binding.imageView5.isChecked) viewModel.spendingItem.mode = true
+            else viewModel.spendingItem.mode = false
+            Log.e(TAG,viewModel.spendingItem.mode.toString())
+
+            viewModel.spendingItem.area = binding.dropDownSpending.selectedItem.toString()
+            Log.e(TAG,viewModel.spendingItem.area)
+
+            viewModel.spendingItem.date = binding.calendar.text.toString().trim()
+            Log.e(TAG,viewModel.spendingItem.date)
+        }
+
     }
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
