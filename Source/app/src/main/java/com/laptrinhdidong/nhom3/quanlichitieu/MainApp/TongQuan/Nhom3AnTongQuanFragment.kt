@@ -1,20 +1,28 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTinhNangAdapter
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTichluyFragmentBinding
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTongquanFragmentBinding
+import com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnOverviewViewModel
 
 class Nhom3AnTongQuanFragment : Fragment() {
     private lateinit var binding: Nhom3AnTongquanFragmentBinding
+    private lateinit var viewModel: Nhom3AnOverviewViewModel
     private lateinit var adapterNhom3An: Nhom3AnTinhNangAdapter
     private lateinit var rcv:RecyclerView
     override fun onCreateView(
@@ -33,8 +41,22 @@ class Nhom3AnTongQuanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(Nhom3AnOverviewViewModel::class.java)
+        binding.viewmodel=viewModel
         adapterNhom3An= Nhom3AnTinhNangAdapter()
         binding.recycleviewFeature.layoutManager=GridLayoutManager(context,3)
         binding.recycleviewFeature.adapter=adapterNhom3An
+        binding.btnDropMore.setOnClickListener(View.OnClickListener {
+            binding.linearMoreinfor.visibility=if(binding.linearMoreinfor.isVisible){View.GONE}else{View.VISIBLE }
+        })
+    }
+    private fun getPermission() {
+        ActivityCompat.requestPermissions(
+            context as Activity,
+            arrayOf(Manifest.permission.INTERNET),
+            PackageManager.PERMISSION_GRANTED
+        )
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
     }
 }

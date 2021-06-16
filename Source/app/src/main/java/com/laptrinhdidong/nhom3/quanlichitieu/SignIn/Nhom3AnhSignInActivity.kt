@@ -1,19 +1,23 @@
 package com.laptrinhdidong.nhom3.quanlichitieu
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.*
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.Nhom3AnMainAppActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallback
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.tasks.Task
+import com.laptrinhdidong.nhom3.quanlichitieu.OrtherPage.Nhom3QuocOtherPage
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.SignUp.Nhom3BinhSignUpActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
@@ -36,7 +41,7 @@ import java.util.*
 open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
-    private var account : Account = Account("", "", "", "")
+    private var account: Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
     //google sign in
     private val RC_SIGN_IN = 100
@@ -44,26 +49,24 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getPermission()
         FacebookSdk.sdkInitialize(applicationContext)
         callbackManager = CallbackManager.Factory.create()
-        binding = DataBindingUtil.setContentView(this,R.layout.nhom3_anh_activity_sign_in)
+        binding = DataBindingUtil.setContentView(this, R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
+
         binding.account = viewModel.account
         printKeyHash()
         binding.btnfbSignin.setVisibility(View.GONE);
-        binding.btnfbSignin.setReadPermissions(Arrays.asList("public_profile","email"))
-        binding.btnfbSigninImage.setOnClickListener(object: View.OnClickListener {
+        binding.btnfbSignin.setReadPermissions(Arrays.asList("public_profile", "email"))
+        binding.btnfbSigninImage.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val btn = LoginButton(this@Nhom3AnhSignInActivity)
                 btn.performClick()
             }
         })
         setLogin_Button_Fb()
-//        binding.googleSignin.setOnClickListener {
-//            val intent = Intent(this, Nhom3BinhSignUpActivity::class.java)
-//            startActivity(intent)
-//        }
-        // Google sign in
+
         val acct = GoogleSignIn.getLastSignedInAccount(application)
         if (acct != null) {
             val personName = acct.displayName
@@ -122,43 +125,49 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
                         }
                     }
                 }
-            )
+
+        )
         val parameter = Bundle()
-        parameter.putString("fields","name,email,first_name")
+        parameter.putString("fields", "name,email,first_name")
         graphRequest.setParameters(parameter)
         graphRequest.executeAsync()
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
         //google signin
         if (requestCode == RC_SIGN_IN) {
-
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
     }
+
     //google sign in
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-                val intent = Intent(this, Nhom3BinhSignUpActivity::class.java)
+                val intent = Intent(this, Nhom3QuocOtherPage::class.java)
                 startActivity(intent)
                 Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
+
                 Log.e("BINH", account.displayName.toString())
                 Log.e("BINH", account.email.toString())
+                Log.e("BINH", account.id.toString())
+                val name = account.displayName.toString()
+                val idUser = "g" + account.id.toString()
+//                loginSocialCheck(idUser, name)
             }
-            // Signed in successfully, show authenticated UI.
-
         } catch (e: ApiException) {
-
+            Log.e("BINHEROR", "null account")
         }
     }
+
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        TODO("Not yet implemented")
         Log.d("Failed", "onConnectionFailed:" + connectionResult);
     }
+
 
     private fun printKeyHash()
     {
@@ -168,7 +177,7 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
             {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
-                Log.e("KEYHASH",Base64.encodeToString((md.digest()),Base64.DEFAULT))
+                Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))
             }
         }
         catch (e:PackageManager.NameNotFoundException)
@@ -178,6 +187,14 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
         }
     }
 
-
+    private fun getPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.INTERNET),
+            PackageManager.PERMISSION_GRANTED
+        )
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+    }
 
 }

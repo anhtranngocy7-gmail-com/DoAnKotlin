@@ -1,14 +1,18 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.SignUp
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.login.widget.LoginButton
@@ -24,6 +28,8 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
+
+import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.Nhom3AnMainAppActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import java.util.*
 
@@ -35,6 +41,7 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
     private var mGoogleApiClient: GoogleApiClient? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getPermission()
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_binh_activity_sign_up)
         viewModel = ViewModelProvider(this).get(Nhom3BinhSignUpViewModel::class.java)
         binding.account = account
@@ -78,6 +85,7 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
             startActivity(intent)
         }
 
+
         binding.facebookSignin.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
                 val btn = LoginButton(this@Nhom3BinhSignUpActivity)
@@ -86,7 +94,27 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
         })
     }
 
-    override fun onConnectionFailed(p0: ConnectionResult) {
+    override fun onConnectionFailed(p0: ConnectionResult) {}
 
+    private fun getPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.INTERNET),
+            PackageManager.PERMISSION_GRANTED
+        )
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+    }
+    private fun loginSocialCheck(idUser: String, name: String) {
+        if (viewModel.checkAccountSocialExit(idUser, name)) {
+            val intent = Intent(this@Nhom3BinhSignUpActivity, Nhom3AnMainAppActivity::class.java)
+            startActivity(intent)
+        } else {
+            Toast.makeText(
+                this@Nhom3BinhSignUpActivity,
+                "No connection, please check your wifi/3G",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

@@ -14,5 +14,7 @@
     <color name="main_background">#22353C</color>
     <color name="sub_main_background">#1A2930</color>
     <color name="nav_mainback">#30444D</color>
+    <color name="yellow">#FFFF66</color>
+    <color name="greeny">#00DD00</color>
 
 </resources>
