@@ -28,11 +28,11 @@ import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignIn
 import java.util.*
 
 
-class Nhom3BinhSignUpActivity : AppCompatActivity() {
+class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var account : Account = Account("", "", "","")
     private lateinit var viewModel: Nhom3BinhSignUpViewModel
     private lateinit var binding: Nhom3BinhActivitySignUpBinding
-
+    private var mGoogleApiClient: GoogleApiClient? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_binh_activity_sign_up)
@@ -58,6 +58,21 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
                 }
             }
         }
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build()
+        binding.signout.setOnClickListener {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
+                Log.e("dang xuat", "da dang xuat")
+                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
         binding.tvDangnhap.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
@@ -69,5 +84,9 @@ class Nhom3BinhSignUpActivity : AppCompatActivity() {
                 btn.performClick()
             }
         })
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+
     }
 }

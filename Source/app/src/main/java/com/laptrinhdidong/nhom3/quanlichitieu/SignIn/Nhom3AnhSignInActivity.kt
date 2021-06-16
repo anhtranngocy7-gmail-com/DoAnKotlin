@@ -2,29 +2,30 @@ package com.laptrinhdidong.nhom3.quanlichitieu
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.*
-import com.facebook.FacebookActivity
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.internal.SignInHubActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.ResultCallback
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.tasks.Task
 import com.laptrinhdidong.nhom3.quanlichitieu.SignIn.Nhom3AnhSignInViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.SignUp.Nhom3BinhSignUpActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnhActivitySignInBinding
 import org.json.JSONObject
 import java.security.MessageDigest
@@ -37,7 +38,6 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account : Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
-    //  private lateinit var loginButton: LoginButton
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
@@ -59,15 +59,28 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
             }
         })
         setLogin_Button_Fb()
-        binding.googleSignin.setOnClickListener {
-            val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.googleSignin.setOnClickListener {
+//            val intent = Intent(this, Nhom3BinhSignUpActivity::class.java)
+//            startActivity(intent)
+//        }
         // Google sign in
+        val acct = GoogleSignIn.getLastSignedInAccount(application)
+        if (acct != null) {
+            val personName = acct.displayName
+            val personGivenName = acct.givenName
+            val personFamilyName = acct.familyName
+            val personEmail = acct.email
+            val personId = acct.id
+            val personPhoto: Uri? = acct.photoUrl
+        }
+
+
+
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
+         mGoogleApiClient = GoogleApiClient.Builder(this)
             .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
@@ -76,6 +89,8 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
             startActivityForResult(signInIntent, RC_SIGN_IN)
             Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
         }
+
+
         binding.btnConfirmSignin.setOnClickListener {
             Log.e("Check User", "Waiting check")
         }
@@ -128,8 +143,8 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
         try {
             val account = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, Nhom3BinhSignUpActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
                 Log.e("BINH", account.displayName.toString())
                 Log.e("BINH", account.email.toString())
@@ -162,4 +177,7 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
         catch(e:NoSuchAlgorithmException) {
         }
     }
+
+
+
 }
