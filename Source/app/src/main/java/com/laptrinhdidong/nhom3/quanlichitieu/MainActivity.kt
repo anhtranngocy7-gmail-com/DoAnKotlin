@@ -14,5 +14,6 @@ class MainActivity : AppCompatActivity() {
             setReorderingAllowed(true)
             add<Nhom3BinhSpendingFragment>(R.id.frag_container_view)
         }
+
     }
 }

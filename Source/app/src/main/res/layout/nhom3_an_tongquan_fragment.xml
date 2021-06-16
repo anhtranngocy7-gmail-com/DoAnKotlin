@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+    <variable
+        name="viewmodel"
+        type="com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnOverviewViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +18,7 @@
             android:paddingTop="0dp"
             android:id="@+id/linear_head_tongquan"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/head_title_shape"
             android:gravity="center"
             android:orientation="vertical"
@@ -25,7 +27,7 @@
             <ImageView
                 android:paddingTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="40dp" 
                 android:src="@drawable/iconsavemoney"></ImageView>
             <TextView
                 android:layout_width="wrap_content"
@@ -34,11 +36,68 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nguyễn Văn XXX"
+                android:text="@{viewmodel.ac.fullName}"
                 android:textSize="20dp"
                 android:layout_marginBottom="25dp"/>
+                <LinearLayout
+                    android:id="@+id/linear_moreinfor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tài khoản: "
+                            android:textSize="20dp"></TextView>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.strmoney}"
+                            />
+                        <TextView
+                            android:textSize="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" VND"></TextView>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginVertical="5dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="Mục tiêu tiết kiệm đã hoàn thành: 0/2"></TextView>
+                </LinearLayout>
+
         </LinearLayout>
 
+        <CheckBox
+            android:id="@+id/btn_drop_more"
+            android:button="@drawable/state_btn_drop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/linear_temp_support_radiobtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></CheckBox>
+        <LinearLayout
+            android:id="@+id/linear_temp_support_radiobtn"
+            android:orientation="horizontal"
+            android:layout_marginTop="27dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_head_tongquan"></LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +121,7 @@
             tools:layout_editor_absoluteX="0dp"></androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -84,14 +144,18 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"></TextView>
 
-                <TextView
+
+                <Spinner
+                    android:popupBackground="@color/sub_main_background"
+                    android:gravity="end"
+                    android:foregroundGravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Năm nay ▼"
                     android:textColor="@color/white"
-                    android:textSize="18dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"></TextView>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:entries="@array/Spinner_time"
+                    android:spinnerMode="dropdown"></Spinner>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,8 +263,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="0 đ"
-                        android:textSize="18dp"
                         android:textColor="@color/black"
+                        android:textSize="18dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_line_gray"></TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -209,8 +273,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="2px"
                     android:layout_marginTop="10dp"
-                    android:background="@color/gray"
                     android:layout_marginBottom="80dp"
+                    android:background="@color/gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constrain4"></LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

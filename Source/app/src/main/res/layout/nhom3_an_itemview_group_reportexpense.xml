@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/sub_main_background"
+    android:layout_marginBottom="10dp"
+    android:paddingVertical="5dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <CheckBox
+        android:id="@+id/cb_arrow"
+        android:button="@drawable/state_btn_arrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:id="@+id/imv_typeEx"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toEndOf="@id/cb_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/cb_arrow"
+        android:src="@drawable/eat_and_drink"/>
+<TextView
+    android:id="@+id/tv_group_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    app:layout_constraintStart_toEndOf="@id/imv_typeEx"
+    app:layout_constraintBottom_toBottomOf="@id/imv_typeEx"
+    android:text="Ăn uống"></TextView>
+    <TextView
+        android:id="@+id/tv_group_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imv_typeEx"
+        android:text="110,000 vnd"></TextView>
+    <LinearLayout
+        android:id="@+id/linear_outer"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/imv_typeEx"
+        android:orientation="horizontal"></LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_inner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="80dp"
+        app:layout_constraintTop_toBottomOf="@id/linear_outer"></androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>
