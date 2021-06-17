@@ -5,18 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityPiechartTablayoutBinding
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFrgamentDayBinding
 
 
 class Nhom3QuocPieChart : Fragment(){
@@ -46,31 +39,6 @@ class Nhom3QuocPieChart : Fragment(){
 
         fragmentAdapter = Nhom3QuocFragmentPageAdapter(childFragmentManager)
         binding.viewPager.adapter = fragmentAdapter
-
         binding.tabLayout.setupWithViewPager(binding.viewPager)
-
     }
-
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.nhom3_quoc_activity_piechart_tablayout)
-//
-//        toolbar1 = findViewById(R.id.toolbar)
-//        viewPager1 = findViewById(R.id.viewPager)
-//        tabLayout1 = findViewById(R.id.tabLayout)
-//
-//        toolbar1.setTitle("Phân tích chi tiêu")
-//        toolbar1.setTitleMargin(20, 0, 0, 0)
-//
-//
-//        val fragmentAdapter = Nhom3QuocFragmentPageAdapter(supportFragmentManager)
-//
-//        viewPager1.adapter = fragmentAdapter
-//
-//        tabLayout1.setupWithViewPager(viewPager1)
-//    }
-
-
-
 }

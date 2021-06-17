@@ -24,8 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
-
+        <activity android:name=".SignUp.Nhom3BinhSignUpActivity">
         </activity>
 
         <activity android:name=".MainApp.Nhom3AnMainAppActivity">

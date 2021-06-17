@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:gravity="center"
-            android:background="@color/sub_main_background"
+            android:background="@drawable/head_title_shape"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -27,15 +26,26 @@
                 android:layout_height="wrap_content"
                 android:text="Add saving"
                 android:textSize="30dp"
-                android:layout_marginBottom="25dp" />
+                />
         </LinearLayout>
-
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/icon_cancel"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/linear_head_tichluy"
+            app:layout_constraintTop_toTopOf="@+id/linear_head_tichluy"></ImageView>
         <LinearLayout
+            android:id="@+id/linear_main"
             android:paddingStart="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             android:background="@color/sub_main_background"
             app:layout_constraintTop_toBottomOf="@+id/linear_head_tichluy">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,12 +61,13 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_icon_descript"/>
                 <EditText
+                    android:id="@+id/edt_name_target"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:gravity="center"
                     android:hint="Tên mục tiêu"
-                    android:inputType="numberDecimal"
+                    android:inputType="text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/imv_currentmoney"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,24 +109,25 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_sotien">
 
                     <EditText
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:id="@+id/edt_sotien"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="30dp"
-                        android:layout_marginEnd="5dp"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_vnd"
+                        android:layout_marginEnd="75dp"
                         android:background="@android:color/transparent"
                         android:gravity="end"
+                        android:text="0"
                         android:inputType="numberDecimal"
-                        android:text="0"></EditText>
+                        android:textSize="30dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_vnd"></EditText>
 
                     <TextView
                         android:id="@+id/tv_vnd"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:text="VND"
+                        android:gravity="end"
                         android:textColor="@color/stroke_checked"
                         android:textSize="30dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -208,9 +220,11 @@
                 android:layout_marginTop="5dp">
 
                 <EditText
+                    android:id="@+id/edt_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="trong bao lâu"
+                    android:hint="trong bao lâu (tháng)"
+                    android:inputType="number"
                     android:gravity="end"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:layout_editor_absoluteX="50dp" />
@@ -223,14 +237,27 @@
                 android:visibility="gone">
 
                 <EditText
+                    android:id="@+id/edt_income"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:inputType="number"
                     android:hint="Thu nhập hàng tháng"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:layout_editor_absoluteX="50dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
+        <ImageView
+            android:id="@+id/btn_cf_addsaving"
+            android:layout_width="313dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="4dp"
+            android:background="#22353C"
+            app:layout_constraintTop_toBottomOf="@+id/linear_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/xacnhan"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

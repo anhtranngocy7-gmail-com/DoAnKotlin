@@ -68,7 +68,8 @@ class Nhom3BinhSpendingActivity: AppCompatActivity() {
             viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
             Log.e(TAG,viewModel.spendingItem.money)
 
-            if(binding.imageView5.isChecked) viewModel.spendingItem.mode = true
+            if(binding.cbSpending.isChecked)
+                viewModel.spendingItem.mode = true
             else viewModel.spendingItem.mode = false
             Log.e(TAG,viewModel.spendingItem.mode.toString())
 

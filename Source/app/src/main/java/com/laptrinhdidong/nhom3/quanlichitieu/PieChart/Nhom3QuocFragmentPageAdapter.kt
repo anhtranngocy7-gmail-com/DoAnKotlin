@@ -5,13 +5,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 class Nhom3QuocFragmentPageAdapter(fm:FragmentManager) : FragmentPagerAdapter(fm) {
-
+    var check =0
     override fun getCount(): Int {
         return 3
     }
 
     override fun getItem(position: Int): Fragment {
-        return  when(position){
+        return  when(check){
             0 -> Nhom3QuocFrgamentDay()
             1 -> Nhom3QuocFragmentMonth()
             else ->{

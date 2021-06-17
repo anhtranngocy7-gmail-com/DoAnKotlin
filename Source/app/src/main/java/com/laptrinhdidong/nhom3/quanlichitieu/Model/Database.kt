@@ -18,6 +18,8 @@ class Database private constructor() {
     var idUserApp: Int? = 1
     lateinit var statement: Statement
     lateinit var result: ResultSet
+    val messageFail ="Không có kết nối, kiểm tra lại kết nối mạng!"
+    val messageDone ="Ghi nhận thành công"
 
     init {
         createConnection()
