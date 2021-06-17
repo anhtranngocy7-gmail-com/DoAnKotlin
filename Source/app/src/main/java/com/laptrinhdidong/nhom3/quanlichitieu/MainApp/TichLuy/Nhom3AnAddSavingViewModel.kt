@@ -53,13 +53,15 @@ class Nhom3AnAddSavingViewModel : ViewModel() {
             }
             Log.e("time",time.toString())
             Log.e("income",incomePerMonth.toString())
-            callP = Database.instance.connection!!.prepareCall("{call createAccumulate(?,?,?,?,?,?)}")
+            callP = Database.instance.connection!!.prepareCall("{call createAccumulate(?,?,?,?,?,?,?,?)}")
             Database.instance.idUserApp?.let { callP.setInt(1, it) }
             callP.setString(2,nameTarget)
             callP.setBigDecimal(3,targetMoney)
-            /////
-            ////
-            ////
+            callP.setBigDecimal(4,0.toBigDecimal())
+            callP.setFloat(5,time)
+            callP.setBigDecimal(6,incomePerMonth)
+            callP.setBoolean(7,optBoP)
+            callP.setFloat(8,percent.toFloat())
             callP.execute()
             callP.close()
             Database.instance.stateConnect=true
@@ -69,6 +71,5 @@ class Nhom3AnAddSavingViewModel : ViewModel() {
             Database.instance.stateConnect=false
             return Database.instance.messageFail
         }
-        return "a"
     }
 }

@@ -46,14 +46,14 @@ class Nhom3AnAddSavingFragment : Fragment() {
                 {
                     viewModel.incomePerMonth = binding.edtIncome.text.toString().toBigDecimal()
                 }
+                Toast.makeText(requireContext(), viewModel.createAccumulate(
+                    binding.spinnerBuyorpay.selectedItemPosition == 0,
+                    binding.spinnerTimeorincome.selectedItemPosition == 0
+                ),Toast.LENGTH_SHORT).show()
             }catch (e: Exception)
             {
                 Toast.makeText(requireContext(),"Chưa đủ input",Toast.LENGTH_SHORT).show()
             }
-            viewModel.createAccumulate(
-                binding.spinnerBuyorpay.selectedItemPosition == 0,
-                binding.spinnerTimeorincome.selectedItemPosition == 0
-            )
 
         }
         myOnClickNoChangeData()

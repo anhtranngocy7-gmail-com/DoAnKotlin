@@ -104,6 +104,7 @@ class Nhom3BinhSpendingViewModel : ViewModel() {
             callP.setBigDecimal(3, spendingItem.money.toBigDecimal())
             callP.setString(4, spendingItem.description)
             callP.setString(5, spendingItem.date)
+
             callP.execute()
             callP.close()
             Database.instance.stateConnect = true
