@@ -213,6 +213,8 @@ class Nhom3QuocFragmentYear : Fragment() {
         viewModel.getExMoney(3)
         BindingDataChart()
         BindingDataRecycleView()
+        binding.tvFrom.text=viewModel.fromDate.substring(0,4)
+        binding.tvTo.text=viewModel.toDate.substring(0,4)
         binding.tvTongChiTieu.text=viewModel.totalMoney.toString()+"vnd"
 
     }

@@ -161,6 +161,9 @@ class Nhom3QuocFragmentMonth : Fragment() {
         viewModel.getExMoney(2)
         BindingDataChart()
         BindingDataRecycleView()
+        binding.tvFrom.text=viewModel.fromDate.substring(0,7)
+        //Set day hiển thị = day hiện tại
+        binding.tvTo.text=viewModel.toDate.substring(0,7)
         binding.tvTongChiTieu.text=viewModel.totalMoney.toString()+"vnd"
     }
     fun BindingDataRecycleView()

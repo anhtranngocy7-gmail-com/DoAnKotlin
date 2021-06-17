@@ -172,6 +172,9 @@ class Nhom3QuocFrgamentDay : Fragment() {
         viewModel.fromDate=date_Start
         viewModel.toDate=date_End
         viewModel.getExMoney(1)
+        binding.tvFrom.text=viewModel.fromDate
+        //Set day hiển thị = day hiện tại
+        binding.tvTo.text=viewModel.toDate
         BindingDataChart()
         BindingDataRecycleView()
         binding.tvTongChiTieu.text=viewModel.totalMoney.toString()+"vnd"
