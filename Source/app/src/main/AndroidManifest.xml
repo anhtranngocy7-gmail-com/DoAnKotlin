@@ -14,7 +14,13 @@
 
 
 
+<activity android:name=".MainActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
 <activity android:name=".OrtherPage.Nhom3QuocOtherPage">
 
 </activity>
@@ -25,11 +31,7 @@
         </activity>
 
         <activity android:name=".Nhom3AnhSignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".SignUp.Nhom3BinhSignUpActivity" >
