@@ -65,21 +65,21 @@ class Nhom3BinhSignUpActivity : AppCompatActivity(), GoogleApiClient.OnConnectio
                 }
             }
         }
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build()
-        binding.signout.setOnClickListener {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
-                Log.e("dang xuat", "da dang xuat")
-                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestEmail()
+//            .build()
+//        mGoogleApiClient = GoogleApiClient.Builder(this)
+//            .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+//            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//            .build()
+//        binding.signout.setOnClickListener {
+//            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
+//                Log.e("dang xuat", "da dang xuat")
+//                val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//        }
         binding.tvDangnhap.setOnClickListener {
             val intent = Intent(this, Nhom3AnhSignInActivity::class.java)
             startActivity(intent)
