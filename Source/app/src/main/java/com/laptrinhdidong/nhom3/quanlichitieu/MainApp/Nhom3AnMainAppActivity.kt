@@ -13,11 +13,9 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
-import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan.Nhom3AnTongQuanFragment
+import com.laptrinhdidong.nhom3.quanlichitieu.BarChart.Nhom3QuocBarChart
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocPieChart
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.Nhom3QuocStatisticalFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.ReportExpense.Nhom3AnReportExpenseFragment
 
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnActivityMainAppBinding

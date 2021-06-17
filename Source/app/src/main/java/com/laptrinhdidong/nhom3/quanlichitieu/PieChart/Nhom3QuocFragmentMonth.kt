@@ -35,6 +35,36 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Nhom3QuocFragmentMonth.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+//class Nhom3QuocFragmentMonth : Fragment() {
+//    private lateinit var binding: Nhom3QuocFragmentMonthBinding
+//    private lateinit var viewModel: Nhom3QuocPieChartViewModel
+//    private lateinit var adapter: Nhom3QuocPieChartAdapter
+//    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+////        viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
+//        binding = DataBindingUtil.inflate<Nhom3QuocFragmentMonthBinding>(
+//            inflater,
+//            R.layout.nhom3_quoc_fragment_month,
+//            container,
+//            false
+//        )
+//        Log.e("quoc", "month")
+//        return binding.root
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        Log.e("anh", "month")
+//    }
+//}
+
+
 class Nhom3QuocFragmentMonth : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentMonthBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel

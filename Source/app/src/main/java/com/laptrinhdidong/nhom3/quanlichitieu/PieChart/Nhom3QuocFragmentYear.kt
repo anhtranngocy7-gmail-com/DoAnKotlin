@@ -35,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Nhom3QuocFragmentYear.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class Nhom3QuocFragmentYear : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentYearBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
@@ -54,6 +55,7 @@ class Nhom3QuocFragmentYear : Fragment() {
             false
         )
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -189,7 +191,7 @@ class Nhom3QuocFragmentYear : Fragment() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+//    @RequiresApi(Build.VERSION_CODES.O)
     fun isCheckYear(from_day: String, end_day: String) {
 
         var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")

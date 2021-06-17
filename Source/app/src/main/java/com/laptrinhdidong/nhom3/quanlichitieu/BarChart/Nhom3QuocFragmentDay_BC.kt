@@ -3,6 +3,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentDayBcBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -79,6 +82,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
                         tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
                     }, year_now, month_now, day_now
                 )
             datePickerDialog.setTitle("Select Date")
@@ -94,12 +98,13 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
                     tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                    isCheckDate(tv_from.text.toString(),tv_to.text.toString())
                 }, year_now, month_now, day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
-
+        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
 
         //Setup Line Chart
 
@@ -188,78 +193,35 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
         binding.lineChartDay.setScaleEnabled(false)
 
-        //binding.lineChartDay.setVisibleXRangeMaximum(6f)
 
-
-//        val lineDataSet = LineDataSet(lineOne,"data set")
-//        val ilineDataSet = arrayListOf<ILineDataSet>()
-//        ilineDataSet.add(lineDataSet)
-//        val lineData = LineData(ilineDataSet)
-//        binding.lineChartDay.data = lineData
-//        binding.lineChartDay.invalidate()
-
-        /*=======================================================================================*/
-//        //Setup Barchart for collect_money
-//        val barOne = arrayListOf<BarEntry>()
-//        barOne.add(BarEntry(1f,29f))
-//        barOne.add(BarEntry(2f,9f))
-//        barOne.add(BarEntry(3f,6f))
-//
-//        //Setup Barchart for lost_money
-//        val barTwo = arrayListOf<BarEntry>()
-//        barTwo.add(BarEntry(1f,8f))
-//        barTwo.add(BarEntry(2f,15f))
-//        barTwo.add(BarEntry(3f,10f))
-//
-//        //Set BarDataSet
-//        val set1 = BarDataSet(barOne, "barOne")
-//        set1.setColors(resources.getColor(R.color.stroke_checked))
-//        val set2 = BarDataSet(barTwo,"barTwo")
-//        set2.setColors(resources.getColor(R.color.red))
-//
-//        val data = BarData(set1,set2)
-//        binding.barChartDay.data = data
-//
-//        //Array Title xAxis
-//        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
-//        //Configuration XAxis
-//        val xAxis: XAxis = binding.barChartDay.xAxis
-//        xAxis.setCenterAxisLabels(true)
-//        xAxis.position = XAxis.XAxisPosition.BOTTOM
-//        xAxis.setDrawGridLines(true)
-//        xAxis.granularity = 1f
-//        xAxis.textColor = Color.WHITE
-//        xAxis.textSize = 12f
-//        xAxis.axisLineColor = Color.WHITE
-//        xAxis.axisMinimum = 1f
-//        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-//        //Configuration YAxis
-//        val leftAxis = binding.barChartDay.axisLeft
-//        leftAxis.textColor = Color.WHITE
-//        leftAxis.textSize = 12f
-//        leftAxis.axisLineColor = Color.WHITE
-//        leftAxis.setDrawGridLines(true)
-//        leftAxis.granularity = 2f
-//        leftAxis.setLabelCount(8,true)
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-//
-//        binding.barChartDay.axisRight.isEnabled = false
-//        binding.barChartDay.legend.isEnabled = false
-//
-//        //(barspace + barWith) *2 + groupspace = 1
-//        val barSpace : Float = 0f
-//        val groupSpace: Float = 0.4f
-//        data.barWidth = 0.3f
-//
-//        xAxis.axisMaximum = labels.size-1.1f
-//        binding.barChartDay.data = data
-//        binding.barChartDay.setScaleEnabled(false)
-//
-//        binding.barChartDay.setVisibleXRangeMaximum(6f)
-//        binding.barChartDay.groupBars(1f,groupSpace,barSpace)
-//        binding.barChartDay.invalidate()
 
     }
+        fun isCheckDate(from_day : String, end_day : String ) {
+
+        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        var dateStart : Date = sdf.parse(from_day)
+        var dateEnd : Date  =  sdf.parse(end_day)
+
+        try {
+            sdf  = SimpleDateFormat("dd/MM/yyyy")
+            dateStart =sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if(dateStart.compareTo(dateEnd) > 0){
+                sdf  = SimpleDateFormat("dd/MM/yyyy")
+                dateStart =sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        }catch (ex : ParseException){
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        Log.e("START DAY",date_Start)
+        Log.e("END DAY",date_End)
+
+    }
+
 }
 
 

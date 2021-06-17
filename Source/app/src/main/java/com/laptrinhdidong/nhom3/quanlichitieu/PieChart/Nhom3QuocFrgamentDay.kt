@@ -39,14 +39,40 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Nhom3QuocFrgamentDay.newInstance] factory method to
  * create an instance of this fragment.
  */
+//class Nhom3QuocFrgamentDay : Fragment() {
+//    private lateinit var binding: Nhom3QuocFrgamentDayBinding
+//    private lateinit var viewModel: Nhom3QuocPieChartViewModel
+//    private lateinit var adapter: Nhom3QuocPieChartAdapter
+//    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+////        viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
+//
+//        binding = DataBindingUtil.inflate<Nhom3QuocFrgamentDayBinding>(
+//            inflater,
+//            R.layout.nhom3_quoc_frgament_day,
+//            container,
+//            false
+//
+//        )
+//        Log.e("quoc", "day")
+//        return binding.root
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        Log.e("anh", "day")
+//    }
+//}
 class Nhom3QuocFrgamentDay : Fragment() {
     private lateinit var binding: Nhom3QuocFrgamentDayBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
     private lateinit var adapter: Nhom3QuocPieChartAdapter
     private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
-    private  var TAG = "DATE SELECTED"
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,9 +138,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
 
-
-
-
         }
 
         //Set day hiển thị = day hiện tại
@@ -132,8 +155,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
-
-
 
         }
         isCheckDate(tv_from.text.toString(),tv_to.text.toString())

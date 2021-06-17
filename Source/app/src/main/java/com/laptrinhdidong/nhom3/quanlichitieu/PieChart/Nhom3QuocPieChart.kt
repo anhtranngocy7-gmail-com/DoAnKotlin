@@ -1,55 +1,68 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.PieChart
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityPiechartTablayoutBinding
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFrgamentDayBinding
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTichluyFragmentBinding
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityTablayoutBinding
 
+class Nhom3QuocPieChart  :Fragment() {
 
-class Nhom3QuocPieChart : Fragment(){
-
-    private lateinit var binding: Nhom3QuocActivityPiechartTablayoutBinding
-    private  lateinit var fragmentAdapter :Nhom3QuocFragmentPageAdapter
+    private lateinit var binding : Nhom3QuocActivityTablayoutBinding
 
     override fun onCreateView(
-
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<Nhom3QuocActivityPiechartTablayoutBinding>(
+
+        binding = DataBindingUtil.inflate<Nhom3QuocActivityTablayoutBinding>(
             inflater,
-            R.layout.nhom3_quoc_activity_piechart_tablayout,
+            R.layout.nhom3_quoc_activity_tablayout,
             container,
             false
         )
-
         return binding.root
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            add<Nhom3QuocFrgamentDay>(R.id.fragment_piechart)
+            addToBackStack(null)
+        }
+        binding.radioDay.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFrgamentDay>(R.id.fragment_piechart)
+                addToBackStack(null)
+            }
+        }
 
-        fragmentAdapter = Nhom3QuocFragmentPageAdapter(childFragmentManager)
-        binding.viewPager.adapter = fragmentAdapter
+        binding.radioMonth.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFragmentMonth>(R.id.fragment_piechart)
+                addToBackStack(null)
+            }
+        }
 
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.radioYear.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFragmentYear>(R.id.fragment_piechart)
+                addToBackStack(null)
+            }
+        }
 
     }
-
-
 }

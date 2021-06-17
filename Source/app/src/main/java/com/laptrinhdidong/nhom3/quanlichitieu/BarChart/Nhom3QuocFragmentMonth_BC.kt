@@ -2,6 +2,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBcBinding
 import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -78,6 +81,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
                 MonthPickerDialog.OnDateSetListener
                 { selectedMonth, selectedYear ->
                     tv_from.text = "" + (selectedMonth + 1) + "/" + selectedYear
+                    isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
                 }, year_now, month_now
             )
             monthPickerDialog.setActivatedMonth(month_now)
@@ -98,6 +102,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
                 MonthPickerDialog.OnDateSetListener
                 { selectedMonth, selectedYear ->
                     tv_to.text = "" + (selectedMonth + 1) + "/" + selectedYear
+                    isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
                 }, year_now, month_now
             )
             monthPickerDialog.setActivatedMonth(month_now)
@@ -109,6 +114,7 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
 
         }
 
+        isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
 
         //Setup Line Chart
 
@@ -182,6 +188,32 @@ class Nhom3QuocFragmentMonth_BC : Fragment() {
         binding.lineChartMonth.setScaleEnabled(false)
 
         //binding.lineChartMonth.setVisibleXRangeMaximum(6f)
+    }
+
+    fun isCheckMonth(from_day: String, end_day: String) {
+
+        var sdf: SimpleDateFormat = SimpleDateFormat("MM/yyyy")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("MM/yyyy")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("MM/yyyy")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM").format(dateEnd).toString()
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
+
     }
 
 }
