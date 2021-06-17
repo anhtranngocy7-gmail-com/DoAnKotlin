@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_background">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <LinearLayout
-        android:id="@+id/linear_head_tichluy"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/head_title_shape"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/main_background">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Chức năng khác"
-            android:textSize="30dp" />
-    </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_head_tichluy"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/head_title_shape"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="Chức năng khác"
+                android:textSize="30dp" />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -118,56 +122,60 @@
         </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayoutBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@color/sub_main_background"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayoutBottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvEvalue"
-            android:padding="16dp"
-            android:drawableLeft="@drawable/ic_danhgia"
-            android:text="Đánh giá"
-            android:textSize="24sp"
-            android:drawablePadding="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAnotherAccount"
-            android:padding="16dp"
-            android:drawableLeft="@drawable/ic_taikhoankhac"
-            android:text="Tài khoản khác"
-            android:textSize="24sp"
-            android:drawablePadding="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvLogout"
-            android:padding="16dp"
-            android:drawableLeft="@drawable/ic_dangxuat"
-            android:text="Đăng xuất"
-            android:textSize="24sp"
-            android:drawablePadding="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvHelp"
-            android:padding="16dp"
-            android:drawableLeft="@drawable/ic_trogiup"
-            android:text="Trợ giúp"
-            android:textSize="24sp"
-            android:drawablePadding="16dp"/>
+            android:layout_marginTop="12dp"
+            android:background="@color/sub_main_background"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEvalue"
+                android:padding="16dp"
+                android:drawableLeft="@drawable/ic_danhgia"
+                android:text="Đánh giá"
+                android:textSize="24sp"
+                android:drawablePadding="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAnotherAccount"
+                android:padding="16dp"
+                android:drawableLeft="@drawable/ic_taikhoankhac"
+                android:text="Tài khoản khác"
+                android:textSize="24sp"
+                android:drawablePadding="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLogout"
+                android:padding="16dp"
+                android:drawableLeft="@drawable/ic_dangxuat"
+                android:text="Đăng xuất"
+                android:textSize="24sp"
+                android:drawablePadding="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvHelp"
+                android:padding="16dp"
+                android:drawableLeft="@drawable/ic_trogiup"
+                android:text="Trợ giúp"
+                android:textSize="24sp"
+                android:drawablePadding="16dp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -72,39 +72,38 @@
             android:layout_width="318dp"
             android:layout_height="80dp"
             android:layout_marginStart="31dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="36dp"
             android:layout_marginEnd="29dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.866"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
             app:srcCompat="@drawable/option"
             tools:ignore="MissingConstraints" />
 
-        <Button
+        <TextView
             android:id="@+id/tvQuenMK"
-            android:layout_width="139dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
-            android:background="#22353C"
             android:text="Quên mật khẩu?"
             android:textColor="#3ED89A"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
             tools:ignore="MissingConstraints" />
 
-        <Button
+        <TextView
             android:id="@+id/tvDangnhap"
-            android:layout_width="100dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="29dp"
             android:text="Đăng nhập"
             android:textColor="#3ED89A"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
-            android:background="#22353C"
+
             tools:ignore="MissingConstraints" />
 
         <ImageView
@@ -190,6 +189,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profileSignin2"
             app:srcCompat="@drawable/iconpass"
             tools:ignore="MissingConstraints" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

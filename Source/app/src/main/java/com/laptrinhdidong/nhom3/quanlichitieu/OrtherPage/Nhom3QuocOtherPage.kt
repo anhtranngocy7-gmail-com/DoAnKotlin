@@ -14,7 +14,8 @@ class Nhom3QuocOtherPage: AppCompatActivity() {
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<Nhom3QuocStatisticalFragment>(R.id.frag_container_view)
+            //add<Nhom3QuocStatisticalFragment>(R.id.frag_container_view)
+            add<nhom3QuocOtherPageFragment>(R.id.frag_container_view)
         }
 
     }
