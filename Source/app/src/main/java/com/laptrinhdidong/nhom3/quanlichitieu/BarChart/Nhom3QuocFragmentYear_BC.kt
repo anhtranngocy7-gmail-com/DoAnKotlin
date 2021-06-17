@@ -2,6 +2,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentYearBcBinding
 import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -70,14 +73,17 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         val day_now = today.get(Calendar.DAY_OF_MONTH)
 
         //Set năm hiển thị = năm hiện tại
-        tv_from.text = ""+ year_now + ""
+        tv_from.text = "" + year_now + ""
 
         //Choosen Year from
         tv_from.setOnClickListener {
             val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
                 activity!!,
                 MonthPickerDialog.OnDateSetListener
-                { selectedMonth, selectedYear -> tv_from.text = "" + selectedYear },
+                { selectedMonth, selectedYear ->
+                    tv_from.text = "" + selectedYear
+                    isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+                },
                 year_now,
                 month_now
             )
@@ -92,14 +98,17 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         }
 
         //Set năm hiển thị = năm hiện tại
-        tv_to.text = ""+ year_now + ""
+        tv_to.text = "" + year_now + ""
 
         //Choosen Year to
         tv_to.setOnClickListener {
             val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
                 activity!!,
                 MonthPickerDialog.OnDateSetListener
-                { selectedMonth, selectedYear -> tv_to.text = "" + selectedYear },
+                { selectedMonth, selectedYear ->
+                    tv_to.text = "" + selectedYear
+                    isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+                },
                 year_now,
                 month_now
             )
@@ -112,7 +121,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
                 .build().show()
 
         }
-
+        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
 
         //Setup Line Chart
 
@@ -146,7 +155,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
 
         //Configure value text size
 
-       // data.setDrawValues(false)
+        // data.setDrawValues(false)
         data.setValueTextColor(Color.WHITE)
         data.setValueTextSize(12f)
 
@@ -191,7 +200,30 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         binding.lineChartYear.setVisibleXRangeMaximum(6f)
     }
 
-}
-    fun getDayFrom(){
+    fun isCheckYear(from_day: String, end_day: String) {
+
+        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("yyyy")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("yyyy")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
 
     }
+
+}

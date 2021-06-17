@@ -35,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Nhom3QuocFragmentYear.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class Nhom3QuocFragmentYear : Fragment() {
     private lateinit var binding: Nhom3QuocFragmentYearBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
@@ -54,57 +55,50 @@ class Nhom3QuocFragmentYear : Fragment() {
             false
         )
         return binding.root
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Array Colors
-        val arrayColors = mutableListOf<Int>(
-            resources.getColor(R.color.red),
-            resources.getColor(R.color.yellow),
-            resources.getColor(R.color.teal_200),
-            resources.getColor(R.color.purple_200),
-            resources.getColor(R.color.purple_700),
-            resources.getColor(R.color.greeny)
-        )
-
+        val tv_from = binding.tvFrom
+        val tv_to = binding.tvTo
         adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewYear.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getExMoney(3)
-        binding.recycleViewYear.adapter = adapter
-
         adapter_legned = Nhom3QuocLegendPiechartAdapter()
         binding.recycleviewLegend.layoutManager = LinearLayoutManager(context)
-        adapter_legned.data = viewModel.getExMoney(3)
-        binding.recycleviewLegend.adapter = adapter_legned
+        if(!viewModel.firstAccess)
+        {
+            isCheckYear(viewModel.fromDate.substring(0,4),viewModel.toDate.substring(0,4))
+            viewModel.firstAccess=true
+        }else
+        {
+            BindingDataChart()
+            BindingDataRecycleView()
+        }
 
         /*============= Show Year Dialog ==================*/
         //Setup Month Dialog
-        val tv_from = binding.tvFrom
-        val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
 
         //Set năm hiển thị = năm hiện tại
-        tv_from.text = "" + year_now + ""
+        tv_from.text = viewModel.fromDate.substring(0,4)
 
         //Choosen Year from
         tv_from.setOnClickListener {
-            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
                 MonthPickerDialog.OnDateSetListener
-                { selectedMonth, selectedYear -> tv_from.text = "" + selectedYear + ""
+                { selectedMonth, selectedYear ->
+                    tv_from.text = "" + selectedYear + ""
                     isCheckYear(tv_from.text.toString(), tv_to.text.toString())
                 },
-                year_now,
-                month_now
+                viewModel.year_now,
+                viewModel.month_now
             )
-            monthPickerDialog.setActivatedMonth(month_now)
+            monthPickerDialog.setActivatedMonth(viewModel.month_now)
                 .setMinYear(1990)
-                .setActivatedYear(year_now)
+                .setActivatedYear(viewModel.year_now)
                 .setMaxYear(2050)
                 .showYearOnly()
                 .setTitle("Select Year")
@@ -113,21 +107,23 @@ class Nhom3QuocFragmentYear : Fragment() {
         }
 
         //Set năm hiển thị = năm hiện tại
-        tv_to.text = "" + year_now + ""
+        tv_to.text = viewModel.toDate.substring(0,4)
 
         //Choosen Year to
         tv_to.setOnClickListener {
-            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(activity!!,
+            val monthPickerDialog: MonthPickerDialog.Builder = MonthPickerDialog.Builder(
+                activity!!,
                 MonthPickerDialog.OnDateSetListener
-                { selectedMonth, selectedYear -> tv_to.text = "" + selectedYear +""
+                { selectedMonth, selectedYear ->
+                    tv_to.text = "" + selectedYear + ""
                     isCheckYear(tv_from.text.toString(), tv_to.text.toString())
                 },
-                year_now,
-                month_now
+                viewModel.year_now,
+                viewModel.month_now
             )
-            monthPickerDialog.setActivatedMonth(month_now)
+            monthPickerDialog.setActivatedMonth(viewModel.month_now)
                 .setMinYear(1990)
-                .setActivatedYear(year_now)
+                .setActivatedYear(viewModel.year_now)
                 .setMaxYear(2050)
                 .showYearOnly()
                 .setTitle("Select Year")
@@ -135,62 +131,62 @@ class Nhom3QuocFragmentYear : Fragment() {
 
         }
 
-        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
-
-        //Setup PieChart
-        val pieEntries = arrayListOf<PieEntry>()
-        pieEntries.add(PieEntry(30.0f))
-        pieEntries.add(PieEntry(40.0f))
-        pieEntries.add(PieEntry(35.0f))
-
-        //Setup PieChart Animation
-        binding.pieChartYear.animateXY(1000, 1000)
-
-        //Setup PieChart Entries Color
-        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
-        pieDataSet.setColors(
-            arrayColors[0],
-            arrayColors[1],
-            arrayColors[2],
-            arrayColors[3],
-            arrayColors[4],
-            arrayColors[5],
-
-            )
-
-        //Setup Pie Data Set in PieData
-        val pieData = PieData(pieDataSet)
-
-        //Configure value text size
-        pieData.setValueTextSize(15f)
-
-        //Setup Text in PieChart Center
-        binding.pieChartYear.setCenterTextColor(resources.getColor(R.color.black))
-        binding.pieChartYear.setCenterTextSize(15f)
-
-        binding.pieChartYear.setEntryLabelTextSize(8f)
-
-        binding.pieChartYear.legend.textColor = resources.getColor(R.color.white)
-
-        //Hide Description
-        binding.pieChartYear.description.isEnabled = false
-
-        //Setup legend
-        val legend = binding.pieChartYear.legend
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.isEnabled = false
-
-
-        //this enable the value on each pieEntry
-        pieData.setDrawValues(true)
-
-        binding.pieChartYear.data = pieData
+//        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+//
+//        //Setup PieChart
+//        val pieEntries = arrayListOf<PieEntry>()
+//        pieEntries.add(PieEntry(30.0f))
+//        pieEntries.add(PieEntry(40.0f))
+//        pieEntries.add(PieEntry(35.0f))
+//
+//        //Setup PieChart Animation
+//        binding.pieChartYear.animateXY(1000, 1000)
+//
+//        //Setup PieChart Entries Color
+//        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
+//        pieDataSet.setColors(
+//            arrayColors[0],
+//            arrayColors[1],
+//            arrayColors[2],
+//            arrayColors[3],
+//            arrayColors[4],
+//            arrayColors[5],
+//
+//            )
+//
+//        //Setup Pie Data Set in PieData
+//        val pieData = PieData(pieDataSet)
+//
+//        //Configure value text size
+//        pieData.setValueTextSize(15f)
+//
+//        //Setup Text in PieChart Center
+//        binding.pieChartYear.setCenterTextColor(resources.getColor(R.color.black))
+//        binding.pieChartYear.setCenterTextSize(15f)
+//
+//        binding.pieChartYear.setEntryLabelTextSize(8f)
+//
+//        binding.pieChartYear.legend.textColor = resources.getColor(R.color.white)
+//
+//        //Hide Description
+//        binding.pieChartYear.description.isEnabled = false
+//
+//        //Setup legend
+//        val legend = binding.pieChartYear.legend
+//        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+//        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+//        legend.orientation = Legend.LegendOrientation.VERTICAL
+//        legend.isEnabled = false
+//
+//
+//        //this enable the value on each pieEntry
+//        pieData.setDrawValues(true)
+//
+//        binding.pieChartYear.data = pieData
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    //    @RequiresApi(Build.VERSION_CODES.O)
     fun isCheckYear(from_day: String, end_day: String) {
 
         var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")
@@ -212,9 +208,74 @@ class Nhom3QuocFragmentYear : Fragment() {
         }
         val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
         val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
-        Log.e("quoc", date_Start)
-        Log.e("binh", date_End)
+        viewModel.fromDate = "$date_Start-01-01"
+        viewModel.toDate = "$date_End-12-15"
+        viewModel.getExMoney(3)
+        BindingDataChart()
+        BindingDataRecycleView()
+        binding.tvTongChiTieu.text=viewModel.totalMoney.toString()+"vnd"
 
+    }
+    fun BindingDataChart()
+    {
+        val arrayColors = mutableListOf<Int>(
+            resources.getColor(R.color.red),
+            resources.getColor(R.color.yellow),
+            resources.getColor(R.color.teal_200),
+            resources.getColor(R.color.purple_200),
+            resources.getColor(R.color.purple_700),
+            resources.getColor(R.color.greeny)
+        )
+        val pieEntries = arrayListOf<PieEntry>()
+        viewModel.lstEx.forEach {
+            pieEntries.add(PieEntry(it.persent))
+        }
+        //Setup PieChart Animation
+        binding.pieChartYear.animateXY(1000, 1000)
+        //Setup PieChart Entries Color
+        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
+        pieDataSet.setColors(
+            arrayColors[0],
+            arrayColors[1],
+            arrayColors[2],
+            arrayColors[3],
+            arrayColors[4],
+            arrayColors[5],
+        )
+        //Setup Pie Data Set in PieData
+        val pieData = PieData(pieDataSet)
+
+        //Configure value text size
+        pieData.setValueTextSize(15f)
+
+        //Setup Text in PieChart Center
+        binding.pieChartYear.setCenterTextColor(resources.getColor(R.color.black))
+        binding.pieChartYear.setEntryLabelTextSize(12f)
+        binding.pieChartYear.setCenterTextSize(15f)
+        binding.pieChartYear.legend.textColor = resources.getColor(R.color.white)
+
+        //Hide Description
+        binding.pieChartYear.description.isEnabled = false
+
+        //Setup legend
+        val legend = binding.pieChartYear.legend
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+        legend.orientation = Legend.LegendOrientation.VERTICAL
+        legend.isEnabled = false
+
+
+        //this enable the value on each pieEntry
+        pieData.setDrawValues(true)
+        binding.pieChartYear.data = pieData
+
+    }
+    fun BindingDataRecycleView()
+    {
+        binding.recycleViewYear.adapter = adapter
+        binding.recycleviewLegend.adapter = adapter_legned
+        adapter.data = viewModel.lstEx
+        adapter_legned.data = viewModel.lstEx
     }
 
 }

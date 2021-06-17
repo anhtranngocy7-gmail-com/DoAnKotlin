@@ -3,6 +3,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentDayBcBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -79,6 +82,7 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
                         tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
                     }, year_now, month_now, day_now
                 )
             datePickerDialog.setTitle("Select Date")
@@ -94,12 +98,13 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
                     tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
+                    isCheckDate(tv_from.text.toString(),tv_to.text.toString())
                 }, year_now, month_now, day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
-
+        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
 
         //Setup Line Chart
 
@@ -168,7 +173,34 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartDay.setScaleEnabled(false)
+
     }
+        fun isCheckDate(from_day : String, end_day : String ) {
+
+        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        var dateStart : Date = sdf.parse(from_day)
+        var dateEnd : Date  =  sdf.parse(end_day)
+
+        try {
+            sdf  = SimpleDateFormat("dd/MM/yyyy")
+            dateStart =sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if(dateStart.compareTo(dateEnd) > 0){
+                sdf  = SimpleDateFormat("dd/MM/yyyy")
+                dateStart =sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        }catch (ex : ParseException){
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        Log.e("START DAY",date_Start)
+        Log.e("END DAY",date_End)
+
+    }
+
 }
 
 

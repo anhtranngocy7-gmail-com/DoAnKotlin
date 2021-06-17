@@ -32,14 +32,45 @@ import java.text.SimpleDateFormat
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+/**
+ * A simple [Fragment] subclass.
+ * Use the [Nhom3QuocFrgamentDay.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+//class Nhom3QuocFrgamentDay : Fragment() {
+//    private lateinit var binding: Nhom3QuocFrgamentDayBinding
+//    private lateinit var viewModel: Nhom3QuocPieChartViewModel
+//    private lateinit var adapter: Nhom3QuocPieChartAdapter
+//    private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+////        viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
+//
+//        binding = DataBindingUtil.inflate<Nhom3QuocFrgamentDayBinding>(
+//            inflater,
+//            R.layout.nhom3_quoc_frgament_day,
+//            container,
+//            false
+//
+//        )
+//        Log.e("quoc", "day")
+//        return binding.root
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        Log.e("anh", "day")
+//    }
+//}
 class Nhom3QuocFrgamentDay : Fragment() {
     private lateinit var binding: Nhom3QuocFrgamentDayBinding
     private lateinit var viewModel: Nhom3QuocPieChartViewModel
     private lateinit var adapter: Nhom3QuocPieChartAdapter
     private lateinit var adapter_legned: Nhom3QuocLegendPiechartAdapter
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +78,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         viewModel = ViewModelProvider(this).get(Nhom3QuocPieChartViewModel::class.java)
-
         binding = DataBindingUtil.inflate<Nhom3QuocFrgamentDayBinding>(
             inflater,
             R.layout.nhom3_quoc_frgament_day,
@@ -63,10 +93,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
         //Date Calendar
         val tv_from : TextView = binding.tvFrom
         val tv_to : TextView  = binding.tvTo
-        val today : Calendar = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
         //Khai báo binding
         adapter = Nhom3QuocPieChartAdapter()
         binding.recycleViewDay.layoutManager = LinearLayoutManager(context)
@@ -75,8 +101,12 @@ class Nhom3QuocFrgamentDay : Fragment() {
         //Check nếu lần đầu truy cập thì getData
         if(!viewModel.firstAccess)
         {
-            isCheckDate(""+year_now+"-"+(month_now +1)+"-"+day_now,""+year_now+"-"+(month_now +1)+"-"+day_now)
+            isCheckDate(viewModel.fromDate,viewModel.toDate)
             viewModel.firstAccess=true
+        }else
+        {
+            BindingDataChart()
+            BindingDataRecycleView()
         }
         //Set day hiển thị = day hiện tại
         tv_from.setText(viewModel.fromDate)
@@ -91,11 +121,12 @@ class Nhom3QuocFrgamentDay : Fragment() {
                     { view, year, month, dayOfMonth ->
                         tv_from.text = ""+year+"-"+(month + 1)+"-"+dayOfMonth
                         isCheckDate(tv_from.text.toString(),tv_to.text.toString())
-                    }, year_now, month_now, day_now
+                    }, viewModel.year_now, viewModel.month_now, viewModel.day_now
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
             print(tv_from.text.toString())
+
         }
 
         //Choosen Date to
@@ -107,12 +138,10 @@ class Nhom3QuocFrgamentDay : Fragment() {
                     tv_to.text = ""+year+"-"+(month + 1)+"-"+dayOfMonth
                     isCheckDate(tv_from.text.toString(),tv_to.text.toString())
 
-                }, year_now, month_now, day_now
+                }, viewModel.year_now, viewModel.month_now, viewModel.day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
-            print(tv_to.text.toString())
-
 
         }
         /*============= Show Pie Chart ==================*/
@@ -145,8 +174,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
         viewModel.getExMoney(1)
         BindingDataChart()
         BindingDataRecycleView()
-        Log.e("quoc",date_Start)
-        Log.e("binh",date_End)
+        binding.tvTongChiTieu.text=viewModel.totalMoney.toString()+"vnd"
 
     }
     fun BindingDataRecycleView()
@@ -168,7 +196,7 @@ class Nhom3QuocFrgamentDay : Fragment() {
         )
         val pieEntries = arrayListOf<PieEntry>()
         viewModel.lstEx.forEach {
-            pieEntries.add(PieEntry(it.persent.toFloat()))
+            pieEntries.add(PieEntry(it.persent))
         }
         //Setup PieChart Animation
         binding.pieChart.animateXY(1000, 1000)
@@ -208,7 +236,36 @@ class Nhom3QuocFrgamentDay : Fragment() {
         //this enable the value on each pieEntry
         pieData.setDrawValues(true)
         binding.pieChart.data = pieData
+
     }
+
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun isCheckDate(from_day : String, end_day : String ) {
+//
+//        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+//        var dateStart : Date = sdf.parse(from_day)
+//        var dateEnd : Date  =  sdf.parse(end_day)
+//
+//        try {
+//            sdf  = SimpleDateFormat("dd/MM/yyyy")
+//            dateStart =sdf.parse(from_day)
+//            dateEnd = sdf.parse(end_day)
+//            if(dateStart.compareTo(dateEnd) > 0){
+//                sdf  = SimpleDateFormat("dd/MM/yyyy")
+//                dateStart =sdf.parse(end_day)
+//                dateEnd = sdf.parse(from_day)
+//            }
+//
+//        }catch (ex : ParseException){
+//            ex.printStackTrace()
+//        }
+//        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+//        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+//        Log.e("START DAY",date_Start)
+//        Log.e("END DAY",date_End)
+//
+//>>>>>>> e29754b5a8287ff16176fdc136acc31f899966dd
+//    }
 }
 
 

@@ -2,16 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#22353C">
-
         <LinearLayout
             android:id="@+id/imgv_Header"
             android:layout_width="match_parent"
@@ -35,53 +31,52 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btn_Phantichchitieu"
+        android:layout_width="170dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/statical_curnor_shape"
+        android:drawableTop="@drawable/chart_thongke"
+        android:text="Phân tích chi tiêu"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgv_Header" />
 
-        <Button
-            android:id="@+id/btn_Phantichchitieu"
-            android:layout_width="170dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/curnor_shape"
-            android:drawableTop="@drawable/chart_thongke"
-            android:text="Phân tích chi tiêu"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgv_Header" />
+    <Button
+        android:id="@+id/btn_Thongkechitieu"
+        android:layout_width="170dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/statical_curnor_shape"
+        android:drawableTop="@drawable/chart_thongke1"
+        android:text="Thống kê chi tiêu"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Phantichchitieu" />
 
-        <Button
-            android:id="@+id/btn_Thongkechitieu"
-            android:layout_width="170dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/curnor_shape"
-            android:drawableTop="@drawable/chart_thongke1"
-            android:text="Thống kê chi tiêu"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Phantichchitieu" />
-
-        <Button
-            android:id="@+id/btn_Tinhhinhthuchi"
-            android:layout_width="170dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/curnor_shape"
-            android:drawableTop="@drawable/chart_thongke2"
-            android:text="Tình hình thu chi"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Thongkechitieu" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_Tinhhinhthuchi"
+        android:layout_width="170dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/statical_curnor_shape"
+        android:drawableTop="@drawable/chart_thongke2"
+        android:text="Tình hình thu chi"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Thongkechitieu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
