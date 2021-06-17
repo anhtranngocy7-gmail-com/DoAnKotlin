@@ -17,13 +17,13 @@ class Nhom3AnAddSavingViewModel : ViewModel() {
     var incomePerMonth = 0.toBigDecimal()
     fun createAccumulate(optBoP:Boolean, optToM: Boolean) : String
     {
-//        if(!Database.instance.stateConnect)
-//        {
-//            //nếu kết nối thất bại thì return cảnh báo
-//            if(!Database.instance.createConnection())
-//                return Database.instance.messageFail
-//        }
-//        try {
+        if(!Database.instance.stateConnect)
+        {
+            //nếu kết nối thất bại thì return cảnh báo
+            if(!Database.instance.createConnection())
+                return Database.instance.messageFail
+        }
+        try {
             if(!optToM)
             {
                 savingCal=Nhom3DatSavingTimeCal()
@@ -53,18 +53,22 @@ class Nhom3AnAddSavingViewModel : ViewModel() {
             }
             Log.e("time",time.toString())
             Log.e("income",incomePerMonth.toString())
-//            callP = Database.instance.connection!!.prepareCall("{call createAccumulate(?,?,?,?,?,?)}")
-//            Database.instance.idUserApp?.let { callP.setInt(1, it) }
-//
-//            callP.execute()
-//            callP.close()
-//            Database.instance.stateConnect=true
-//            return Database.instance.messageDone
-//        }catch (e : Exception)
-//        {
-//            Database.instance.stateConnect=false
-//            return Database.instance.messageFail
-//        }
+            callP = Database.instance.connection!!.prepareCall("{call createAccumulate(?,?,?,?,?,?)}")
+            Database.instance.idUserApp?.let { callP.setInt(1, it) }
+            callP.setString(2,nameTarget)
+            callP.setBigDecimal(3,targetMoney)
+            /////
+            ////
+            ////
+            callP.execute()
+            callP.close()
+            Database.instance.stateConnect=true
+            return Database.instance.messageDone
+        }catch (e : Exception)
+        {
+            Database.instance.stateConnect=false
+            return Database.instance.messageFail
+        }
         return "a"
     }
 }

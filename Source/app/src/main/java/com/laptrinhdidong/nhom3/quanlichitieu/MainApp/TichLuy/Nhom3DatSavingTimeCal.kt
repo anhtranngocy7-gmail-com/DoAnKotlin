@@ -2,10 +2,19 @@ package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy
 
 class Nhom3DatSavingTimeCal:Nhom3DatSavingCal() {
 
-    fun Nhom3DatSavingTimeCal(target: Double, percent_growth: Double, variable_desired: Double){
+    public fun factorial(n: Int): Long{
+        var sum: Long = 1
+        for(i in 1..n)
+            sum = sum*i
+
+        return sum
+    }
+
+    public fun Nhom3DatSavingTimeCal(target: Double, percent_growth: Double, variable_desired: Double){
         this.Target = target
         this.Percent_growth = percent_growth
         this.Money_desired = variable_desired
+
     }
 
     override fun Standardize(): Long {
@@ -18,9 +27,9 @@ class Nhom3DatSavingTimeCal:Nhom3DatSavingCal() {
         if( time_standard_f >  time_standard_i )  time_standard_i++
 
         return time_standard_i
-        
+
         TODO("Not yet implemented")
-        
+
     }
 
     override fun predict_desired_toBuy(): Double {
@@ -33,7 +42,14 @@ class Nhom3DatSavingTimeCal:Nhom3DatSavingCal() {
 
     override fun predict_desired_toPay(): Double {
 
-        this.Time_desired = Math.log(this.Target / this.Money_desired) / Math.log(1 + this.Percent_growth)
+        var temp: Double = 0.0
+        var x: Double = ((-this.Target)*Math.log(1+this.Percent_growth)/this.Money_desired)
+
+        for(i in 1..10){
+            temp = temp + (Math.pow(-i.toDouble(), i-1.toDouble())*Math.pow(x, i.toDouble())/factorial(i))
+        }
+
+        this.Time_desired = (-temp)/Math.log(1+this.Percent_growth)
 
         return Standardize().toDouble()
         TODO("Not yet implemented")
