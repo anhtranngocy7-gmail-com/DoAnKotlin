@@ -241,34 +241,6 @@ class Nhom3QuocFrgamentDay : Fragment() {
         binding.pieChart.data = pieData
 
     }
-
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun isCheckDate(from_day : String, end_day : String ) {
-//
-//        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-//        var dateStart : Date = sdf.parse(from_day)
-//        var dateEnd : Date  =  sdf.parse(end_day)
-//
-//        try {
-//            sdf  = SimpleDateFormat("dd/MM/yyyy")
-//            dateStart =sdf.parse(from_day)
-//            dateEnd = sdf.parse(end_day)
-//            if(dateStart.compareTo(dateEnd) > 0){
-//                sdf  = SimpleDateFormat("dd/MM/yyyy")
-//                dateStart =sdf.parse(end_day)
-//                dateEnd = sdf.parse(from_day)
-//            }
-//
-//        }catch (ex : ParseException){
-//            ex.printStackTrace()
-//        }
-//        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
-//        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
-//        Log.e("START DAY",date_Start)
-//        Log.e("END DAY",date_End)
-//
-//>>>>>>> e29754b5a8287ff16176fdc136acc31f899966dd
-//    }
 }
 
 

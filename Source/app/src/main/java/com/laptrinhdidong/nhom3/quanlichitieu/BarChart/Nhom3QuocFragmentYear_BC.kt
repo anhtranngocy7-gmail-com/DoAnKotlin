@@ -59,21 +59,22 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = Nhom3QuocBarChartAdapter()
-        binding.recycleviewYearBC.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getData()
         binding.recycleviewYearBC.adapter = adapter
+        binding.recycleviewYearBC.layoutManager = LinearLayoutManager(context)
+        if(!viewModel.firstAccess)
+        {
+            isCheckYear(viewModel.fromDate.substring(0,4),viewModel.toDate.substring(0,4))
+            viewModel.firstAccess=true
+        }else
+        {
+            BindingDataChart()
+            BindingDataRecycleView()
+        }
 
-        /*============= Show Year Dialog ==================*/
-        //Setup Month Dialog
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
 
-        //Set năm hiển thị = năm hiện tại
-        tv_from.text = "" + year_now + ""
+        tv_from.text = viewModel.fromDate.substring(0,4)
 
         //Choosen Year from
         tv_from.setOnClickListener {
@@ -81,15 +82,15 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
                 activity!!,
                 MonthPickerDialog.OnDateSetListener
                 { selectedMonth, selectedYear ->
-                    tv_from.text = "" + selectedYear
+                    tv_from.text = "" + selectedYear + ""
                     isCheckYear(tv_from.text.toString(), tv_to.text.toString())
                 },
-                year_now,
-                month_now
+                viewModel.year_now,
+                viewModel.month_now
             )
-            monthPickerDialog.setActivatedMonth(month_now)
+            monthPickerDialog.setActivatedMonth(viewModel.month_now)
                 .setMinYear(1990)
-                .setActivatedYear(year_now)
+                .setActivatedYear(viewModel.year_now)
                 .setMaxYear(2050)
                 .showYearOnly()
                 .setTitle("Select Year")
@@ -98,7 +99,7 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         }
 
         //Set năm hiển thị = năm hiện tại
-        tv_to.text = "" + year_now + ""
+        tv_to.text = viewModel.toDate.substring(0,4)
 
         //Choosen Year to
         tv_to.setOnClickListener {
@@ -106,40 +107,66 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
                 activity!!,
                 MonthPickerDialog.OnDateSetListener
                 { selectedMonth, selectedYear ->
-                    tv_to.text = "" + selectedYear
+                    tv_to.text = "" + selectedYear + ""
                     isCheckYear(tv_from.text.toString(), tv_to.text.toString())
                 },
-                year_now,
-                month_now
+                viewModel.year_now,
+                viewModel.month_now
             )
-            monthPickerDialog.setActivatedMonth(month_now)
+            monthPickerDialog.setActivatedMonth(viewModel.month_now)
                 .setMinYear(1990)
-                .setActivatedYear(year_now)
+                .setActivatedYear(viewModel.year_now)
                 .setMaxYear(2050)
                 .showYearOnly()
                 .setTitle("Select Year")
                 .build().show()
 
         }
-        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
+    }
 
-        //Setup Line Chart
+    fun isCheckYear(from_day: String, end_day: String) {
 
+        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("yyyy")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("yyyy")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
+        viewModel.fromDate = "$date_Start-01-01"
+        viewModel.toDate = "$date_End-12-15"
+        viewModel.getData(3)
+        BindingDataChart()
+        BindingDataRecycleView()
+        binding.tvFrom.text=viewModel.fromDate.substring(0,4)
+        binding.tvTo.text=viewModel.toDate.substring(0,4)
+
+    }
+    fun BindingDataChart() {
         val lineOne = arrayListOf<Entry>()
-        lineOne.add(Entry(1f, 5f))
-        lineOne.add(Entry(2f, 9f))
-        lineOne.add(Entry(3f, 4f))
-        lineOne.add(Entry(4f, 8f))
-        lineOne.add(Entry(5f, 12f))
-        lineOne.add(Entry(6f, 2f))
-
         val lineTwo = arrayListOf<Entry>()
-        lineTwo.add(Entry(1f, 6f))
-        lineTwo.add(Entry(2f, 10f))
-        lineTwo.add(Entry(3f, 7f))
-        lineTwo.add(Entry(4f, 15f))
-        lineTwo.add(Entry(5f, 13f))
-        lineTwo.add(Entry(6f, 3f))
+        var labels = arrayListOf("")
+        var i = 1
+        viewModel.lstEx.forEach {
+            lineOne.add(Entry(i.toFloat(), it.money_collect.toFloat()))
+            lineTwo.add(Entry(i.toFloat(), it.money_lost.toFloat()))
+            labels.add(i.toString())
+            i++
+        }
+        labels.add("")
+
 
         //Setup LineDataSet in LineData
         val set1 = LineDataSet(lineOne, "Thu")
@@ -152,18 +179,15 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         ilineDataSet.add(set2)
         val data = LineData(ilineDataSet)
 
-
         //Configure value text size
-
-        // data.setDrawValues(false)
         data.setValueTextColor(Color.WHITE)
         data.setValueTextSize(12f)
+
 
         binding.lineChartYear.data = data
         binding.lineChartYear.invalidate()
 
         //Array Title xAxis
-        val labels = arrayOf<String>("", "4", "5", "6", "7", "8", "9", "")
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartYear.xAxis
@@ -196,34 +220,11 @@ class Nhom3QuocFragmentYear_BC : Fragment() {
         xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartYear.setScaleEnabled(false)
-
-        binding.lineChartYear.setVisibleXRangeMaximum(6f)
     }
 
-    fun isCheckYear(from_day: String, end_day: String) {
-
-        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy")
-        var dateStart: Date = sdf.parse(from_day)
-        var dateEnd: Date = sdf.parse(end_day)
-
-        try {
-            sdf = SimpleDateFormat("yyyy")
-            dateStart = sdf.parse(from_day)
-            dateEnd = sdf.parse(end_day)
-            if (dateStart.compareTo(dateEnd) > 0) {
-                sdf = SimpleDateFormat("yyyy")
-                dateStart = sdf.parse(end_day)
-                dateEnd = sdf.parse(from_day)
-            }
-
-        } catch (ex: ParseException) {
-            ex.printStackTrace()
-        }
-        val date_Start = SimpleDateFormat("yyyy").format(dateStart).toString()
-        val date_End = SimpleDateFormat("yyyy").format(dateEnd).toString()
-        Log.e("START DAY", date_Start)
-        Log.e("END DAY", date_End)
-
+    fun BindingDataRecycleView() {
+        binding.recycleviewYearBC.adapter = adapter
+        adapter.data = viewModel.lstEx
     }
 
 }

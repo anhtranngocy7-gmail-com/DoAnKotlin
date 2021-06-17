@@ -59,21 +59,21 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = Nhom3QuocBarChartAdapter()
-        binding.recycleviewDayBC.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getData()
-        binding.recycleviewDayBC.adapter = adapter
-
-        //Date Calendar
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
+        adapter = Nhom3QuocBarChartAdapter()
+        binding.recycleviewDayBC.layoutManager = LinearLayoutManager(context)
+        if (!viewModel.firstAccess) {
+            isCheckDate(viewModel.fromDate, viewModel.toDate)
+            viewModel.firstAccess = true
+        } else {
+            BindingDataChart()
+            BindingDataRecycleView()
+        }
+        //Date Calendar
 
         //Set day hiển thị = day hiện tại
-        tv_from.text = "" + day_now +"/"+  (month_now +1)+ "/" + year_now
+        tv_from.text = viewModel.fromDate
         //Choosen Date from
         tv_from.setOnClickListener {
             val datePickerDialog =
@@ -81,37 +81,73 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                     activity!!, R.style.Theme_AppCompat_Light_Dialog,
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
-                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
-                    }, year_now, month_now, day_now
+                        tv_from.text = "" + year + "-" + (month + 1) + "-" + dayOfMonth
+                        isCheckDate(tv_from.text.toString(), tv_to.text.toString())
+                    }, viewModel.year_now, viewModel.month_now, viewModel.day_now
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
 
         //Set day hiển thị = day hiện tại
-        tv_to.text = "" + day_now +"/"+ (month_now +1)+ "/" + year_now
+        tv_to.text = viewModel.toDate
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 activity!!, R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
-                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                    isCheckDate(tv_from.text.toString(),tv_to.text.toString())
-                }, year_now, month_now, day_now
+                    tv_to.text = "" + year + "-" + (month + 1) + "-" + dayOfMonth
+                    isCheckDate(tv_from.text.toString(), tv_to.text.toString())
+                }, viewModel.year_now, viewModel.month_now, viewModel.day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
-        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
 
         //Setup Line Chart
 
+
+    }
+
+    fun isCheckDate(from_day: String, end_day: String) {
+
+        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("yyyy-MM-dd")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("yyyy-MM-dd")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        viewModel.fromDate = date_Start
+        viewModel.toDate = date_End
+        viewModel.getData(1)
+        binding.tvFrom.text = viewModel.fromDate
+        binding.tvTo.text = viewModel.toDate
+        BindingDataChart()
+        BindingDataRecycleView()
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
+
+    }
+
+    fun BindingDataChart() {
         val lineOne = arrayListOf<Entry>()
         val lineTwo = arrayListOf<Entry>()
-        var labels = arrayListOf("","1","")
-        var i=1
+        var labels = arrayListOf("")
+        var i = 1
         viewModel.lstEx.forEach {
             lineOne.add(Entry(i.toFloat(), it.money_collect.toFloat()))
             lineTwo.add(Entry(i.toFloat(), it.money_lost.toFloat()))
@@ -173,34 +209,12 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartDay.setScaleEnabled(false)
-
-    }
-        fun isCheckDate(from_day : String, end_day : String ) {
-
-        var sdf : SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-        var dateStart : Date = sdf.parse(from_day)
-        var dateEnd : Date  =  sdf.parse(end_day)
-
-        try {
-            sdf  = SimpleDateFormat("dd/MM/yyyy")
-            dateStart =sdf.parse(from_day)
-            dateEnd = sdf.parse(end_day)
-            if(dateStart.compareTo(dateEnd) > 0){
-                sdf  = SimpleDateFormat("dd/MM/yyyy")
-                dateStart =sdf.parse(end_day)
-                dateEnd = sdf.parse(from_day)
-            }
-
-        }catch (ex : ParseException){
-            ex.printStackTrace()
-        }
-        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
-        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
-        Log.e("START DAY",date_Start)
-        Log.e("END DAY",date_End)
-
     }
 
+    fun BindingDataRecycleView() {
+        binding.recycleviewDayBC.adapter = adapter
+        adapter.data = viewModel.lstEx
+    }
 }
 
 

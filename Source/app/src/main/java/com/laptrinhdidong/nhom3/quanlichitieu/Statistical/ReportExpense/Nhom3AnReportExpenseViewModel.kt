@@ -5,15 +5,21 @@ import androidx.lifecycle.ViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
 import java.sql.CallableStatement
 import java.sql.ResultSet
+import java.util.*
 
 class Nhom3AnReportExpenseViewModel: ViewModel() {
+    val today = Calendar.getInstance()
+    val year_now = today.get(Calendar.YEAR)
+    val month_now = today.get(Calendar.MONTH)
+    val day_now = today.get(Calendar.DAY_OF_MONTH)
+
     var firstAccess : Boolean = false
     lateinit var callP: CallableStatement
     lateinit var outerList : MutableList<Nhom3AnGroupReportExpense>
     lateinit var map : MutableMap<Nhom3AnGroupReportExpense,MutableList<Nhom3AnItemReportExpense>>
     lateinit var result: ResultSet
-    var fromDate ="2020-1-1"
-    var toDate ="2021-12-31"
+    var fromDate =""+year_now+"-"+(month_now +1)+"-"+day_now
+    var toDate =""+year_now+"-"+(month_now +1)+"-"+day_now
     fun getListEx()
     {
         outerList= mutableListOf()
@@ -24,7 +30,7 @@ class Nhom3AnReportExpenseViewModel: ViewModel() {
         callP.setString(3,toDate)
         if (callP.execute()) {
             result = callP.resultSet
-            while (result.next() && !result.isAfterLast) {
+            while (result.next()&& !result.isAfterLast) {
                 var cateName = result.getString("CateName").toString()
                 var descript = result.getString("Descript")
                 var total = result.getBigDecimal("TotalMoney")
@@ -32,6 +38,8 @@ class Nhom3AnReportExpenseViewModel: ViewModel() {
                 {
                     outerList.add(Nhom3AnGroupReportExpense(cateName, total))
                     map[outerList.last()] = mutableListOf()
+                    map[outerList.last()]?.add(Nhom3AnItemReportExpense(descript,total))
+                    outerList.last().total+=total
                 }
                 else
                 {

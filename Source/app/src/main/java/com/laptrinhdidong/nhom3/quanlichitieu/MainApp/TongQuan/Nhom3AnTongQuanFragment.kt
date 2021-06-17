@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.laptrinhdidong.nhom3.quanlichitieu.BarChart.Nhom3QuocBarChart
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTongquanFragmentBinding
@@ -86,7 +87,9 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
             {
                 0 ->replace<Nhom3BinhSpendingFragment>(R.id.fragment_mainapp)
                 1 ->replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
-                2 ->replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp) 
+                2 ->replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
+                3 ->replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
+                3 ->replace<Nhom3QuocBarChart>(R.id.fragment_mainapp)
             }
             addToBackStack(null)
         }

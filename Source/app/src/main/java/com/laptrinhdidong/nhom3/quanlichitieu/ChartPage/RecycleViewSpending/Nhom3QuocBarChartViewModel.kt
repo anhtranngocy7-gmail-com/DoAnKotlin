@@ -7,23 +7,39 @@ import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemBarChart
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3QuocItemPieChart
 import java.sql.CallableStatement
 import java.sql.ResultSet
+import java.util.*
 
 class Nhom3QuocBarChartViewModel : ViewModel() {
+    val today = Calendar.getInstance()
+    val year_now = today.get(Calendar.YEAR)
+    val month_now = today.get(Calendar.MONTH)
+    val day_now = today.get(Calendar.DAY_OF_MONTH)
+
     lateinit var result: ResultSet
-    var fromDate ="2020-1-1"
-    var toDate ="2021-12-31"
+    var fromDate =""+year_now+"-"+(month_now +1)+"-"+day_now
+    var toDate =""+year_now+"-"+(month_now +1)+"-"+day_now
     var firstAccess : Boolean = false
     lateinit var callP: CallableStatement
     lateinit var lstEx: MutableList<Nhom3QuocItemBarChart>
-    fun getData() :MutableList<Nhom3QuocItemBarChart>{
+    fun getData(opt: Int) :MutableList<Nhom3QuocItemBarChart>{
         lstEx = mutableListOf()
+        var timeNameColumn="D"
+        var totalNameColumn="TotalMoney"
+        var kindNameColumn="CateKind"
         var totalMoney=0.toBigDecimal();
-        var opt=1
         when(opt)
         {
             1 -> callP= Database.instance.connection!!.prepareCall("{call getMoneyEIByDate(?,?,?)}")
-            2 -> callP= Database.instance.connection!!.prepareCall("{call getMoneyEIByMonth(?,?,?)}")
-            3 -> callP= Database.instance.connection!!.prepareCall("{call getMoneyEIByYear(?,?,?)}")
+            2 -> {
+                callP= Database.instance.connection!!.prepareCall("{call getMoneyEIByMonth(?,?,?)}")
+                totalNameColumn="Total"
+                kindNameColumn="Kind"
+            }
+            3 -> {
+                callP = Database.instance.connection!!.prepareCall("{call getMoneyEIByYear(?,?,?)}")
+                timeNameColumn="Y"
+            }
+
         }
         Database.instance.idUserApp?.let { callP.setInt(1, it) }
         callP.setString(2,fromDate)
@@ -32,9 +48,9 @@ class Nhom3QuocBarChartViewModel : ViewModel() {
             result = callP.resultSet
             var temp=0
             while (result.next() && !result.isAfterLast) {
-                var d = result.getString("D").toString()
-                var total = result.getBigDecimal("TotalMoney")
-                var cateKind = result.getBoolean("CateKind")
+                var d = result.getString(timeNameColumn).toString()
+                var total = result.getBigDecimal(totalNameColumn)
+                var cateKind = result.getBoolean(kindNameColumn)
                 if(lstEx.size==0)
                 {
                     if(cateKind==false)
@@ -69,7 +85,13 @@ class Nhom3QuocBarChartViewModel : ViewModel() {
                 }
             }
             callP.close()
-            lstEx.removeLast()
+            try {
+                if(lstEx.size!=1) {
+                    lstEx.removeLast()
+                }
+            }catch (e: Exception)
+            {
+            }
             lstEx.forEach {
                 it.total_money=it.money_collect-it.money_lost
                 Log.e("An:", it.title_bc)

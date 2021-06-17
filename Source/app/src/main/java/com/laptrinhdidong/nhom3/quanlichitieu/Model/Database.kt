@@ -6,7 +6,7 @@ import java.lang.Exception
 import java.sql.*
 
 class Database private constructor() {
-    val ip: String = "192.168.0.108"
+    val ip: String = "192.168.43.229"
     val port: String = "1433"
     val databaseName: String = "KotlinProject"
     val classes: String = "net.sourceforge.jtds.jdbc.Driver"

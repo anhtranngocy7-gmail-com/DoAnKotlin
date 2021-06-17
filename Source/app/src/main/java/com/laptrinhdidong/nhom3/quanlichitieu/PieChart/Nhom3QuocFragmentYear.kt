@@ -131,58 +131,6 @@ class Nhom3QuocFragmentYear : Fragment() {
 
         }
 
-//        isCheckYear(tv_from.text.toString(), tv_to.text.toString())
-//
-//        //Setup PieChart
-//        val pieEntries = arrayListOf<PieEntry>()
-//        pieEntries.add(PieEntry(30.0f))
-//        pieEntries.add(PieEntry(40.0f))
-//        pieEntries.add(PieEntry(35.0f))
-//
-//        //Setup PieChart Animation
-//        binding.pieChartYear.animateXY(1000, 1000)
-//
-//        //Setup PieChart Entries Color
-//        val pieDataSet = PieDataSet(pieEntries, "Biểu đồ chi tiêu")
-//        pieDataSet.setColors(
-//            arrayColors[0],
-//            arrayColors[1],
-//            arrayColors[2],
-//            arrayColors[3],
-//            arrayColors[4],
-//            arrayColors[5],
-//
-//            )
-//
-//        //Setup Pie Data Set in PieData
-//        val pieData = PieData(pieDataSet)
-//
-//        //Configure value text size
-//        pieData.setValueTextSize(15f)
-//
-//        //Setup Text in PieChart Center
-//        binding.pieChartYear.setCenterTextColor(resources.getColor(R.color.black))
-//        binding.pieChartYear.setCenterTextSize(15f)
-//
-//        binding.pieChartYear.setEntryLabelTextSize(8f)
-//
-//        binding.pieChartYear.legend.textColor = resources.getColor(R.color.white)
-//
-//        //Hide Description
-//        binding.pieChartYear.description.isEnabled = false
-//
-//        //Setup legend
-//        val legend = binding.pieChartYear.legend
-//        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-//        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-//        legend.orientation = Legend.LegendOrientation.VERTICAL
-//        legend.isEnabled = false
-//
-//
-//        //this enable the value on each pieEntry
-//        pieData.setDrawValues(true)
-//
-//        binding.pieChartYear.data = pieData
     }
 
 
