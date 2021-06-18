@@ -289,10 +289,10 @@ class Nhom3BinhSpendingFragment : Fragment() {
         binding.btnConfirm.setOnClickListener {
             if (binding.imageView4.isChecked) {
                 viewModel.spendingItem.description =
-                    "*Hàng ngày" + binding.etDescription.text.toString().trim()
+                    "*HN" + binding.etDescription.text.toString().trim()
             } else {
                 viewModel.spendingItem.description =
-                    "*Hàng tháng " + binding.etDescription.text.toString().trim()
+                    "*HT" + binding.etDescription.text.toString().trim()
             }
             viewModel.spendingItem.money = binding.etMoney.text.toString().trim()
             viewModel.spendingItem.mode = binding.cbSpending.isChecked

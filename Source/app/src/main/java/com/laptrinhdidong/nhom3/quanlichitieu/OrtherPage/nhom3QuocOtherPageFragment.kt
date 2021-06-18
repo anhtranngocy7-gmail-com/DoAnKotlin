@@ -48,7 +48,7 @@ class nhom3QuocOtherPageFragment : Fragment(), GoogleApiClient.OnConnectionFaile
                 Log.e("dang xuat", "da dang xuat")
             }
 
-
+            Log.e("davao", "vaooooo")
             val intent = Intent (getActivity(), Nhom3AnhSignInActivity::class.java)
             getActivity()?.startActivity(intent)
 

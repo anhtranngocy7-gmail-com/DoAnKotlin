@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="5dp"
+    android:paddingEnd="10dp"
    >
 
     <TextView
@@ -22,7 +24,7 @@
         android:id="@+id/imageThu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
         app:layout_constraintStart_toEndOf="@+id/tvTittle"
@@ -34,7 +36,7 @@
         android:id="@+id/imageChi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/tvTittle"
         app:layout_constraintTop_toBottomOf="@+id/imageThu"
@@ -66,9 +68,9 @@
         android:id="@+id/viewlineBC"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="230dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="10dp"
         android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/tvTittle"
         app:layout_constraintTop_toBottomOf="@+id/tvMoneyLost"
         app:layout_constraintBottom_toTopOf="@+id/tvMoneyTotal"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -78,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
         android:text="12.000.000 đ"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,12 +89,9 @@
         android:id="@+id/tvMoneyLost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="30dp"
         android:text="5.000.000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/tvChi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMoneyColect" />
 
@@ -101,12 +99,9 @@
         android:id="@+id/tvMoneyColect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="30dp"
         android:text="7.000.000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tvThu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
