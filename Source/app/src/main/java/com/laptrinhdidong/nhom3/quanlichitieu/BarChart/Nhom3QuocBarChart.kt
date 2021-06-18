@@ -4,73 +4,66 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocFragmentPageAdapter
+import androidx.fragment.app.*
+import androidx.lifecycle.ViewModelProvider
+import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.*
 import com.laptrinhdidong.nhom3.quanlichitieu.R
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityBarchartTablayoutBinding
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityPiechartTablayoutBinding
+import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityTablayoutLinechartBinding
+
 
 class Nhom3QuocBarChart : Fragment() {
-    private lateinit var binding: Nhom3QuocActivityBarchartTablayoutBinding
-    private  lateinit var fragmentAdapter : Nhom3QuocFragmentPageAdapter
-
+    private lateinit var binding : Nhom3QuocActivityTablayoutLinechartBinding
+    private lateinit var viewModel: Nhom3AnOuterPieChartViewModel
     override fun onCreateView(
-
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<Nhom3QuocActivityBarchartTablayoutBinding>(
+        viewModel = ViewModelProvider(this).get(Nhom3AnOuterPieChartViewModel::class.java)
+        binding = DataBindingUtil.inflate<Nhom3QuocActivityTablayoutLinechartBinding>(
             inflater,
-            R.layout.nhom3_quoc_activity_barchart_tablayout,
+            R.layout.nhom3_quoc_activity_tablayout_linechart,
             container,
             false
         )
-
         return binding.root
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(!viewModel.firstAccess) {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<Nhom3QuocFragmentDay_BC>(R.id.fragment_linechart)
+                addToBackStack(null)
+            }
+            viewModel.firstAccess=true
+        }
+        binding.radioDay.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFragmentDay_BC>(R.id.fragment_linechart)
+                addToBackStack(null)
+            }
+        }
 
-        fragmentAdapter = Nhom3QuocFragmentPageAdapter(childFragmentManager)
-        binding.viewPager.adapter = fragmentAdapter
+        binding.radioMonth.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFragmentMonth_BC>(R.id.fragment_linechart)
+                addToBackStack(null)
+            }
+        }
 
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.radioYear.setOnClickListener{
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3QuocFragmentYear_BC>(R.id.fragment_linechart)
+                addToBackStack(null)
+            }
+        }
 
     }
 
-
-
-
-
-//    private lateinit var toolbar: Toolbar
-//    private lateinit var viewPager: ViewPager
-//    private lateinit var tabLayout: TabLayout
-//
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.nhom3_quoc_activity_barchart_tablayout)
-//
-//
-//        toolbar = findViewById(R.id.toolbar)
-//        viewPager = findViewById(R.id.viewPager)
-//        tabLayout = findViewById(R.id.tabLayout)
-//
-//
-//        val fragmentAdapterBC = Nhom3QuocFragmentPageBCAdapter(supportFragmentManager)
-//
-//        viewPager.adapter = fragmentAdapterBC
-//
-//        tabLayout.setupWithViewPager(viewPager)
-//
-//
-//    }
 }
+

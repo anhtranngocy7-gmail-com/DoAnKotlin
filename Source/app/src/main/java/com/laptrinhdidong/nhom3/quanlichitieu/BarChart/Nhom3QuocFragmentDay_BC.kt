@@ -3,6 +3,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.BarChart
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocBarChartViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentDayBcBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -56,21 +59,21 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = Nhom3QuocBarChartAdapter()
-        binding.recycleviewDayBC.layoutManager = LinearLayoutManager(context)
-        adapter.data = viewModel.getData()
-        binding.recycleviewDayBC.adapter = adapter
-
-        //Date Calendar
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
+        adapter = Nhom3QuocBarChartAdapter()
+        binding.recycleviewDayBC.layoutManager = LinearLayoutManager(context)
+        if (!viewModel.firstAccess) {
+            isCheckDate(viewModel.fromDate, viewModel.toDate)
+            viewModel.firstAccess = true
+        } else {
+            BindingDataChart()
+            BindingDataRecycleView()
+        }
+        //Date Calendar
 
         //Set day hiển thị = day hiện tại
-        tv_from.text = "" + day_now +"/"+  (month_now +1)+ "/" + year_now
+        tv_from.text = viewModel.fromDate
         //Choosen Date from
         tv_from.setOnClickListener {
             val datePickerDialog =
@@ -78,60 +81,80 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
                     activity!!, R.style.Theme_AppCompat_Light_Dialog,
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
-                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                    }, year_now, month_now, day_now
+                        tv_from.text = "" + year + "-" + (month + 1) + "-" + dayOfMonth
+                        isCheckDate(tv_from.text.toString(), tv_to.text.toString())
+                    }, viewModel.year_now, viewModel.month_now, viewModel.day_now
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
 
         //Set day hiển thị = day hiện tại
-        tv_to.text = "" + day_now +"/"+ (month_now +1)+ "/" + year_now
+        tv_to.text = viewModel.toDate
         //Choosen Date to
         tv_to.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 activity!!, R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
-                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                }, year_now, month_now, day_now
+                    tv_to.text = "" + year + "-" + (month + 1) + "-" + dayOfMonth
+                    isCheckDate(tv_from.text.toString(), tv_to.text.toString())
+                }, viewModel.year_now, viewModel.month_now, viewModel.day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
         }
 
-
         //Setup Line Chart
 
+
+    }
+
+    fun isCheckDate(from_day: String, end_day: String) {
+
+        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        var dateStart: Date = sdf.parse(from_day)
+        var dateEnd: Date = sdf.parse(end_day)
+
+        try {
+            sdf = SimpleDateFormat("yyyy-MM-dd")
+            dateStart = sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if (dateStart.compareTo(dateEnd) > 0) {
+                sdf = SimpleDateFormat("yyyy-MM-dd")
+                dateStart = sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        viewModel.fromDate = date_Start
+        viewModel.toDate = date_End
+        viewModel.getData(1)
+        binding.tvFrom.text = viewModel.fromDate
+        binding.tvTo.text = viewModel.toDate
+        BindingDataChart()
+        BindingDataRecycleView()
+        Log.e("START DAY", date_Start)
+        Log.e("END DAY", date_End)
+
+    }
+
+    fun BindingDataChart() {
         val lineOne = arrayListOf<Entry>()
-        lineOne.add(Entry(1f, 5f))
-        lineOne.add(Entry(2f, 9f))
-        lineOne.add(Entry(3f, 4f))
-        lineOne.add(Entry(4f, 8f))
-        lineOne.add(Entry(5f, 12f))
-        lineOne.add(Entry(6f, 22f))
-        lineOne.add(Entry(7f, 17f))
-        lineOne.add(Entry(8f, 6f))
-        lineOne.add(Entry(9f, 3f))
-        lineOne.add(Entry(10f, 19f))
-        lineOne.add(Entry(11f, 21f))
-        lineOne.add(Entry(12f, 13f))
-
-
         val lineTwo = arrayListOf<Entry>()
-        lineTwo.add(Entry(1f, 6f))
-        lineTwo.add(Entry(2f, 10f))
-        lineTwo.add(Entry(3f, 7f))
-        lineTwo.add(Entry(4f, 15f))
-        lineTwo.add(Entry(5f, 13f))
-        lineTwo.add(Entry(6f, 3f))
-        lineTwo.add(Entry(7f, 24f))
-        lineTwo.add(Entry(8f, 16f))
-        lineTwo.add(Entry(9f, 15f))
-        lineTwo.add(Entry(10f, 4f))
-        lineTwo.add(Entry(11f, 17f))
-        lineTwo.add(Entry(12f, 9f))
-
+        var labels = arrayListOf("")
+        var i = 1
+        viewModel.lstEx.forEach {
+            lineOne.add(Entry(i.toFloat(), it.money_collect.toFloat()))
+            lineTwo.add(Entry(i.toFloat(), it.money_lost.toFloat()))
+            labels.add(i.toString())
+            i++
+        }
+        labels.add("")
 
 
         //Setup LineDataSet in LineData
@@ -154,7 +177,6 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         binding.lineChartDay.invalidate()
 
         //Array Title xAxis
-        val labels = arrayOf<String>("","1","2","3", "4", "5", "6", "7", "8", "9","10","11","12","")
 
         //Configuration XAxis
         val xAxis: XAxis = binding.lineChartDay.xAxis
@@ -187,78 +209,11 @@ class Nhom3QuocFragmentDay_BC : Fragment() {
         xAxis.axisMaximum = labels.size - 0f
 
         binding.lineChartDay.setScaleEnabled(false)
+    }
 
-        //binding.lineChartDay.setVisibleXRangeMaximum(6f)
-
-
-//        val lineDataSet = LineDataSet(lineOne,"data set")
-//        val ilineDataSet = arrayListOf<ILineDataSet>()
-//        ilineDataSet.add(lineDataSet)
-//        val lineData = LineData(ilineDataSet)
-//        binding.lineChartDay.data = lineData
-//        binding.lineChartDay.invalidate()
-
-        /*=======================================================================================*/
-//        //Setup Barchart for collect_money
-//        val barOne = arrayListOf<BarEntry>()
-//        barOne.add(BarEntry(1f,29f))
-//        barOne.add(BarEntry(2f,9f))
-//        barOne.add(BarEntry(3f,6f))
-//
-//        //Setup Barchart for lost_money
-//        val barTwo = arrayListOf<BarEntry>()
-//        barTwo.add(BarEntry(1f,8f))
-//        barTwo.add(BarEntry(2f,15f))
-//        barTwo.add(BarEntry(3f,10f))
-//
-//        //Set BarDataSet
-//        val set1 = BarDataSet(barOne, "barOne")
-//        set1.setColors(resources.getColor(R.color.stroke_checked))
-//        val set2 = BarDataSet(barTwo,"barTwo")
-//        set2.setColors(resources.getColor(R.color.red))
-//
-//        val data = BarData(set1,set2)
-//        binding.barChartDay.data = data
-//
-//        //Array Title xAxis
-//        val labels = arrayOf<String>("", "Tháng 4", "Tháng 5", "Tháng 6","")
-//        //Configuration XAxis
-//        val xAxis: XAxis = binding.barChartDay.xAxis
-//        xAxis.setCenterAxisLabels(true)
-//        xAxis.position = XAxis.XAxisPosition.BOTTOM
-//        xAxis.setDrawGridLines(true)
-//        xAxis.granularity = 1f
-//        xAxis.textColor = Color.WHITE
-//        xAxis.textSize = 12f
-//        xAxis.axisLineColor = Color.WHITE
-//        xAxis.axisMinimum = 1f
-//        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-//        //Configuration YAxis
-//        val leftAxis = binding.barChartDay.axisLeft
-//        leftAxis.textColor = Color.WHITE
-//        leftAxis.textSize = 12f
-//        leftAxis.axisLineColor = Color.WHITE
-//        leftAxis.setDrawGridLines(true)
-//        leftAxis.granularity = 2f
-//        leftAxis.setLabelCount(8,true)
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-//
-//        binding.barChartDay.axisRight.isEnabled = false
-//        binding.barChartDay.legend.isEnabled = false
-//
-//        //(barspace + barWith) *2 + groupspace = 1
-//        val barSpace : Float = 0f
-//        val groupSpace: Float = 0.4f
-//        data.barWidth = 0.3f
-//
-//        xAxis.axisMaximum = labels.size-1.1f
-//        binding.barChartDay.data = data
-//        binding.barChartDay.setScaleEnabled(false)
-//
-//        binding.barChartDay.setVisibleXRangeMaximum(6f)
-//        binding.barChartDay.groupBars(1f,groupSpace,barSpace)
-//        binding.barChartDay.invalidate()
-
+    fun BindingDataRecycleView() {
+        binding.recycleviewDayBC.adapter = adapter
+        adapter.data = viewModel.lstEx
     }
 }
 

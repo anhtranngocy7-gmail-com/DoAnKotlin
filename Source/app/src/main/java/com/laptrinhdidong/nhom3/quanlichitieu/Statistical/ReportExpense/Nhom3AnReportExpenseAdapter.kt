@@ -59,7 +59,7 @@ class Nhom3AnReportExpenseAdapter internal constructor(private val context: Cont
         val icon : ImageView = convertView!!.findViewById(R.id.imv_typeEx)
         icon.setImageResource(R.drawable.eat_and_drink)
         title.text=chapTerList[groupPosition].title
-        total.text=chapTerList[groupPosition].total
+        total.text=chapTerList[groupPosition].total.toString()
         Log.e("An",chapTerList[groupPosition].title)
         return convertView
     }
@@ -80,7 +80,7 @@ class Nhom3AnReportExpenseAdapter internal constructor(private val context: Cont
         val title : TextView = convertView!!.findViewById(R.id.tv_item_re_title)
         val total : TextView = convertView!!.findViewById(R.id.tv_item_re_money)
         title.text= topicsList[groupPosition]!![childPosition].title
-        total.text= topicsList[groupPosition]!![childPosition].money
+        total.text= topicsList[groupPosition]!![childPosition].money.toString()
         Log.e("An1",topicsList[groupPosition]!![childPosition].title)
         return convertView
     }

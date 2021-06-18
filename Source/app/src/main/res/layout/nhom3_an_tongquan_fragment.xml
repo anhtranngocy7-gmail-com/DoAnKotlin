@@ -62,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:textSize="20dp"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.strmoney}"
+                            android:text="@{viewmodel.ac.money.toString()}"
                             />
                         <TextView
                             android:textSize="20dp"
@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="20dp"
                         android:layout_height="wrap_content"
-                        android:text="Mục tiêu tiết kiệm đã hoàn thành: 0/2"></TextView>
+                        android:text="@{viewmodel.countCompleteAccumulate}"></TextView>
                 </LinearLayout>
 
         </LinearLayout>
@@ -146,6 +146,7 @@
 
 
                 <Spinner
+                    android:id="@+id/spinner_time"
                     android:popupBackground="@color/sub_main_background"
                     android:gravity="end"
                     android:foregroundGravity="center"
@@ -195,11 +196,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20.000.000đ"
+                        android:text="@{viewmodel.lstEiInfo.get(1).money.toString()}"
                         android:textColor="@color/stroke_checked"
                         android:textSize="18dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"></TextView>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,7 +236,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20.000.000đ"
+                        android:text="@{viewmodel.lstEiInfo.get(0).money.toString()}"
                         android:textColor="@color/red"
                         android:textSize="18dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -262,13 +264,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="0 đ"
+                        android:text="@{viewmodel.spareMoney.toString()}"
                         android:textColor="@color/black"
                         android:textSize="18dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_line_gray"></TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
+                <ProgressBar
+                    android:id="@+id/vertical_progressbargreen"
+                    android:layout_width="50dip"
+                    android:layout_height="120dp"
+                    android:progress="@{100-viewmodel.lstEiInfo.get(0).percent}"
+                    android:progressTint="#3ed89a"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/constrain4"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    />
+                <ProgressBar
+                    android:id="@+id/vertical_progressbarred"
+                    android:layout_width="50dip"
+                    android:layout_height="120dp"
+                    android:progress="@{100-viewmodel.lstEiInfo.get(1).percent}"
+                    android:progressTint="#ef5362"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/vertical_progressbargreen"
+                    app:layout_constraintBottom_toBottomOf="@id/constrain4"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="2px"

@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemFeature
+import com.laptrinhdidong.nhom3.quanlichitieu.OnItemClickListener
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
-class Nhom3AnTinhNangAdapter() : RecyclerView.Adapter<Nhom3AnTinhNangAdapter.ViewHolder>() {
+class Nhom3AnTinhNangAdapter(listener: OnItemClickListener) : RecyclerView.Adapter<Nhom3AnTinhNangAdapter.ViewHolder>() {
+    private var listener : OnItemClickListener = listener
     var data: List<Nhom3AnItemFeature> = listOf(
         Nhom3AnItemFeature(R.drawable.icon_feature_zoom_money, "Chi tiêu"),
         Nhom3AnItemFeature(R.drawable.icon_feature_bank, "Tích lũy"),
@@ -28,6 +30,10 @@ class Nhom3AnTinhNangAdapter() : RecyclerView.Adapter<Nhom3AnTinhNangAdapter.Vie
         var item = data[position]
         holder.image.setImageResource(item.image)
         holder.tvName.text = item.description
+        holder.itemV.setOnClickListener {
+            listener.onItemClick(position)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -38,5 +44,6 @@ class Nhom3AnTinhNangAdapter() : RecyclerView.Adapter<Nhom3AnTinhNangAdapter.Vie
     class ViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById<ImageView>(R.id.imageViewFeature)
         val tvName: TextView = itemView.findViewById<TextView>(R.id.tvName)
+        val itemV=itemView
     }
 }

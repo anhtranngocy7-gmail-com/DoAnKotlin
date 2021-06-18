@@ -91,6 +91,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="60dp"
             android:id="@+id/rcv_outer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

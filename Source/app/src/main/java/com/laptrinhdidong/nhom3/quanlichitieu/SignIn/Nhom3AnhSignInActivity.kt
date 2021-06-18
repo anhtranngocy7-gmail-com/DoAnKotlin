@@ -38,15 +38,17 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
-open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3AnhActivitySignInBinding
     private lateinit var viewModel: Nhom3AnhSignInViewModel
     private var account: Account = Account("", "", "", "")
     private lateinit var callbackManager: CallbackManager
+    private lateinit var loginButton: LoginButton
     //google sign in
     private val RC_SIGN_IN = 100
     private var mGoogleApiClient: GoogleApiClient? = null
 
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getPermission()
@@ -54,8 +56,28 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
         callbackManager = CallbackManager.Factory.create()
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
-
-        binding.account = viewModel.account
+        binding.btnConfirmSignin.setOnClickListener {
+            when (viewModel.checkAccount(
+                binding.editText7.text.toString().trim(),
+                binding.editText6.text.toString().trim()
+            )) {
+                0.toByte() -> Toast.makeText(
+                    this,
+                    "Username or password is not correct!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                1.toByte() -> {
+                    val intent =
+                        Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
+                    startActivity(intent)
+                }
+                2.toByte() -> Toast.makeText(
+                    this,
+                    "No connection, please check your wifi/3G",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
         printKeyHash()
         binding.btnfbSignin.setVisibility(View.GONE);
         binding.btnfbSignin.setReadPermissions(Arrays.asList("public_profile", "email"))
@@ -64,6 +86,7 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
                 val btn = LoginButton(this@Nhom3AnhSignInActivity)
                 btn.performClick()
             }
+
         })
         setLogin_Button_Fb()
 
@@ -76,14 +99,10 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
             val personId = acct.id
             val personPhoto: Uri? = acct.photoUrl
         }
-
-
-
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-         mGoogleApiClient = GoogleApiClient.Builder(this)
+        mGoogleApiClient = GoogleApiClient.Builder(this)
             .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
@@ -92,109 +111,131 @@ open class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConne
             startActivityForResult(signInIntent, RC_SIGN_IN)
             Log.d("Success", mGoogleApiClient?.isConnected.toString() + "")
         }
+        binding.textView4.setOnClickListener {
+            val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3BinhSignUpActivity::class.java)
+            startActivity(intent)
 
 
-        binding.btnConfirmSignin.setOnClickListener {
-            Log.e("Check User", "Waiting check")
+            binding.btnConfirmSignin.setOnClickListener {
+                Log.e("Check User", "Waiting check")
+            }
         }
     }
-     fun setLogin_Button_Fb() {
-        binding.btnfbSignin.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-            override fun onSuccess(loginResult: LoginResult?) {
-                // App code
-                result()
-            }
-            override fun onCancel() {
-                // App code
-            }
-            override fun onError(exception: FacebookException) {
-                // App code
-            }
-        })
 
-     }
-     fun result() {
-        val graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), object: GraphRequest.GraphJSONObjectCallback
-                {
+        private fun setLogin_Button_Fb() {
+            binding.btnfbSignin.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult?> {
+                    override fun onSuccess(loginResult: LoginResult?) {
+                        // App code
+                        result()
+                    }
+
+                    override fun onCancel() {
+                        Log.e("error", "cancel")
+                    }
+
+                    override fun onError(exception: FacebookException) {
+                        // App code
+                        Log.e("error", "error")
+                    }
+                })
+        }
+
+        private fun result() {
+            val graphRequest = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                object : GraphRequest.GraphJSONObjectCallback {
                     override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
                         if (response != null) {
-                            Log.e("JSON",response.jsonObject.toString())
-                            val email = response.jsonObject.getString("email")
+                            Log.e("JSON", response.jsonObject.toString())
                             val name = response.jsonObject.getString("name")
-                            val idUser = response.jsonObject.getString("id")
+                            val idUser = "f" + response.jsonObject.getString("id")
+                            loginSocialCheck(idUser, name)
                         }
                     }
                 }
-
-        )
-        val parameter = Bundle()
-        parameter.putString("fields", "name,email,first_name")
-        graphRequest.setParameters(parameter)
-        graphRequest.executeAsync()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-        //google signin
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            )
+            val parameter = Bundle()
+            parameter.putString("fields", "name,email,first_name")
+            graphRequest.setParameters(parameter)
+            graphRequest.executeAsync()
         }
-    }
 
-    //google sign in
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            if (account != null) {
-                val intent = Intent(this, Nhom3QuocOtherPage::class.java)
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+            //google signin
+            if (requestCode == RC_SIGN_IN) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                handleSignInResult(task)
+            }
+        }
+
+        //google sign in
+        private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+            try {
+                val account = completedTask.getResult(ApiException::class.java)
+                if (account != null) {
+                    val intent = Intent(this, Nhom3QuocOtherPage::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this, account.displayName.toString(), Toast.LENGTH_LONG).show()
+
+                    Log.e("BINH", account.displayName.toString())
+                    Log.e("BINH", account.email.toString())
+                    Log.e("BINH", account.id.toString())
+                    val name = account.displayName.toString()
+                    val idUser = "g" + account.id.toString()
+                    loginSocialCheck(idUser, name)
+                }
+            } catch (e: ApiException) {
+                Log.e("BINHEROR", "null account")
+            }
+        }
+
+        override fun onConnectionFailed(connectionResult: ConnectionResult) {
+            Log.d("Failed", "onConnectionFailed:" + connectionResult);
+        }
+
+        //
+        private fun printKeyHash() {
+            try {
+                val info = packageManager.getPackageInfo(
+                    "com.laptrinhdidong.nhom3.quanlichitieu",
+                    PackageManager.GET_SIGNATURES
+                )
+                for (signature in info.signatures) {
+                    val md = MessageDigest.getInstance("SHA")
+                    md.update(signature.toByteArray())
+                    Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))
+                }
+            } catch (e: PackageManager.NameNotFoundException) {
+
+            } catch (e: NoSuchAlgorithmException) {
+            }
+        }
+
+        private fun getPermission() {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.INTERNET),
+                PackageManager.PERMISSION_GRANTED
+            )
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+        }
+
+        private fun loginSocialCheck(idUser: String, name: String) {
+            if (viewModel.checkAccountSocialExit(idUser, name)) {
+                val intent = Intent(this@Nhom3AnhSignInActivity, Nhom3AnMainAppActivity::class.java)
                 startActivity(intent)
-                Toast.makeText(this,account.displayName.toString(), Toast.LENGTH_LONG).show()
-
-                Log.e("BINH", account.displayName.toString())
-                Log.e("BINH", account.email.toString())
-                Log.e("BINH", account.id.toString())
-                val name = account.displayName.toString()
-                val idUser = "g" + account.id.toString()
-//                loginSocialCheck(idUser, name)
+            } else {
+                Toast.makeText(
+                    this@Nhom3AnhSignInActivity,
+                    "No connection, please check your wifi/3G",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        } catch (e: ApiException) {
-            Log.e("BINHEROR", "null account")
+
         }
     }
-
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        Log.d("Failed", "onConnectionFailed:" + connectionResult);
-    }
-
-
-    private fun printKeyHash()
-    {
-        try{
-            val info = packageManager.getPackageInfo("com.laptrinhdidong.nhom3.quanlichitieu",PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures)
-            {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.e("KEYHASH", Base64.encodeToString((md.digest()), Base64.DEFAULT))
-            }
-        }
-        catch (e:PackageManager.NameNotFoundException)
-        {
-        }
-        catch(e:NoSuchAlgorithmException) {
-        }
-    }
-
-    private fun getPermission() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.INTERNET),
-            PackageManager.PERMISSION_GRANTED
-        )
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-    }
-
-}

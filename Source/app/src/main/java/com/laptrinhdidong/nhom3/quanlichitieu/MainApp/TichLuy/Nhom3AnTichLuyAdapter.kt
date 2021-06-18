@@ -12,9 +12,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemTichLuy
+import com.laptrinhdidong.nhom3.quanlichitieu.OnItemClickListener
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
-class Nhom3AnTichLuyAdapter : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHolder>() {
+class Nhom3AnTichLuyAdapter(listener: OnItemClickListener) : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHolder>() {
+    private var listener : OnItemClickListener = listener
     var data: MutableList<Accumulate> = mutableListOf()
     var data_color: MutableList<ColorStateList?> = mutableListOf(
             ColorStateList.valueOf(Color.rgb(10,0,10)),
@@ -34,10 +36,17 @@ class Nhom3AnTichLuyAdapter : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var item = this.data[position]
         holder.title.text=item.title
-        holder.target.text=item.targetmoney.toString() +" đ"
-        holder.current.text=item.currentmoney.toString()+ "đ"
-        holder.progress.progress=((item.currentmoney.toInt()/item.targetmoney.toInt())*100)
-        holder.progress.progressTintList= ColorStateList.valueOf(Color.rgb(10,10,10))
+        holder.target.text=item.targetmoney.toString() +" vnd"
+        holder.current.text=item.currentmoney.toString()+ "vnd"
+        holder.progress.progress=((item.currentmoney.toFloat()/item.targetmoney.toFloat())*100f).toInt()
+        holder.progress.progressTintList= ColorStateList.valueOf(Color.rgb(0,239,0))
+        holder.viewMain.setOnClickListener {
+            listener.onItemClick(item)
+        }
+        holder.ivDelete.setOnClickListener {
+            listener.onItemClick(item.id)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -50,5 +59,7 @@ class Nhom3AnTichLuyAdapter : RecyclerView.Adapter<Nhom3AnTichLuyAdapter.ViewHol
         val target : TextView = itemView.findViewById(R.id.tv_targetmoney)
         val progress: ProgressBar=itemView.findViewById(R.id.progressBar)
         val current : TextView = itemView.findViewById(R.id.tv_currentmoney)
+        val ivDelete : ImageView = itemView.findViewById(R.id.btn_delete_accu)
+        val viewMain=itemView.findViewById<View>(R.id.view_main)
     }
 }

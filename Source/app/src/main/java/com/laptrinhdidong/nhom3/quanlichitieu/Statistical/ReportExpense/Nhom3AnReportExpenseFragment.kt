@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyAdapter
+import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyViewModel
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnFragmentReportexpenseBinding
-import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTichluyFragmentBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -28,11 +30,13 @@ class Nhom3AnReportExpenseFragment : Fragment() {
     private lateinit var outerList : MutableList<Nhom3AnGroupReportExpense>
     private lateinit var map : MutableMap<Nhom3AnGroupReportExpense,MutableList<Nhom3AnItemReportExpense>>
     private lateinit var adapter: Nhom3AnOuterAdapter
+    private lateinit var viewModel: Nhom3AnReportExpenseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProvider(this).get(Nhom3AnReportExpenseViewModel::class.java)
         binding = DataBindingUtil.inflate<Nhom3AnFragmentReportexpenseBinding>(
             inflater,
             R.layout.nhom3_an_fragment_reportexpense,
@@ -43,21 +47,24 @@ class Nhom3AnReportExpenseFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        assignData()
         adapter = Nhom3AnOuterAdapter(requireContext())
         binding.rcvOuter.layoutManager = LinearLayoutManager(context)
-        adapter.lstOut=outerList
-        adapter.map=map
-        binding.rcvOuter.adapter=adapter
-
+        if(!viewModel.firstAccess)
+        {
+            isCheckDate(viewModel.fromDate,viewModel.toDate)
+            viewModel.firstAccess=true
+        }else
+        {
+            BindingDataRecycleView()
+        }
         //Date Calendar
         val tv_from = binding.tvFrom
         val tv_to = binding.tvTo
-        val today = Calendar.getInstance()
-        val year_now = today.get(Calendar.YEAR)
-        val month_now = today.get(Calendar.MONTH)
-        val day_now = today.get(Calendar.DAY_OF_MONTH)
 
+        //Choosen Date from
+        tv_from.setText(viewModel.fromDate)
+        //Set day hiển thị = day hiện tại
+        tv_to.setText(viewModel.toDate)
         //Choosen Date from
         tv_from.setOnClickListener {
             val datePickerDialog =
@@ -65,11 +72,14 @@ class Nhom3AnReportExpenseFragment : Fragment() {
                     activity!!, R.style.Theme_AppCompat_Light_Dialog,
                     DatePickerDialog.OnDateSetListener
                     { view, year, month, dayOfMonth ->
-                        tv_from.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                    }, year_now, month_now, day_now
+                        tv_from.text = ""+year+"-"+(month + 1)+"-"+dayOfMonth
+                        isCheckDate(tv_from.text.toString(),tv_to.text.toString())
+                    }, viewModel.year_now, viewModel.month_now, viewModel.day_now
                 )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
+            print(tv_from.text.toString())
+
         }
 
         //Choosen Date to
@@ -78,28 +88,49 @@ class Nhom3AnReportExpenseFragment : Fragment() {
                 activity!!, R.style.Theme_AppCompat_Light_Dialog,
                 DatePickerDialog.OnDateSetListener
                 { view, year, month, dayOfMonth ->
-                    tv_to.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
-                }, year_now, month_now, day_now
+                    tv_to.text = ""+year+"-"+(month + 1)+"-"+dayOfMonth
+                    isCheckDate(tv_from.text.toString(),tv_to.text.toString())
+
+                }, viewModel.year_now, viewModel.month_now, viewModel.day_now
             )
             datePickerDialog.setTitle("Select Date")
             datePickerDialog.show()
+
         }
     }
-    fun assignData()
-    {
-        outerList= mutableListOf(
-            Nhom3AnGroupReportExpense("Ăn uống","1000vnd"),
-            Nhom3AnGroupReportExpense("Đi lại","1000vnd")
-        )
-        map= mutableMapOf()
-        val topic1 : MutableList<Nhom3AnItemReportExpense> = ArrayList()
-        topic1.add(Nhom3AnItemReportExpense("ăn sáng","10000"))
-        topic1.add(Nhom3AnItemReportExpense("ăn trưa","20000"))
-        val topic2 : MutableList<Nhom3AnItemReportExpense> = ArrayList()
-        topic2.add(Nhom3AnItemReportExpense("đổ xăng","10000"))
-        topic2.add(Nhom3AnItemReportExpense("gửi xe","20000"))
-        map[outerList[0]]=topic1
-        map[outerList[1]]=topic2
+    fun isCheckDate(from_day : String, end_day : String ) {
 
+        var sdf = SimpleDateFormat("yyyy-MM-dd")
+        var dateStart : Date = sdf.parse(from_day)
+        var dateEnd : Date  =  sdf.parse(end_day)
+
+        try {
+            sdf  = SimpleDateFormat("yyyy-MM-dd")
+            dateStart =sdf.parse(from_day)
+            dateEnd = sdf.parse(end_day)
+            if(dateStart.compareTo(dateEnd) > 0){
+                sdf  = SimpleDateFormat("yyyy-MM-dd")
+                dateStart =sdf.parse(end_day)
+                dateEnd = sdf.parse(from_day)
+            }
+
+        }catch (ex : ParseException){
+            ex.printStackTrace()
+        }
+        val date_Start = SimpleDateFormat("yyyy-MM-dd").format(dateStart).toString()
+        val date_End = SimpleDateFormat("yyyy-MM-dd").format(dateEnd).toString()
+        viewModel.fromDate=date_Start
+        viewModel.toDate=date_End
+        viewModel.getListEx()
+        BindingDataRecycleView()
+        binding.tvFrom.text=viewModel.fromDate
+        binding.tvTo.text=viewModel.toDate
+
+    }
+    fun BindingDataRecycleView()
+    {
+        adapter.lstOut=viewModel.outerList
+        adapter.map=viewModel.map
+        binding.rcvOuter.adapter=adapter
     }
 }

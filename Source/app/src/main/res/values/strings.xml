@@ -5,6 +5,14 @@
         <item>This month</item>
         <item>This year</item>
     </string-array>
+    <string-array name="BuyOrPay">
+        <item>To Buy</item>
+        <item>To Pay</item>
+    </string-array>
+    <string-array name="TimeOrIncome">
+        <item>Time</item>
+        <item>Income</item>
+    </string-array>
     <string name="facebook_app_id">172689731421619</string>
 
     <string name="title_activity_nhom3_quoc_bieudochitieu">Nhom3QuocBieudochitieu</string>
@@ -23,5 +31,4 @@
         <item>Anh Tran</item>
         <item>Thanh Binh</item>
     </string-array>
-
 </resources>
