@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import com.facebook.AccessToken
+import com.facebook.GraphRequest
+import com.facebook.HttpMethod
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.Auth.GoogleSignInApi
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -17,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnhSignInActivity
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocActivityOptionFragmentBinding
+
 
 class nhom3QuocOtherPageFragment : Fragment(), GoogleApiClient.OnConnectionFailedListener {
     private lateinit var binding: Nhom3QuocActivityOptionFragmentBinding
@@ -42,12 +46,30 @@ class nhom3QuocOtherPageFragment : Fragment(), GoogleApiClient.OnConnectionFaile
         binding.tvLogout.setOnClickListener {
             GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
                 Log.e("dang xuat", "da dang xuat")
-
             }
 
+
+            val intent = Intent (getActivity(), Nhom3AnhSignInActivity::class.java)
+            getActivity()?.startActivity(intent)
+
+            if (AccessToken.getCurrentAccessToken() != null) {
+                val accessToken = AccessToken.getCurrentAccessToken()
+                GraphRequest(
+                    accessToken, "/" + accessToken.userId + "/permissions/", null, HttpMethod.DELETE
+                ) { LoginManager.getInstance().logOut() }.executeAsync()
+                AccessToken.setCurrentAccessToken(null)
+            }
         }
+//        val accessToken = AccessToken.getCurrentAccessToken()
+//        val isLoggedIn = accessToken != null && !accessToken.isExpired
+//        Log.e("Login",isLoggedIn.toString())
+
+
+
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
+        TODO("Not yet implemented")
     }
+
 }

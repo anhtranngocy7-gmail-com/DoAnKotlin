@@ -56,6 +56,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         callbackManager = CallbackManager.Factory.create()
         binding = DataBindingUtil.setContentView(this, R.layout.nhom3_anh_activity_sign_in)
         viewModel = ViewModelProvider(this).get(Nhom3AnhSignInViewModel::class.java)
+        Log.e("anh","em")
         binding.btnConfirmSignin.setOnClickListener {
             when (viewModel.checkAccount(
                 binding.editText7.text.toString().trim(),
@@ -89,6 +90,15 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
 
         })
         setLogin_Button_Fb()
+
+        val accessToken = AccessToken.getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired
+        Log.e("Login",isLoggedIn.toString())
+        if(isLoggedIn)
+        {
+            val intent = Intent(this, Nhom3QuocOtherPage::class.java)
+            startActivity(intent)
+        }
 
         val acct = GoogleSignIn.getLastSignedInAccount(application)
         if (acct != null) {
@@ -160,6 +170,10 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             parameter.putString("fields", "name,email,first_name")
             graphRequest.setParameters(parameter)
             graphRequest.executeAsync()
+
+            val intent = Intent(this, Nhom3QuocOtherPage::class.java)
+            startActivity(intent)
+
         }
 
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
