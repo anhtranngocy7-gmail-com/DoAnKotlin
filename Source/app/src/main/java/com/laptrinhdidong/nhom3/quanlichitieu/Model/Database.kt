@@ -17,6 +17,7 @@ class Database private constructor() {
     var stateConnect = true
     var idUserApp: Int? = 1
     var idAccumulate: Int? =0
+    var currentMoney = 0.toBigDecimal()
     lateinit var statement: Statement
     lateinit var result: ResultSet
     val messageFail ="Không có kết nối, kiểm tra lại kết nối mạng!"

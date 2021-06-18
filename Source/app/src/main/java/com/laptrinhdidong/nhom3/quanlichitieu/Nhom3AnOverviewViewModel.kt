@@ -32,6 +32,7 @@ class Nhom3AnOverviewViewModel : ViewModel() {
                 var birthday: String? = result.getString("BirthDay")?.toString()
                 var money = result.getBigDecimal("CurrentMoney")
                 ac = Account(accountname, birthday, money)
+                Database.instance.currentMoney=ac.money
             }
         }
         callP = Database.instance.connection!!.prepareCall("{call countCompleteAccumulate(?)}")

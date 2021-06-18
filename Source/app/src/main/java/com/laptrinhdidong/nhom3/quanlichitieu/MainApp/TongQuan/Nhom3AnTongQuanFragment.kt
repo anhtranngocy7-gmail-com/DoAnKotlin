@@ -99,7 +99,10 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
     override fun onItemClick(accumulate: Accumulate) {
     }
 
-    override fun onLongClick() {
+    override fun onClickDelete(index: Int) {
+    }
+
+    override fun onClickAddMoney() {
     }
 //    private fun getPermission() {
 //        ActivityCompat.requestPermissions(

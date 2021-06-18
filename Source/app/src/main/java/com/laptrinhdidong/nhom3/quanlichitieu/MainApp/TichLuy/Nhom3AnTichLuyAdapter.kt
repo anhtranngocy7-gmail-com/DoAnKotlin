@@ -2,16 +2,15 @@ package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
-import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemTichLuy
 import com.laptrinhdidong.nhom3.quanlichitieu.OnItemClickListener
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 
@@ -43,8 +42,16 @@ class Nhom3AnTichLuyAdapter(listener: OnItemClickListener) : RecyclerView.Adapte
         holder.viewMain.setOnClickListener {
             listener.onItemClick(item)
         }
-        holder.ivDelete.setOnClickListener {
-            listener.onItemClick(item.id)
+        holder.tvDelete.setOnClickListener {
+            listener.onClickDelete(item.id)
+            holder.linearTmp.visibility=View.GONE
+        }
+        holder.tvThemTien.setOnClickListener {
+            listener.onClickAddMoney()
+            holder.linearTmp.visibility=View.GONE
+        }
+        holder.ivTmp.setOnClickListener {
+            holder.linearTmp.visibility=if(holder.linearTmp.isVisible){View.GONE}else{View.VISIBLE }
         }
 
     }
@@ -59,7 +66,10 @@ class Nhom3AnTichLuyAdapter(listener: OnItemClickListener) : RecyclerView.Adapte
         val target : TextView = itemView.findViewById(R.id.tv_targetmoney)
         val progress: ProgressBar=itemView.findViewById(R.id.progressBar)
         val current : TextView = itemView.findViewById(R.id.tv_currentmoney)
-        val ivDelete : ImageView = itemView.findViewById(R.id.btn_delete_accu)
+        val ivTmp : ImageView = itemView.findViewById(R.id.iv_tmp)
+        val linearTmp :View = itemView.findViewById(R.id.linear_tmp)
+        val tvDelete : TextView = itemView.findViewById(R.id.tv_delete_accu)
+        val tvThemTien :TextView=itemView.findViewById(R.id.tv_themtiem)
         val viewMain=itemView.findViewById<View>(R.id.view_main)
     }
 }

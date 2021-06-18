@@ -60,10 +60,6 @@ class Nhom3AnTichLuyFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(index: Int) {
-        viewModel.deleteAccumulate(index)
-        viewModel.getDataInit()
-        adapter.data = viewModel.getData()
-        binding.recycleviewTichluy.adapter = adapter
     }
 
     override fun onItemClick(accumulate: Accumulate) {
@@ -74,8 +70,14 @@ class Nhom3AnTichLuyFragment : Fragment(), OnItemClickListener {
             addToBackStack(null)
         }
     }
+    override fun onClickDelete(index: Int) {
+        viewModel.deleteAccumulate(index)
+        viewModel.getDataInit()
+        adapter.data = viewModel.getData()
+        binding.recycleviewTichluy.adapter = adapter
+    }
 
-    override fun onLongClick() {
+    override fun onClickAddMoney() {
 
     }
 }
