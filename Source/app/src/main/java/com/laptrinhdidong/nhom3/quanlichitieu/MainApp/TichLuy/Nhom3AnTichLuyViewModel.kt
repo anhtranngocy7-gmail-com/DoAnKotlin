@@ -10,31 +10,78 @@ import java.sql.CallableStatement
 import java.sql.ResultSet
 
 class Nhom3AnTichLuyViewModel : ViewModel() {
-
+    lateinit var result: ResultSet
+    var lstaccumulate: MutableList<Accumulate> = mutableListOf()
+    lateinit var strmoney: String
+    var firstAccess = false
     fun getData(): MutableList<Accumulate> {
         return lstaccumulate
     }
 
-    lateinit var result: ResultSet
-    var lstaccumulate: MutableList<Accumulate> = mutableListOf()
-    lateinit var strmoney: String
-
-    init {
-        var callP: CallableStatement = Database.instance.connection!!.prepareCall("{call getAccumulate(?)}")
-        Database.instance.idUserApp?.let { callP.setInt(1, it) }
-        if (callP.execute()) {
-            result = callP.resultSet
-            while (result.next() && !result.isAfterLast) {
-                var id=result.getInt("ID")
-                var title = result.getString("Title").toString()
-                var targetmoney = result.getBigDecimal("TargetMoney")
-                var currentmoney = result.getBigDecimal("CurrentMoney")
-                var tmpaccumulate = Accumulate(id,title, targetmoney, currentmoney)
-                lstaccumulate.add(tmpaccumulate)
-            }
+    fun getDataInit(): String {
+        if (!Database.instance.stateConnect) {
+            //nếu kết nối thất bại thì return cảnh báo
+            if (!Database.instance.createConnection())
+                return Database.instance.messageFail
         }
-        callP.close()
+        try {
+            var callP: CallableStatement =
+                Database.instance.connection!!.prepareCall("{call getAccumulate(?)}")
+            Database.instance.idUserApp?.let { callP.setInt(1, it) }
+            if (callP.execute()) {
+                result = callP.resultSet
+                lstaccumulate= mutableListOf()
+                while (result.next() && !result.isAfterLast) {
+                    var id = result.getInt("ID")
+                    var title = result.getString("Title").toString()
+                    var targetmoney = result.getBigDecimal("TargetMoney")
+                    var currentmoney = result.getBigDecimal("CurrentMoney")
+                    var buyOrPay = result.getBoolean("BuyOrPay")
+                    var timeRemain = result.getFloat("TimeAsert")
+                    var income = result.getBigDecimal("IncomePerMonth")
+                    var percentgrowth = result.getFloat("PercentGrowth")
 
+
+                    var tmpaccumulate = Accumulate(
+                        id,
+                        title,
+                        targetmoney,
+                        currentmoney,
+                        buyOrPay,
+                        timeRemain,
+                        income,
+                        percentgrowth
+                    )
+                    lstaccumulate.add(tmpaccumulate)
+                }
+            }
+            callP.close()
+            Database.instance.stateConnect = true
+            return Database.instance.messageDone
+        } catch (e: Exception) {
+            Database.instance.stateConnect = false
+            return Database.instance.messageFail
+        }
+    }
+
+    fun deleteAccumulate(id: Int): String {
+        if (!Database.instance.stateConnect) {
+            //nếu kết nối thất bại thì return cảnh báo
+            if (!Database.instance.createConnection())
+                return Database.instance.messageFail
+        }
+        try {
+            var callP: CallableStatement =
+                Database.instance.connection!!.prepareCall("{call deleteAccumulate(?)}")
+            callP.setInt(1, id)
+            callP.execute()
+            callP.close()
+            Database.instance.stateConnect = true
+            return Database.instance.messageDone
+        } catch (e: Exception) {
+            Database.instance.stateConnect = false
+            return Database.instance.messageFail
+        }
     }
     //////////////////////
 //    var txt = MutableLiveData<String>()

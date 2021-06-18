@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.laptrinhdidong.nhom3.quanlichitieu.BarChart.Nhom3QuocBarChart
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyFragment
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnTongquanFragmentBinding
 import com.laptrinhdidong.nhom3.quanlichitieu.Nhom3AnOverviewViewModel
@@ -93,6 +94,12 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
             }
             addToBackStack(null)
         }
+    }
+
+    override fun onItemClick(accumulate: Accumulate) {
+    }
+
+    override fun onLongClick() {
     }
 //    private fun getPermission() {
 //        ActivityCompat.requestPermissions(

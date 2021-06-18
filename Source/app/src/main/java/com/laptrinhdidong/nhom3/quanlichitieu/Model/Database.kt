@@ -16,6 +16,7 @@ class Database private constructor() {
     var connection: Connection? = null
     var stateConnect = true
     var idUserApp: Int? = 1
+    var idAccumulate: Int? =0
     lateinit var statement: Statement
     lateinit var result: ResultSet
     val messageFail ="Không có kết nối, kiểm tra lại kết nối mạng!"
