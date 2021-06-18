@@ -37,7 +37,12 @@ class Nhom3AnTichLuyAdapter(listener: OnItemClickListener) : RecyclerView.Adapte
         holder.title.text=item.title
         holder.target.text=item.targetmoney.toString() +" vnd"
         holder.current.text=item.currentmoney.toString()+ "vnd"
-        holder.progress.progress=((item.currentmoney.toFloat()/item.targetmoney.toFloat())*100f).toInt()
+        var percentTmp=((item.currentmoney.toFloat()/item.targetmoney.toFloat())*100f).toInt()
+        if(percentTmp>100)
+        {
+            percentTmp=100
+        }
+        holder.progress.progress=percentTmp
         holder.progress.progressTintList= ColorStateList.valueOf(Color.rgb(0,239,0))
         holder.viewMain.setOnClickListener {
             listener.onItemClick(item)
@@ -47,7 +52,7 @@ class Nhom3AnTichLuyAdapter(listener: OnItemClickListener) : RecyclerView.Adapte
             holder.linearTmp.visibility=View.GONE
         }
         holder.tvThemTien.setOnClickListener {
-            listener.onClickAddMoney()
+            listener.onClickAddMoney(position)
             holder.linearTmp.visibility=View.GONE
         }
         holder.ivTmp.setOnClickListener {

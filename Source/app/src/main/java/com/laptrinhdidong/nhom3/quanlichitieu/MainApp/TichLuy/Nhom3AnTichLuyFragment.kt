@@ -1,9 +1,12 @@
 package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -77,7 +80,25 @@ class Nhom3AnTichLuyFragment : Fragment(), OnItemClickListener {
         binding.recycleviewTichluy.adapter = adapter
     }
 
-    override fun onClickAddMoney() {
-
+    override fun onClickAddMoney(index: Int) {
+        var mDialogView = LayoutInflater.from(context)
+            .inflate(R.layout.nhom3_an_custom_addmoney_dialog, null)
+        var mBuilder = AlertDialog.Builder(context)
+            .setView(mDialogView)
+        val addFunction: AlertDialog = mBuilder.create()
+        addFunction.show()
+        val tvInput = mDialogView.findViewById<EditText>(R.id.addAction)
+        val btnaddConfirm = mDialogView.findViewById<Button>(R.id.addConfirm)
+        val btnaddCancel = mDialogView.findViewById<Button>(R.id.addCancel)
+        btnaddConfirm.setOnClickListener {
+            viewModel.upDateMoney(index,tvInput.text.toString().toBigDecimal())
+            viewModel.getDataInit()
+            adapter.data = viewModel.getData()
+            binding.recycleviewTichluy.adapter = adapter
+            addFunction.dismiss()
+        }
+        btnaddCancel.setOnClickListener {
+            addFunction.dismiss()
+        }
     }
 }

@@ -7,5 +7,5 @@ interface OnItemClickListener {
         fun onItemClick(index: Int)
         fun onItemClick(accumulate: Accumulate)
         fun onClickDelete(index: Int)
-        fun onClickAddMoney()
+        fun onClickAddMoney(index: Int)
 }

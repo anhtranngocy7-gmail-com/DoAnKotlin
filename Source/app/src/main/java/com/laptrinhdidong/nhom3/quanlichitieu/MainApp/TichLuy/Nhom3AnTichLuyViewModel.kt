@@ -6,6 +6,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.Model.Account
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Accumulate
 import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
 import com.laptrinhdidong.nhom3.quanlichitieu.Object.Nhom3AnItemTichLuy
+import java.math.BigDecimal
 import java.sql.CallableStatement
 import java.sql.ResultSet
 
@@ -80,6 +81,46 @@ class Nhom3AnTichLuyViewModel : ViewModel() {
             return Database.instance.messageDone
         } catch (e: Exception) {
             Database.instance.stateConnect = false
+            return Database.instance.messageFail
+        }
+    }
+    fun upDateMoney(index :Int,money : BigDecimal) : String
+    {
+        if (!Database.instance.stateConnect) {
+            //nếu kết nối thất bại thì return cảnh báo
+            if (!Database.instance.createConnection())
+                return Database.instance.messageFail
+        }
+        try {
+            var accumulate = lstaccumulate[index]
+            var newTargetMoney = accumulate.targetmoney - (accumulate.currentmoney + money)
+            if (newTargetMoney < 0.toBigDecimal()) {
+                newTargetMoney = 0.toBigDecimal()
+            }
+            var savingCal = Nhom3DatSavingTimeCal()
+            (savingCal as Nhom3DatSavingTimeCal).Nhom3DatSavingTimeCal(
+                newTargetMoney.toDouble(),
+                accumulate.percent.toDouble(),
+                accumulate.incomPerMonth.toDouble()
+            )
+            var newTime = 0f
+            if (accumulate.buyOrPay) {
+                newTime=savingCal.predict_desired_toBuy().toFloat()
+            }else
+            {
+                newTime=savingCal.predict_desired_toPay().toFloat()
+            }
+            var callP = Database.instance.connection!!.prepareCall("{call updateTimeAsert(?,?,?)}")
+            callP.setInt(1,accumulate.id)
+            callP.setBigDecimal(2,accumulate.currentmoney+money)
+            callP.setFloat(3,newTime)
+            callP.execute()
+            callP.close()
+            Database.instance.stateConnect=true
+            return Database.instance.messageDone
+        }catch (e : Exception)
+        {
+            Database.instance.stateConnect=false
             return Database.instance.messageFail
         }
     }
