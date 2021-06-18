@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TichLuy.Nhom3AnTichLuyViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
 import com.laptrinhdidong.nhom3.quanlichitieu.R
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3AnFragmentReportexpenseBinding
 import java.text.ParseException
@@ -51,6 +52,12 @@ class Nhom3AnReportExpenseFragment : Fragment() {
         binding.rcvOuter.layoutManager = LinearLayoutManager(context)
         if(!viewModel.firstAccess)
         {
+            if(Database.instance.stateTransferFragment)
+            {
+                viewModel.fromDate=Database.instance.fromDateF
+                viewModel.toDate=Database.instance.toDateF
+                Database.instance.stateTransferFragment=false
+            }
             isCheckDate(viewModel.fromDate,viewModel.toDate)
             viewModel.firstAccess=true
         }else

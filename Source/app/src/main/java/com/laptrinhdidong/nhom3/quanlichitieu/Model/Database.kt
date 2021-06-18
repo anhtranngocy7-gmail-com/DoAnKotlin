@@ -14,15 +14,17 @@ class Database private constructor() {
     val password: String = "an321"
     val url: String = "jdbc:jtds:sqlserver://$ip:$port/$databaseName"
     var connection: Connection? = null
-    var stateConnect = true
-    var idUserApp: Int? = 1
-    var idAccumulate: Int? =0
-    var currentMoney = 0.toBigDecimal()
     lateinit var statement: Statement
     lateinit var result: ResultSet
     val messageFail ="Không có kết nối, kiểm tra lại kết nối mạng!"
     val messageDone ="Ghi nhận thành công"
-
+    var stateConnect = true
+    var idUserApp: Int? = 1
+    var idAccumulate: Int? =0
+    var currentMoney = 0.toBigDecimal()
+    var stateTransferFragment=false
+    var fromDateF=""
+    var toDateF=""
     init {
         createConnection()
     }

@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:text="Tình hình thu chi"
                     android:textColor="@color/white"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"></TextView>
@@ -174,7 +174,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constrain2"
-                    android:layout_width="230dp"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
@@ -215,7 +215,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constrain3"
-                    android:layout_width="230dp"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
@@ -255,7 +255,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constrain4"
-                    android:layout_width="230dp"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -296,7 +296,7 @@
                     android:layout_height="120dp"
                     android:progress="@{100-viewmodel.lstEiInfo.get(1).percent}"
                     android:progressTint="#ef5362"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="3dp"
                     app:layout_constraintStart_toEndOf="@id/vertical_progressbargreen"
                     app:layout_constraintBottom_toBottomOf="@id/constrain4"
                     style="@style/Widget.ProgressBar.Vertical"

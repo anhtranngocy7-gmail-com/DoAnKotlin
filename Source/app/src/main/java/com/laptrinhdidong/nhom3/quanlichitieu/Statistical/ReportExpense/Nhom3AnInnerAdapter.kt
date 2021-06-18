@@ -20,7 +20,7 @@ class Nhom3AnInnerAdapter : RecyclerView.Adapter<Nhom3AnInnerAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text=lstIn[position].title
-        holder.total.text=lstIn[position].money.toString()
+        holder.total.text=lstIn[position].money.toString()+" vnd"
     }
 
     override fun getItemCount(): Int {
