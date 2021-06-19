@@ -35,7 +35,7 @@ class Nhom3QuocBarChart : Fragment() {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 add<Nhom3QuocFragmentDay_BC>(R.id.fragment_linechart)
-                addToBackStack(null)
+//                addToBackStack(null)
             }
             viewModel.firstAccess=true
         }

@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginVertical="0dp"
-    android:background="@drawable/custom_dialog"
-    android:paddingBottom="5dp">
+    android:paddingBottom="5dp"
+    android:background="@drawable/custom_dialog">
     <TextView
         android:background="@drawable/custom_dialog_one"
-        android:text="Thêm tiền vào tích lũy"
+        android:text="Cập nhật tiền trong ví"
         android:textSize="20dp"
         android:gravity="center"
         android:padding="16dp"

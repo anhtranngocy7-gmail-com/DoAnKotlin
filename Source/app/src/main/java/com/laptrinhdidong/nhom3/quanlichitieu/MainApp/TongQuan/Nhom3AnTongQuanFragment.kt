@@ -90,7 +90,7 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
         }
         binding.ivEditpure.setOnClickListener {
             var mDialogView = LayoutInflater.from(context)
-                .inflate(R.layout.nhom3_an_custom_addmoney_dialog, null)
+                .inflate(R.layout.nhom3_an_custom_dialogoverview, null)
             var mBuilder = AlertDialog.Builder(context)
                 .setView(mDialogView)
             val addFunction: AlertDialog = mBuilder.create()

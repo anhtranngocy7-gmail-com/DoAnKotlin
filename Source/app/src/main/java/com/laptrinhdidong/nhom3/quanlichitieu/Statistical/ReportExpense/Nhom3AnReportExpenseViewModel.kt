@@ -32,7 +32,7 @@ class Nhom3AnReportExpenseViewModel: ViewModel() {
             result = callP.resultSet
             while (result.next()&& !result.isAfterLast) {
                 var cateName = result.getString("CateName").toString()
-                var descript = result.getString("Descript").substring(2)
+                var descript = result.getString("Descript").substring(3)
                 var total = result.getBigDecimal("TotalMoney")
                 if(outerList.size==0)
                 {
