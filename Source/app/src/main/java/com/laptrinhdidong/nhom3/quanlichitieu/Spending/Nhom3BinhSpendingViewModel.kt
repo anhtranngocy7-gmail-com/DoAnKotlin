@@ -86,6 +86,13 @@ class Nhom3BinhSpendingViewModel : ViewModel() {
             Database.instance.idUserApp?.let { callP.setInt(1, it) }
             var idCateTemp = 0
             if (!spendingItem.mode) {
+                if(spendingItem.money.toBigDecimal()>Database.instance.currentMoney)
+                {
+                    return "Không đủ tiền trong ví"
+                }else
+                {
+                    Database.instance.currentMoney-=spendingItem.money.toBigDecimal()
+                }
                 lstCategory[0].forEach {
                     if (it.cateName == spendingItem.area) {
                         idCateTemp = it.id
@@ -104,8 +111,14 @@ class Nhom3BinhSpendingViewModel : ViewModel() {
             callP.setBigDecimal(3, spendingItem.money.toBigDecimal())
             callP.setString(4, spendingItem.description)
             callP.setString(5, spendingItem.date)
-
             callP.execute()
+
+            callP = Database.instance.connection!!.prepareCall("{call updateMoney(?,?,?)}")
+            Database.instance.idUserApp?.let { callP.setInt(1, it) }
+            callP.setBigDecimal(2,spendingItem.money.toBigDecimal())
+            callP.setBoolean(3,spendingItem.mode)
+            callP.execute()
+
             callP.close()
             Database.instance.stateConnect = true
             return Database.instance.messageDone

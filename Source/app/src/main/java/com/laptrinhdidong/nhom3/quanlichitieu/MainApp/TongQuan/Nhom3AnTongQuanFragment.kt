@@ -2,6 +2,7 @@ package com.laptrinhdidong.nhom3.quanlichitieu.MainApp.TongQuan
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.StrictMode
@@ -9,10 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -34,6 +33,7 @@ import com.laptrinhdidong.nhom3.quanlichitieu.OnItemClickListener
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Nhom3QuocPieChart
 import com.laptrinhdidong.nhom3.quanlichitieu.Spending.Nhom3BinhSpendingFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.ReportExpense.Nhom3AnReportExpenseFragment
+import java.lang.Exception
 
 class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: Nhom3AnTongquanFragmentBinding
@@ -56,9 +56,14 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewmodel=viewModel
         adapterNhom3An= Nhom3AnTinhNangAdapter(this)
         binding.recycleviewFeature.layoutManager=GridLayoutManager(context,3)
+        if(!viewModel.firstAccess)
+        {
+            viewModel.getData()
+            viewModel.firstAccess=true
+        }
+        binding.viewmodel=viewModel
         binding.recycleviewFeature.adapter=adapterNhom3An
         binding.btnDropMore.setOnClickListener(View.OnClickListener {
             binding.linearMoreinfor.visibility=if(binding.linearMoreinfor.isVisible){View.GONE}else{View.VISIBLE }
@@ -72,12 +77,43 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
                 id: Long
             ) {
                 viewModel.getExInMoney(position+1)
-                binding.viewmodel=viewModel
+                binding.verticalProgressbargreen.progress=100- viewModel.lstEiInfo[0].percent
+                binding.verticalProgressbarred.progress=100-viewModel.lstEiInfo.get(1).percent
+                binding.tvTongthu.text=viewModel.lstEiInfo.get(1).money.toString()
+                binding.tvTongchi.text=viewModel.lstEiInfo.get(0).money.toString()
+//                binding.viewmodel=viewModel
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
+        }
+        binding.ivEditpure.setOnClickListener {
+            var mDialogView = LayoutInflater.from(context)
+                .inflate(R.layout.nhom3_an_custom_addmoney_dialog, null)
+            var mBuilder = AlertDialog.Builder(context)
+                .setView(mDialogView)
+            val addFunction: AlertDialog = mBuilder.create()
+            addFunction.show()
+            val tvInput = mDialogView.findViewById<EditText>(R.id.addAction)
+            val btnaddConfirm = mDialogView.findViewById<Button>(R.id.addConfirm)
+            val btnaddCancel = mDialogView.findViewById<Button>(R.id.addCancel)
+            btnaddConfirm.setOnClickListener {
+                var money=0.toBigDecimal()
+                try {
+                  money=tvInput.text.toString().toBigDecimal()
+                    viewModel.setMoney(money)
+                    viewModel.ac.money=money
+                    binding.tvTientrongvi.text=viewModel.ac.money.toString()
+                    addFunction.dismiss()
+                }catch (e : Exception)
+                {
+                    Toast.makeText(requireContext(),"số tiền rỗng",Toast.LENGTH_SHORT).show()
+                }
+            }
+            btnaddCancel.setOnClickListener {
+                addFunction.dismiss()
+            }
         }
     }
 
@@ -90,7 +126,7 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
                 1 ->replace<Nhom3AnTichLuyFragment>(R.id.fragment_mainapp)
                 2 ->replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
                 3 ->replace<Nhom3QuocPieChart>(R.id.fragment_mainapp)
-                3 ->replace<Nhom3QuocBarChart>(R.id.fragment_mainapp)
+                4 ->replace<Nhom3QuocBarChart>(R.id.fragment_mainapp)
             }
             addToBackStack(null)
         }
@@ -99,7 +135,10 @@ class Nhom3AnTongQuanFragment : Fragment(), OnItemClickListener {
     override fun onItemClick(accumulate: Accumulate) {
     }
 
-    override fun onLongClick() {
+    override fun onClickDelete(index: Int) {
+    }
+
+    override fun onClickAddMoney(index: Int) {
     }
 //    private fun getPermission() {
 //        ActivityCompat.requestPermissions(

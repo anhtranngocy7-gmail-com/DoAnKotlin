@@ -6,12 +6,12 @@
         <item>This year</item>
     </string-array>
     <string-array name="BuyOrPay">
-        <item>To Buy</item>
-        <item>To Pay</item>
+        <item>Mua</item>
+        <item>Vay nợ</item>
     </string-array>
     <string-array name="TimeOrIncome">
-        <item>Time</item>
-        <item>Income</item>
+        <item>Thời gian</item>
+        <item>Thu nhập</item>
     </string-array>
     <string name="facebook_app_id">172689731421619</string>
 

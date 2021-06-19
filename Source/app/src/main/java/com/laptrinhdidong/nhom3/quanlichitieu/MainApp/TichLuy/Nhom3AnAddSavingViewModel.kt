@@ -51,8 +51,7 @@ class Nhom3AnAddSavingViewModel : ViewModel() {
                     Log.e("raw",savingCal.predict_desired_toPay().toString())
                 }
             }
-            Log.e("time",time.toString())
-            Log.e("income",incomePerMonth.toString())
+
             callP = Database.instance.connection!!.prepareCall("{call createAccumulate(?,?,?,?,?,?,?,?)}")
             Database.instance.idUserApp?.let { callP.setInt(1, it) }
             callP.setString(2,nameTarget)

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Legend
@@ -17,8 +19,10 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.ChartPage.RecycleViewSpending.Nhom3QuocPieChartViewModel
+import com.laptrinhdidong.nhom3.quanlichitieu.Model.Database
 import com.laptrinhdidong.nhom3.quanlichitieu.PieChart.Legend.Nhom3QuocLegendPiechartAdapter
 import com.laptrinhdidong.nhom3.quanlichitieu.R
+import com.laptrinhdidong.nhom3.quanlichitieu.Statistical.ReportExpense.Nhom3AnReportExpenseFragment
 import com.laptrinhdidong.nhom3.quanlichitieu.databinding.Nhom3QuocFragmentMonthBinding
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import java.text.ParseException
@@ -126,12 +130,21 @@ class Nhom3QuocFragmentMonth : Fragment() {
 
         }
 
-        isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
-
-
-        /*============= Show Pie Chart ==================*/
-        BindingDataChart()
-
+//        isCheckMonth(tv_from.text.toString(), tv_to.text.toString())
+//
+//
+//        /*============= Show Pie Chart ==================*/
+//        BindingDataChart()
+        binding.btnXemchitiet.setOnClickListener {
+            Database.instance.fromDateF=viewModel.fromDate
+            Database.instance.toDateF=viewModel.toDate
+            Database.instance.stateTransferFragment=true
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<Nhom3AnReportExpenseFragment>(R.id.fragment_mainapp)
+                addToBackStack(null)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

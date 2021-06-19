@@ -32,14 +32,14 @@ class Nhom3AnReportExpenseViewModel: ViewModel() {
             result = callP.resultSet
             while (result.next()&& !result.isAfterLast) {
                 var cateName = result.getString("CateName").toString()
-                var descript = result.getString("Descript")
+                var descript = result.getString("Descript").substring(2)
                 var total = result.getBigDecimal("TotalMoney")
                 if(outerList.size==0)
                 {
                     outerList.add(Nhom3AnGroupReportExpense(cateName, total))
                     map[outerList.last()] = mutableListOf()
                     map[outerList.last()]?.add(Nhom3AnItemReportExpense(descript,total))
-                    outerList.last().total+=total
+//                    outerList.last().total+=total
                 }
                 else
                 {

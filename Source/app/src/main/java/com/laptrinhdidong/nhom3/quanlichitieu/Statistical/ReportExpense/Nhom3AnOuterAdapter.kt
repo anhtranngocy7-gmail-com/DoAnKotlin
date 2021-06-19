@@ -27,7 +27,7 @@ class Nhom3AnOuterAdapter(context:Context): RecyclerView.Adapter<Nhom3AnOuterAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text=lstOut[position].title
-        holder.total.text=lstOut[position].total.toString()
+        holder.total.text=lstOut[position].total.toString()+" vnd"
         holder.icon.setImageResource(R.drawable.eat_and_drink)
         val adapInner : Nhom3AnInnerAdapter = Nhom3AnInnerAdapter()
         holder.rcv.layoutManager=LinearLayoutManager(context)

@@ -96,8 +96,9 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
         Log.e("Login",isLoggedIn.toString())
         if(isLoggedIn)
         {
-            val intent = Intent(this, Nhom3QuocOtherPage::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, Nhom3AnMainAppActivity::class.java)
+//            startActivity(intent)
+            result()
         }
 
         val acct = GoogleSignIn.getLastSignedInAccount(application)
@@ -170,8 +171,7 @@ class Nhom3AnhSignInActivity : AppCompatActivity(), GoogleApiClient.OnConnection
             parameter.putString("fields", "name,email,first_name")
             graphRequest.setParameters(parameter)
             graphRequest.executeAsync()
-
-            val intent = Intent(this, Nhom3QuocOtherPage::class.java)
+            val intent = Intent(this, Nhom3AnMainAppActivity::class.java)
             startActivity(intent)
 
         }

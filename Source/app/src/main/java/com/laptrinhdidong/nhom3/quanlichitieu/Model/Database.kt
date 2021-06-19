@@ -6,7 +6,7 @@ import java.lang.Exception
 import java.sql.*
 
 class Database private constructor() {
-    val ip: String = "192.168.0.108"
+    val ip: String = "192.168.1.7"
     val port: String = "1433"
     val databaseName: String = "KotlinProject"
     val classes: String = "net.sourceforge.jtds.jdbc.Driver"
@@ -14,14 +14,17 @@ class Database private constructor() {
     val password: String = "an321"
     val url: String = "jdbc:jtds:sqlserver://$ip:$port/$databaseName"
     var connection: Connection? = null
-    var stateConnect = true
-    var idUserApp: Int? = 1
-    var idAccumulate: Int? =0
     lateinit var statement: Statement
     lateinit var result: ResultSet
     val messageFail ="Không có kết nối, kiểm tra lại kết nối mạng!"
     val messageDone ="Ghi nhận thành công"
-
+    var stateConnect = true
+    var idUserApp: Int? = 1
+    var idAccumulate: Int? =0
+    var currentMoney = 0.toBigDecimal()
+    var stateTransferFragment=false
+    var fromDateF=""
+    var toDateF=""
     init {
         createConnection()
     }
