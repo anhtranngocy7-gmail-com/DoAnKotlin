@@ -42,10 +42,10 @@ class Nhom3AnDetaiSavingFragment : Fragment() {
         }
         if(viewModel.tmpaccumulate.buyOrPay)
         {
-            binding.tvBuyorpay.text="To Buy"
+            binding.tvBuyorpay.text="Mua"
         }else
         {
-            binding.tvBuyorpay.text="To Pay"+" ("+viewModel.tmpaccumulate.percent+"%)"
+            binding.tvBuyorpay.text="Vay nợ"+" ("+viewModel.tmpaccumulate.percent+"%)"
         }
         binding.edtNameTarget.text=viewModel.tmpaccumulate.title
         binding.edtSotien.text=viewModel.tmpaccumulate.targetmoney.toString()

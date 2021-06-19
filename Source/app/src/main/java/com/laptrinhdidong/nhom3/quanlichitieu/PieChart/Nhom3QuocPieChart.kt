@@ -38,7 +38,7 @@ class Nhom3QuocPieChart  :Fragment() {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 add<Nhom3QuocFrgamentDay>(R.id.fragment_piechart)
-                addToBackStack(null)
+//
             }
             viewModel.firstAccess=true
         }

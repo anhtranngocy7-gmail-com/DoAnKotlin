@@ -57,7 +57,7 @@ class Nhom3AnReportExpenseAdapter internal constructor(private val context: Cont
         val title : TextView = convertView!!.findViewById(R.id.tv_group_title)
         val total : TextView = convertView!!.findViewById(R.id.tv_group_total)
         val icon : ImageView = convertView!!.findViewById(R.id.imv_typeEx)
-        icon.setImageResource(R.drawable.eat_and_drink)
+        icon.setImageResource(R.drawable.iconsavemoney)
         title.text=chapTerList[groupPosition].title
         total.text=chapTerList[groupPosition].total.toString()
         Log.e("An",chapTerList[groupPosition].title)

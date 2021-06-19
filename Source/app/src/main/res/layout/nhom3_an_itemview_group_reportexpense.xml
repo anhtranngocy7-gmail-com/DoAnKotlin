@@ -13,6 +13,7 @@
         android:button="@drawable/state_btn_arrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
     <ImageView
@@ -21,7 +22,7 @@
         android:layout_height="40dp"
         app:layout_constraintStart_toEndOf="@id/cb_arrow"
         app:layout_constraintBottom_toBottomOf="@id/cb_arrow"
-        android:src="@drawable/eat_and_drink"/>
+        android:src="@drawable/iconsavemoney"/>
 <TextView
     android:id="@+id/tv_group_title"
     android:layout_width="wrap_content"
@@ -30,13 +31,15 @@
     app:layout_constraintStart_toEndOf="@id/imv_typeEx"
     app:layout_constraintBottom_toBottomOf="@id/imv_typeEx"
     android:text="Ăn uống"></TextView>
+
     <TextView
         android:id="@+id/tv_group_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="5dp"
+        android:text="110,000 vnd"
         app:layout_constraintBottom_toBottomOf="@id/imv_typeEx"
-        android:text="110,000 vnd"></TextView>
+        app:layout_constraintEnd_toEndOf="parent"></TextView>
     <LinearLayout
         android:id="@+id/linear_outer"
         android:layout_width="match_parent"

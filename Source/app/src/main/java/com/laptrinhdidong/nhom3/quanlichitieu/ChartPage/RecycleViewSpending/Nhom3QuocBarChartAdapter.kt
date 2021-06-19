@@ -26,7 +26,7 @@ class Nhom3QuocBarChartAdapter : RecyclerView.Adapter<Nhom3QuocBarChartAdapter.V
         holder.title_BC.text = item.title_bc
         holder.collect_money.text = item.money_collect.toString()
         holder.lost_money.text = item.money_lost.toString()
-        holder.total_money.text= item.total_money.toString() + " đ"
+        holder.total_money.text= item.total_money.toString() + " vnd"
     }
 
     override fun getItemCount(): Int {
